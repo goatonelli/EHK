@@ -339,7 +339,7 @@
 <section class="boot">
   <div class="boot-lines mono" id="bootLines"></div>
   <h1 class="boot-title" id="bootTitle">EINSATZ<span class="accent">HANDBUCH</span></h1>
-  <p class="boot-sub" id="bootSub">Digitales Nachschlagewerk des EHK Berlin. Verfahren, Checklisten und fertige Sprechkarten zum direkten Vorlesen — ohne Improvisation, ohne OOC.</p>
+  <p class="boot-sub" id="bootSub">EHK-IK-Kurs des EMS Berlin für Polizei, Feuerwehr und weitere staatliche Fraktionen. Verfahren, Checklisten und fertige Sprechkarten zum direkten Vorlesen — ohne Improvisation, ohne OOC.</p>
   <div class="boot-cta" id="bootCta">
     <button class="btn" onclick="document.getElementById('sprechkarten').scrollIntoView()">Zu den Sprechkarten →</button>
   </div>
@@ -382,7 +382,7 @@
     <div class="chapter" id="k7"><span class="num mono">07</span><h3>Hygiene</h3><p>Händedesinfektion, PSA, keine Kreuzkontamination zwischen Patienten.</p></div>
     <div class="chapter" id="k8"><span class="num mono">08</span><h3>Materialkunde</h3><p>Notfalltasche, Defibrillator, Trage, Schienen, Sauerstoff, Beatmungsbeutel im Überblick.</p></div>
     <div class="chapter" id="k9"><span class="num mono">09</span><h3>Pharmakologie</h3><p>Wie Medikamente allgemein wirken — die Theorie hinter dem Serverregelwerk aus Kapitel 10.</p></div>
-    <div class="chapter" id="k10"><span class="num mono">10</span><h3>Servermedikamente</h3><p><strong style="color:var(--text-primary)">Codein</strong> heilt vollständig nach Wundversorgung · <strong style="color:var(--text-primary)">Aktivkohle</strong> gegen Vergiftung · <strong style="color:var(--text-primary)">Azithromycin</strong> gegen Erkältung · <strong style="color:var(--text-primary)">Epinephrin</strong> weckt Bewusstlose auf. Fiktives RP-Regelwerk, keine echte Pharmakologie.</p></div>
+    <div class="chapter" id="k10"><span class="num mono">10</span><h3>Servermedikamente</h3><p><strong style="color:var(--text-primary)">Codein</strong> heilt vollständig nach Wundversorgung · <strong style="color:var(--text-primary)">Aktivkohle</strong> gegen Vergiftung · <strong style="color:var(--text-primary)">Azithromycin</strong> gegen Erkältung · <strong style="color:var(--text-primary)">Epinephrin</strong> weckt Bewusstlose auf. Fiktives RP-Regelwerk des EMS — Anwendung bleibt EMS-Personal vorbehalten, andere Fraktionen lernen es zum Verständnis kennen.</p></div>
     <div class="chapter" id="k11"><span class="num mono">11</span><h3>Einsatzablauf</h3><p>Von Alarmierung über Absicherung, Untersuchung, Behandlung bis zur Übergabe.</p></div>
     <div class="chapter" id="k12"><span class="num mono">12</span><h3>Fahrzeugkunde</h3><p>Aufbau, Beladung, Schranksystem und Pflege des Rettungswagens.</p></div>
     <div class="chapter" id="k13"><span class="num mono">13</span><h3>Fahrzeugkontrolle</h3><p>Die 20-Punkte-Checkliste vor jedem Dienstantritt, von Reifen bis Medikamentenbestand.</p></div>
@@ -422,7 +422,7 @@
 </div>
 
 <footer>
-  EHK BERLIN — internes Ausbildungsmaterial · gemacht von SirLewis McGeil · nur für den Rollenspielbetrieb
+  EHK-IK-Kurs des EMS Berlin für staatliche Fraktionen · gemacht von SirLewis McGeil · nur für den Rollenspielbetrieb
 </footer>
 
 <script>
@@ -472,11 +472,11 @@
 
   // Sprechkarten data
   const karten = [
-    {tag:"ansprache", title:"Antrittsansprache an neue Auszubildende", text:
-`Willkommen beim EHK Berlin. Ab heute trägst du diese Uniform, und mit ihr die Verantwortung, die daran hängt. Was du hier lernst, entscheidet darüber, ob jemand diesen Tag übersteht oder nicht. Wir arbeiten strukturiert, wir arbeiten sauber, und wir arbeiten zusammen. Niemand von uns geht in eine Lage rein, die er nicht überblickt. Eigenschutz kommt vor allem anderen — ein verletzter Sanitäter hilft niemandem. Du wirst Fehler machen, das ist normal. Was ich von dir erwarte, ist, dass du dazu stehst und daraus lernst. Halte dich an das, was wir dir zeigen, halte den Mund gegenüber Dritten über das, was du bei Patienten siehst und hörst, und pass auf deine Kollegen auf wie auf dich selbst. Fragen?`},
+    {tag:"ansprache", title:"Begrüßung zu Kursbeginn (durch EMS-Ausbilder)", text:
+`Willkommen zum EHK-IK-Kurs. Ihr seid hier, weil ihr in eurem eigenen Dienst immer wieder an Einsatzstellen steht, an denen auch wir stehen. Dieser Kurs macht aus euch keine Sanitäter, und das ist auch nicht das Ziel. Das Ziel ist, dass ihr wisst, was zu tun ist, bevor wir eintreffen, und was ihr uns überlassen solltet, sobald wir da sind. Eigenschutz geht immer vor. Wenn ihr unsicher seid, wartet lieber einen Moment und fragt, statt etwas Falsches zu tun. Was ihr hier über Patienten erfahrt, bleibt unter uns. Und wenn wir an einer Einsatzstelle die Behandlung übernehmen, dann übernehmen wir sie vollständig — das ist keine Kritik an euch, das ist einfach unsere Aufgabe. Fragen?`},
 
-    {tag:"ansprache", title:"Diensteid / Gelöbnis", text:
-`Ich verpflichte mich, im Dienst des EHK jederzeit im Rahmen meiner Ausbildung zu handeln. Ich stelle die Sicherheit von Patienten, Kollegen und mir selbst an oberste Stelle. Ich dokumentiere jeden Einsatz wahrheitsgemäß. Ich wahre die Schweigepflicht gegenüber Dritten. Ich arbeite mit Polizei und Feuerwehr zusammen, wo es nötig ist. Das gelobe ich.`},
+    {tag:"ansprache", title:"Kursabschluss-Erklärung (durch Kursteilnehmende)", text:
+`Ich bestätige, dass ich den EHK-IK-Kurs des EMS Berlin durchlaufen habe. Ich weiß, dass ich dadurch kein EMS-Personal werde und keine EMS-Mittel eigenständig anwende. Ich werde an Einsatzstellen zuerst auf meinen eigenen Schutz und den meiner Kollegen achten, das EMS so früh wie möglich nachfordern und der Behandlung durch das EMS keinen Vorrang streitig machen. Informationen über Patienten, die mir dabei bekannt werden, behalte ich für mich.`},
 
     {tag:"funk", title:"Funk — Einsatzübernahme", text:`Hier [Rufname], Einsatz übernommen, sind auf Anfahrt.`},
     {tag:"funk", title:"Funk — Ankunft an der Einsatzstelle", text:`[Rufname] an Leitstelle, sind an der Einsatzstelle, gehen zum Patienten vor.`},
@@ -491,6 +491,9 @@
 
     {tag:"uebergabe", title:"Übergabe an die Klinik", text:
 `Patient, [ungefähres Alter], [männlich/weiblich]. Wir haben ihn vorgefunden nach [Unfallmechanismus/Beschwerdebild]. Bei der Untersuchung zeigten sich [Befunde]. Wir haben [Maßnahmen] durchgeführt, der Patient hat darauf [Reaktion] gezeigt. Bekannt sind [relevante Vorerkrankungen/Allergien/Medikamente], soweit wir das in Erfahrung bringen konnten.`},
+
+    {tag:"uebergabe", title:"Übergabe an eintreffendes EMS (aus Sicht der eigenen Fraktion)", text:
+`Hier ist [Name], [Fraktion]. Patient ist [kurzer Zustand], ansprechbar/nicht ansprechbar. Wir haben [Erstmaßnahme, z. B. Druckverband] gemacht, seit [Zeitangabe]. Die Stelle ist gesichert, ihr könnt übernehmen.`},
 
     {tag:"sop", title:"SOP — Bewusstlose Person", text:
 `Kein Bewusstsein, keine Reaktion auf Ansprache. Ich prüfe die Atmung... Atmung vorhanden, ich bringe ihn in die stabile Seitenlage.`},
