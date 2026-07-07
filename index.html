@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EHK BERLIN // TERMINAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0B0E13;
+    --bg-panel:#121922;
+    --bg-panel-2:#0F151D;
+    --line-steel:#26323D;
+    --text-primary:#E9EEF2;
+    --text-muted:#7C8A96;
+    --accent-amber:#FFB020;
+    --accent-amber-dim:#8a641f;
+    --accent-teal:#2FD9C4;
+    --accent-red:#FF5252;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-void);
+    color:var(--text-primary);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:15px;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important;}
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.04em;}
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 20px;
+    background:var(--bg-panel-2);
+    border-bottom:1px solid var(--line-steel);
+  }
+  .topbar .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.08em;
+    font-size:15px;
+  }
+  .brand .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--accent-amber);
+    box-shadow:0 0 8px var(--accent-amber);
+    animation:blink 2.4s infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  .topbar .clock{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--accent-teal);
+    font-size:13px;
+  }
+
+  /* ---------- boot hero ---------- */
+  .boot{
+    min-height:78vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+    border-bottom:1px solid var(--line-steel);
+    position:relative;
+    overflow:hidden;
+  }
+  .boot::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .boot-lines{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--accent-teal);
+    text-align:left;
+    max-width:520px;
+    margin-bottom:28px;
+    min-height:120px;
+  }
+  .boot-lines .ln{opacity:0; display:block;}
+  .boot-title{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:clamp(38px, 7vw, 76px);
+    letter-spacing:.03em;
+    line-height:1;
+    margin:0 0 12px;
+    opacity:0;
+  }
+  .boot-title .accent{color:var(--accent-amber);}
+  .boot-sub{
+    color:var(--text-muted);
+    font-size:15px;
+    max-width:560px;
+    opacity:0;
+  }
+  .boot-cta{
+    margin-top:30px;
+    opacity:0;
+  }
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:.03em;
+    background:transparent;
+    border:1px solid var(--accent-amber);
+    color:var(--accent-amber);
+    padding:11px 20px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .btn:hover{background:var(--accent-amber); color:#1a1200;}
+  .btn:focus-visible{outline:2px solid var(--accent-teal); outline-offset:2px;}
+
+  /* ---------- layout ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:230px 1fr;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .sidebar{
+    position:sticky; top:49px;
+    align-self:start;
+    height:calc(100vh - 49px);
+    overflow-y:auto;
+    padding:24px 12px 24px 20px;
+    border-right:1px solid var(--line-steel);
+  }
+  .sidebar h4{
+    font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.12em;
+    color:var(--text-muted); margin:18px 0 8px;
+    text-transform:uppercase;
+  }
+  .sidebar h4:first-child{margin-top:0;}
+  .navlink{
+    display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+    text-decoration:none;
+    padding:5px 8px;
+    border-left:2px solid transparent;
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .navlink:hover{color:var(--text-primary); background:rgba(255,255,255,0.03);}
+  .navlink.active{color:var(--accent-amber); border-left-color:var(--accent-amber); background:rgba(255,176,32,0.06);}
+
+  .content{padding:32px 28px 100px;}
+
+  /* ---------- chapter cards ---------- */
+  .chapter{
+    padding:22px 0;
+    border-bottom:1px solid var(--line-steel);
+    scroll-margin-top:60px;
+  }
+  .chapter .num{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--accent-teal);
+    font-size:12px;
+  }
+  .chapter h3{
+    font-family:'Oswald',sans-serif;
+    font-size:22px;
+    margin:2px 0 8px;
+    letter-spacing:.02em;
+  }
+  .chapter p{color:var(--text-muted); margin:0; max-width:640px;}
+
+  /* ---------- sprechkarten ---------- */
+  .sprech-hub{padding:40px 0 10px;}
+  .sprech-hub h2{
+    font-family:'Oswald',sans-serif; font-size:30px; margin:0 0 6px;
+  }
+  .sprech-hub .lede{color:var(--text-muted); max-width:620px; margin-bottom:22px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--line-steel);
+    color:var(--text-muted);
+    border-radius:20px;
+    cursor:pointer;
+    background:transparent;
+  }
+  .chip.active, .chip:hover{border-color:var(--accent-teal); color:var(--accent-teal);}
+
+  .karte{
+    background:var(--bg-panel);
+    border:1px solid var(--line-steel);
+    border-left:3px solid var(--accent-teal);
+    border-radius:var(--radius);
+    margin-bottom:16px;
+    overflow:hidden;
+  }
+  .karte-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 16px;
+    background:var(--bg-panel-2);
+    border-bottom:1px solid var(--line-steel);
+  }
+  .karte-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    color:var(--accent-teal);
+    text-transform:uppercase;
+  }
+  .karte-title{
+    font-family:'Oswald',sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--text-primary);
+  }
+  .copy-btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    background:transparent;
+    border:1px solid var(--line-steel);
+    color:var(--text-muted);
+    padding:5px 10px;
+    border-radius:var(--radius);
+    cursor:pointer;
+  }
+  .copy-btn:hover{border-color:var(--accent-amber); color:var(--accent-amber);}
+  .copy-btn.copied{border-color:var(--accent-teal); color:var(--accent-teal);}
+  .karte-body{
+    padding:18px 16px 20px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;
+    line-height:1.75;
+    color:var(--text-primary);
+    white-space:pre-wrap;
+  }
+  .karte-body .fill{color:var(--accent-amber);}
+  .no-ooc{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    color:var(--accent-red); letter-spacing:.06em;
+    padding:9px 16px 0;
+  }
+  .no-ooc::before{content:"■"; font-size:8px;}
+
+  /* ---------- panic button ---------- */
+  .panic-zone{
+    text-align:center;
+    padding:50px 0 20px;
+  }
+  .panic-btn{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    letter-spacing:.05em;
+    background:var(--accent-red);
+    color:#1a0000;
+    border:none;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-size:14px;
+  }
+  .panic-btn:hover{filter:brightness(1.1);}
+  .panic-out{
+    margin-top:14px;
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--accent-teal);
+    min-height:20px;
+    font-size:13px;
+  }
+
+  /* ---------- ticker ---------- */
+  .ticker-wrap{
+    position:fixed; bottom:0; left:0; right:0;
+    background:var(--bg-panel-2);
+    border-top:1px solid var(--line-steel);
+    overflow:hidden;
+    white-space:nowrap;
+    padding:7px 0;
+    z-index:40;
+  }
+  .ticker-label{
+    position:absolute; left:0; top:0; bottom:0;
+    display:flex; align-items:center;
+    background:var(--bg-void);
+    padding:0 10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--text-muted);
+    border-right:1px solid var(--line-steel);
+    z-index:2;
+  }
+  .ticker-track{
+    display:inline-block;
+    padding-left:100%;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--text-muted);
+    animation:scroll-left 45s linear infinite;
+  }
+  @keyframes scroll-left{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+  .ticker-track span{margin-right:60px;}
+
+  footer{
+    text-align:center; padding:30px 20px 70px;
+    color:var(--text-muted); font-size:12px;
+    font-family:'IBM Plex Mono',monospace;
+    border-top:1px solid var(--line-steel);
+  }
+
+  @media (max-width: 860px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{position:static; height:auto; border-right:none; border-bottom:1px solid var(--line-steel);}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> EHK&nbsp;BERLIN <span style="color:var(--text-muted); font-weight:400;">// TERMINAL</span></div>
+  <div class="clock mono" id="clock">--:--:--</div>
+</div>
+
+<section class="boot">
+  <div class="boot-lines mono" id="bootLines"></div>
+  <h1 class="boot-title" id="bootTitle">EINSATZ<span class="accent">HANDBUCH</span></h1>
+  <p class="boot-sub" id="bootSub">Digitales Nachschlagewerk des EHK Berlin. Verfahren, Checklisten und fertige Sprechkarten zum direkten Vorlesen — ohne Improvisation, ohne OOC.</p>
+  <div class="boot-cta" id="bootCta">
+    <button class="btn" onclick="document.getElementById('sprechkarten').scrollIntoView()">Zu den Sprechkarten →</button>
+  </div>
+</section>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <h4>Kapitel</h4>
+    <a class="navlink" href="#k1">1 — Grundlagen der Medizin</a>
+    <a class="navlink" href="#k2">2 — Anatomie</a>
+    <a class="navlink" href="#k3">3 — Histologie</a>
+    <a class="navlink" href="#k4">4 — Physiologie</a>
+    <a class="navlink" href="#k5">5 — Pathophysiologie</a>
+    <a class="navlink" href="#k6">6 — Patientenbeurteilung</a>
+    <a class="navlink" href="#k7">7 — Hygiene</a>
+    <a class="navlink" href="#k8">8 — Materialkunde</a>
+    <a class="navlink" href="#k9">9 — Pharmakologie</a>
+    <a class="navlink" href="#k10">10 — Servermedikamente</a>
+    <a class="navlink" href="#k11">11 — Einsatzablauf</a>
+    <a class="navlink" href="#k12">12 — Fahrzeugkunde</a>
+    <a class="navlink" href="#k13">13 — Fahrzeugkontrolle</a>
+    <a class="navlink" href="#k14">14 — SOPs</a>
+    <a class="navlink" href="#k15">15 — Kommunikation</a>
+    <a class="navlink" href="#k16">16 — Praktische Ausbildung</a>
+    <a class="navlink" href="#k17">17 — Prüfung</a>
+    <a class="navlink" href="#k18">18 — Anhang</a>
+    <h4>Schnellzugriff</h4>
+    <a class="navlink" href="#sprechkarten" style="color:var(--accent-teal);">▸ Sprechkarten</a>
+    <a class="navlink" href="#panik">▸ Notfall-Knopf</a>
+  </nav>
+
+  <main class="content">
+
+    <div class="chapter" id="k1"><span class="num mono">01</span><h3>Grundlagen der Medizin</h3><p>Warum strukturiertes Vorgehen vor spontanem Handeln kommt — und was „Load and Go“ bedeutet.</p></div>
+    <div class="chapter" id="k2"><span class="num mono">02</span><h3>Anatomie</h3><p>Lagebezeichnungen, Körperhöhlen und die wichtigsten Organe — die Basis jeder Verletzungseinschätzung.</p></div>
+    <div class="chapter" id="k3"><span class="num mono">03</span><h3>Histologie</h3><p>Gewebearten in Kurzform: Muskel-, Nerven-, Binde- und Epithelgewebe.</p></div>
+    <div class="chapter" id="k4"><span class="num mono">04</span><h3>Physiologie</h3><p>Wie der Körper im Normalzustand funktioniert: Kreislauf, Atmung, Stoffwechsel, Temperaturregulation.</p></div>
+    <div class="chapter" id="k5"><span class="num mono">05</span><h3>Pathophysiologie</h3><p>Was schiefgeht: Schock, Hypoxie, Ischämie, Azidose, Sepsis, Organversagen.</p></div>
+    <div class="chapter" id="k6"><span class="num mono">06</span><h3>Patientenbeurteilung</h3><p>ABCDE, SAMPLE, OPQRST, GCS und AVPU — die Werkzeuge für jede Untersuchung, in fester Reihenfolge.</p></div>
+    <div class="chapter" id="k7"><span class="num mono">07</span><h3>Hygiene</h3><p>Händedesinfektion, PSA, keine Kreuzkontamination zwischen Patienten.</p></div>
+    <div class="chapter" id="k8"><span class="num mono">08</span><h3>Materialkunde</h3><p>Notfalltasche, Defibrillator, Trage, Schienen, Sauerstoff, Beatmungsbeutel im Überblick.</p></div>
+    <div class="chapter" id="k9"><span class="num mono">09</span><h3>Pharmakologie</h3><p>Wie Medikamente allgemein wirken — die Theorie hinter dem Serverregelwerk aus Kapitel 10.</p></div>
+    <div class="chapter" id="k10"><span class="num mono">10</span><h3>Servermedikamente</h3><p><strong style="color:var(--text-primary)">Codein</strong> heilt vollständig nach Wundversorgung · <strong style="color:var(--text-primary)">Aktivkohle</strong> gegen Vergiftung · <strong style="color:var(--text-primary)">Azithromycin</strong> gegen Erkältung · <strong style="color:var(--text-primary)">Epinephrin</strong> weckt Bewusstlose auf. Fiktives RP-Regelwerk, keine echte Pharmakologie.</p></div>
+    <div class="chapter" id="k11"><span class="num mono">11</span><h3>Einsatzablauf</h3><p>Von Alarmierung über Absicherung, Untersuchung, Behandlung bis zur Übergabe.</p></div>
+    <div class="chapter" id="k12"><span class="num mono">12</span><h3>Fahrzeugkunde</h3><p>Aufbau, Beladung, Schranksystem und Pflege des Rettungswagens.</p></div>
+    <div class="chapter" id="k13"><span class="num mono">13</span><h3>Fahrzeugkontrolle</h3><p>Die 20-Punkte-Checkliste vor jedem Dienstantritt, von Reifen bis Medikamentenbestand.</p></div>
+    <div class="chapter" id="k14"><span class="num mono">14</span><h3>SOPs</h3><p>Fester Ablauf für die zehn häufigsten Einsatzarten — von Bewusstlosigkeit bis Massenanfall.</p></div>
+    <div class="chapter" id="k15"><span class="num mono">15</span><h3>Kommunikation</h3><p>Umgang mit Patienten, Angehörigen, Polizei, Feuerwehr und Leitstelle.</p></div>
+    <div class="chapter" id="k16"><span class="num mono">16</span><h3>Praktische Ausbildung</h3><p>Was in echten Übungsdiensten trainiert wird, bevor es in die Prüfung geht.</p></div>
+    <div class="chapter" id="k17"><span class="num mono">17</span><h3>Prüfung</h3><p>Schriftlich, mündlich, praktisch — und was zum Bestehen zählt.</p></div>
+    <div class="chapter" id="k18"><span class="num mono">18</span><h3>Anhang</h3><p>Glossar, Verzeichnisse, Checklisten und Formulare zum Nachschlagen.</p></div>
+
+    <section class="sprech-hub" id="sprechkarten">
+      <h2>Sprechkarten</h2>
+      <p class="lede">Fertiger Text zum direkten Vorlesen im RP. Nicht improvisieren, nicht OOC kommentieren — einfach ablesen. „<span class="fill" style="color:var(--accent-amber)">[…]</span>" markiert die Stelle, die du frei ausfüllst.</p>
+
+      <div class="chips" id="chips">
+        <button class="chip active" data-f="alle">Alle</button>
+        <button class="chip" data-f="ansprache">Ansprache</button>
+        <button class="chip" data-f="funk">Funk</button>
+        <button class="chip" data-f="patient">Patientenkontakt</button>
+        <button class="chip" data-f="uebergabe">Übergabe</button>
+        <button class="chip" data-f="sop">SOP-Callouts</button>
+      </div>
+
+      <div id="karten"></div>
+    </section>
+
+    <section class="panic-zone" id="panik">
+      <button class="panic-btn" onclick="panic()">🚨 NOTFALL-KNOPF (nur bei akuter Sprachlosigkeit drücken)</button>
+      <div class="panic-out mono" id="panicOut"></div>
+    </section>
+
+  </main>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-label">FUNK //</div>
+  <div class="ticker-track mono" id="tickerTrack"></div>
+</div>
+
+<footer>
+  EHK BERLIN — internes Ausbildungsmaterial · gemacht von SirLewis McGeil · nur für den Rollenspielbetrieb
+</footer>
+
+<script>
+  // clock
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent = d.toLocaleTimeString('de-DE');
+  }
+  tick(); setInterval(tick, 1000);
+
+  // boot sequence
+  const bootLines = [
+    "> SYSTEM CHECK ..................... OK",
+    "> LADE EINSATZPROTOKOLLE ........... OK",
+    "> VERBINDE MIT LEITSTELLE .......... OK",
+    "> TERMINAL BEREIT."
+  ];
+  const bootEl = document.getElementById('bootLines');
+  bootLines.forEach((t,i)=>{
+    const s = document.createElement('span');
+    s.className='ln'; s.textContent=t;
+    s.style.animation = `fadein .4s forwards ${i*0.45}s`;
+    bootEl.appendChild(s);
+  });
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = `@keyframes fadein{to{opacity:1}}`;
+  document.head.appendChild(styleSheet);
+
+  const afterBoot = bootLines.length*0.45 + 0.3;
+  ['bootTitle','bootSub','bootCta'].forEach((id,i)=>{
+    document.getElementById(id).style.animation = `fadein .6s forwards ${afterBoot + i*0.25}s`;
+  });
+
+  // scrollspy
+  const links = document.querySelectorAll('.navlink');
+  const chapters = document.querySelectorAll('.chapter');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const match = document.querySelector(`.navlink[href="#${e.target.id}"]`);
+        if(match) match.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-20% 0px -70% 0px'});
+  chapters.forEach(c=>obs.observe(c));
+
+  // Sprechkarten data
+  const karten = [
+    {tag:"ansprache", title:"Antrittsansprache an neue Auszubildende", text:
+`Willkommen beim EHK Berlin. Ab heute trägst du diese Uniform, und mit ihr die Verantwortung, die daran hängt. Was du hier lernst, entscheidet darüber, ob jemand diesen Tag übersteht oder nicht. Wir arbeiten strukturiert, wir arbeiten sauber, und wir arbeiten zusammen. Niemand von uns geht in eine Lage rein, die er nicht überblickt. Eigenschutz kommt vor allem anderen — ein verletzter Sanitäter hilft niemandem. Du wirst Fehler machen, das ist normal. Was ich von dir erwarte, ist, dass du dazu stehst und daraus lernst. Halte dich an das, was wir dir zeigen, halte den Mund gegenüber Dritten über das, was du bei Patienten siehst und hörst, und pass auf deine Kollegen auf wie auf dich selbst. Fragen?`},
+
+    {tag:"ansprache", title:"Diensteid / Gelöbnis", text:
+`Ich verpflichte mich, im Dienst des EHK jederzeit im Rahmen meiner Ausbildung zu handeln. Ich stelle die Sicherheit von Patienten, Kollegen und mir selbst an oberste Stelle. Ich dokumentiere jeden Einsatz wahrheitsgemäß. Ich wahre die Schweigepflicht gegenüber Dritten. Ich arbeite mit Polizei und Feuerwehr zusammen, wo es nötig ist. Das gelobe ich.`},
+
+    {tag:"funk", title:"Funk — Einsatzübernahme", text:`Hier [Rufname], Einsatz übernommen, sind auf Anfahrt.`},
+    {tag:"funk", title:"Funk — Ankunft an der Einsatzstelle", text:`[Rufname] an Leitstelle, sind an der Einsatzstelle, gehen zum Patienten vor.`},
+    {tag:"funk", title:"Funk — Nachforderung", text:`[Rufname] an Leitstelle, wir brauchen zusätzliche Unterstützung, [Polizei/Feuerwehr/weiteres Rettungsmittel], Grund ist [kurzer Grund].`},
+    {tag:"funk", title:"Funk — Transportbeginn", text:`[Rufname] an Leitstelle, Patient ist versorgt, wir fahren mit [Priorität/ohne Sondersignal] Richtung [Klinik].`},
+    {tag:"funk", title:"Funk — Ankunft Klinik", text:`[Rufname], sind an der Klinik, übergeben jetzt.`},
+
+    {tag:"patient", title:"Erster Patientenkontakt", text:
+`Hallo, mein Name ist [Name], ich bin vom Rettungsdienst. Können Sie mich hören? Ich bin jetzt hier, um Ihnen zu helfen. Können Sie mir sagen, was passiert ist?`},
+    {tag:"patient", title:"Erster Patientenkontakt — keine Reaktion", text:
+`Hallo? Können Sie mich hören? Ich fasse Sie jetzt an der Schulter an.`},
+
+    {tag:"uebergabe", title:"Übergabe an die Klinik", text:
+`Patient, [ungefähres Alter], [männlich/weiblich]. Wir haben ihn vorgefunden nach [Unfallmechanismus/Beschwerdebild]. Bei der Untersuchung zeigten sich [Befunde]. Wir haben [Maßnahmen] durchgeführt, der Patient hat darauf [Reaktion] gezeigt. Bekannt sind [relevante Vorerkrankungen/Allergien/Medikamente], soweit wir das in Erfahrung bringen konnten.`},
+
+    {tag:"sop", title:"SOP — Bewusstlose Person", text:
+`Kein Bewusstsein, keine Reaktion auf Ansprache. Ich prüfe die Atmung... Atmung vorhanden, ich bringe ihn in die stabile Seitenlage.`},
+    {tag:"sop", title:"SOP — Reanimation, Beginn", text:
+`Kein Puls, keine Atmung — wir beginnen sofort mit der Reanimation. Ich fange mit den Kompressionen an, Defibrillator anlegen.`},
+    {tag:"sop", title:"SOP — Reanimation, Defibrillator", text:
+`Rhythmus wird analysiert — alle weg vom Patienten.
+Schock wird abgegeben — jetzt!
+Weiter mit den Kompressionen.`},
+    {tag:"sop", title:"SOP — Schuss-/Stichverletzung", text:
+`Ich sehe die Wunde, ich lege jetzt einen Druckverband an. Bleiben Sie bei mir, sehen Sie mich an.`},
+    {tag:"sop", title:"SOP — Vergiftung", text:
+`Was haben Sie eingenommen, wissen Sie das noch? Ich gebe Ihnen jetzt Aktivkohle, das bindet das Gift.`},
+    {tag:"sop", title:"SOP — Erkältung", text:
+`Das klingt nach einer normalen Erkältung, ich gebe Ihnen etwas dagegen, das sollte in Kürze besser werden.`},
+    {tag:"sop", title:"SOP — Massenanfall Verletzter", text:
+`Ich sichte jetzt alle Verletzten, bitte bleiben Sie ruhig, wir kümmern uns nacheinander um jeden von Ihnen — die Schwersten zuerst.`},
+  ];
+
+  const kartenWrap = document.getElementById('karten');
+  function highlightFill(t){
+    return t.replace(/\[([^\]]+)\]/g, '<span class="fill">[$1]</span>');
+  }
+  function render(filter){
+    kartenWrap.innerHTML = '';
+    karten.filter(k => filter==='alle' || k.tag===filter).forEach((k,idx)=>{
+      const card = document.createElement('div');
+      card.className='karte';
+      card.innerHTML = `
+        <div class="karte-head">
+          <span class="karte-title">${k.title}</span>
+          <button class="copy-btn" data-idx="${idx}">Kopieren</button>
+        </div>
+        <div class="no-ooc">NUR VORLESEN — KEIN OOC</div>
+        <div class="karte-body">${highlightFill(k.text)}</div>
+      `;
+      kartenWrap.appendChild(card);
+      card.querySelector('.copy-btn').addEventListener('click', (e)=>{
+        navigator.clipboard.writeText(k.text).then(()=>{
+          e.target.textContent='Kopiert ✓';
+          e.target.classList.add('copied');
+          setTimeout(()=>{e.target.textContent='Kopieren'; e.target.classList.remove('copied');}, 1600);
+        });
+      });
+    });
+  }
+  render('alle');
+
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      render(chip.dataset.f);
+    });
+  });
+
+  // panic button (UI easter egg, not IC script)
+  const panicLines = [
+    "Ruhig bleiben. Handschuhe an. Du schaffst das.",
+    "Erst Eigenschutz, dann Held sein.",
+    "Tief durchatmen. ABCDE. Der Rest kommt von allein.",
+    "Codein ist keine Antwort auf jedes Problem. Meistens schon, aber nicht jedes.",
+    "Wenn alles fehlschlägt: laut 'Platz da, Rettungsdienst!' rufen und seriös aussehen.",
+  ];
+  function panic(){
+    const el = document.getElementById('panicOut');
+    el.textContent = panicLines[Math.floor(Math.random()*panicLines.length)];
+  }
+
+  // funk ticker (ambient flavor only — not a script, not IC)
+  const ticks = [
+    "Einheit 3 meldet: Patient stabil, Transport läuft.",
+    "Leitstelle an alle Einheiten: bitte Status melden.",
+    "Erinnerung: Fahrzeugkontrolle vor Dienstbeginn nicht vergessen.",
+    "Einheit 1: Defibrillator einsatzbereit, Bestand vollständig.",
+    "Hinweis: Codein wirkt nicht gegen schlechte Laune. Nur gegen Wunden.",
+    "Leitstelle: Kaffee in der Wache ist wieder alle. Einsatzbereitschaft trotzdem gegeben.",
+  ];
+  document.getElementById('tickerTrack').innerHTML = ticks.map(t=>`<span>${t}</span>`).join('');
+</script>
+
+</body>
+</html>
