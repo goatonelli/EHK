@@ -4,7 +4,355 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EHK / IK Vollversion | EMS Schulungsportal</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+:root {
+  --bg: #f4f8fb;
+  --paper: #ffffff;
+  --text: #102331;
+  --muted: #5d707d;
+  --line: #d7e3ea;
+  --primary: #0d6b7b;
+  --primary-dark: #084957;
+  --accent: #d93d42;
+  --soft: #e9f5f7;
+  --ok: #14855a;
+  --warn: #a86200;
+  --shadow: 0 18px 45px rgba(19, 47, 64, .12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.72;
+}
+
+a { color: inherit; }
+p, li { color: var(--muted); }
+h1, h2, h3, p, li { overflow-wrap: anywhere; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(244, 248, 251, .95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  max-width: 1280px;
+  min-height: 72px;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--muted);
+  font-size: .94rem;
+  font-weight: 700;
+}
+
+.nav-links a { text-decoration: none; }
+.nav-links a:hover { color: var(--primary); }
+
+.hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 70px 22px;
+  min-height: calc(100vh - 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: center;
+  gap: 38px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  font-weight: 900;
+}
+
+h1 {
+  margin: 0;
+  max-width: 900px;
+  font-size: clamp(2.6rem, 6vw, 5.9rem);
+  line-height: .96;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.08;
+}
+
+h3 {
+  margin: 30px 0 8px;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.hero-text {
+  max-width: 780px;
+  font-size: 1.1rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 8px;
+  padding: 0 18px;
+  border: 0;
+  text-decoration: none;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.primary { background: var(--primary); color: #fff; }
+.secondary { background: var(--soft); color: var(--primary-dark); border: 1px solid #b8dbe1; }
+
+.stats {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  background: var(--paper);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.stats div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.stats span {
+  display: block;
+  color: var(--muted);
+  font-size: .84rem;
+}
+
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 68px 22px;
+}
+
+.section-heading {
+  max-width: 850px;
+  margin-bottom: 28px;
+}
+
+.grid-2, .grid-3, .grid-4 {
+  display: grid;
+  gap: 18px;
+}
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card, .lesson, details, .question, .chapter {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.card strong {
+  color: var(--text);
+}
+
+.course-shell {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 30px 22px 80px;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.toc {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.toc h2 {
+  font-size: 1.15rem;
+  margin: 8px 10px 10px;
+}
+
+.toc a {
+  display: block;
+  padding: 9px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: .92rem;
+}
+
+.toc a:hover {
+  background: var(--soft);
+  color: var(--primary-dark);
+}
+
+.reader {
+  min-width: 0;
+}
+
+.chapter {
+  margin-bottom: 18px;
+}
+
+.chapter h2 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chapter p {
+  font-size: 1.03rem;
+}
+
+.chapter ul {
+  padding-left: 22px;
+}
+
+.callout {
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+  background: var(--soft);
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+
+.danger { border-left-color: var(--accent); background: #fff0f0; }
+.warning { border-left-color: var(--warn); background: #fff6e8; }
+
+.checklist label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.checklist label:first-of-type { border-top: 0; }
+input[type="checkbox"], input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  flex: 0 0 auto;
+}
+
+details { margin-bottom: 12px; }
+summary { cursor: pointer; font-weight: 900; }
+
+.question { margin-bottom: 16px; }
+.options { display: grid; gap: 10px; margin-top: 12px; }
+.options label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.quiz-result {
+  display: none;
+  margin-top: 18px;
+  border-radius: 8px;
+  padding: 16px;
+  font-weight: 900;
+}
+
+.footer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 22px 52px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+@media print {
+  .topbar, .toc, .hero-actions, .footer, #fragen, #checklisten { display: none; }
+  body { background: #fff; }
+  .hero, .section, .course-shell { display: block; padding: 0; }
+  .chapter, .card, .lesson { border: 0; box-shadow: none; break-inside: avoid; }
+}
+
+@media (max-width: 980px) {
+  .hero, .course-shell { grid-template-columns: 1fr; }
+  .toc { position: static; max-height: 360px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .nav { align-items: flex-start; flex-direction: column; padding-top: 14px; padding-bottom: 14px; }
+  .nav-links { gap: 10px; }
+  .hero { min-height: auto; padding-top: 46px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .footer { flex-direction: column; }
+}
+</style>
 </head>
 <body>
   <header class="topbar">
@@ -1009,6 +1357,52 @@
     <a href="#start">Zurück nach oben</a>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+document.querySelectorAll(".checklist input").forEach((box) => {
+  box.addEventListener("change", () => {
+    const label = box.closest("label");
+    if (!label) return;
+    label.style.opacity = box.checked ? ".65" : "1";
+    label.style.textDecoration = box.checked ? "line-through" : "none";
+  });
+});
+
+function checkQuiz() {
+  const total = 18;
+  let score = 0;
+
+  for (let i = 1; i <= total; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected && selected.value === "1") score++;
+  }
+
+  const percent = Math.round((score / total) * 100);
+  const result = document.querySelector("#quiz-result");
+  let text = `Ergebnis: ${score} von ${total} richtig (${percent}%). `;
+
+  if (percent >= 80) {
+    text += "Sehr gut. Du bist prüfungsnah vorbereitet.";
+    result.style.background = "#e7f7ef";
+    result.style.color = "#0c6845";
+  } else if (percent >= 70) {
+    text += "Bestanden. Wiederhole die unsicheren Module vor der praktischen Prüfung.";
+    result.style.background = "#e9f5f7";
+    result.style.color = "#084957";
+  } else {
+    text += "Noch nicht bestanden. Lies die Kurskapitel erneut und übe besonders ABCDE, Hygiene, Impfablauf und Übergabe.";
+    result.style.background = "#fff0f0";
+    result.style.color = "#9b2020";
+  }
+
+  result.textContent = text;
+  result.style.display = "block";
+}
+
+function resetQuiz() {
+  const result = document.querySelector("#quiz-result");
+  result.style.display = "none";
+  result.textContent = "";
+}
+</script>
 </body>
 </html>
