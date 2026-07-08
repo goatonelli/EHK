@@ -1,538 +1,18 @@
-```html
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EHK / IK Guide | EMS Schulungsportal</title>
-
-  <style>
-    :root {
-      --bg: #f4f8fb;
-      --text: #102331;
-      --muted: #60717d;
-      --line: #d8e3ea;
-      --panel: #ffffff;
-      --primary: #0d6b7b;
-      --primary-dark: #084957;
-      --accent: #e33f42;
-      --soft: #e9f5f7;
-      --success: #16865a;
-      --warning: #b36b00;
-      --shadow: 0 16px 36px rgba(19, 47, 64, 0.12);
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(244, 248, 251, 0.95);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav {
-      max-width: 1240px;
-      margin: 0 auto;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 0 22px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 900;
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 10px 22px rgba(227, 63, 66, 0.25);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      padding: 8px 4px;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-toggle {
-      display: none;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .hero {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 70px 22px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
-      gap: 36px;
-      align-items: center;
-      min-height: calc(100vh - 72px);
-    }
-
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--primary);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 900;
-    }
-
-    h1, h2, h3, p {
-      overflow-wrap: anywhere;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 6vw, 5.6rem);
-      line-height: 0.96;
-      letter-spacing: 0;
-      max-width: 850px;
-    }
-
-    h2 {
-      margin: 0 0 16px;
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 1.08;
-      letter-spacing: 0;
-    }
-
-    h3 {
-      margin: 0 0 8px;
-      line-height: 1.2;
-    }
-
-    p {
-      margin-top: 0;
-    }
-
-    .hero p,
-    .section p,
-    li {
-      color: var(--muted);
-    }
-
-    .hero-text {
-      max-width: 760px;
-      font-size: 1.08rem;
-    }
-
-    .hero-actions {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      border-radius: 8px;
-      padding: 0 18px;
-      text-decoration: none;
-      font-weight: 900;
-      border: 0;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .secondary {
-      background: var(--soft);
-      color: var(--primary-dark);
-      border: 1px solid #b8dbe1;
-    }
-
-    .status-panel {
-      background: var(--panel);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .status-panel div {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-    }
-
-    .status-label {
-      display: block;
-      color: var(--muted);
-      font-size: 0.84rem;
-      margin-bottom: 4px;
-    }
-
-    .section {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 70px 22px;
-    }
-
-    .section-heading {
-      max-width: 820px;
-      margin-bottom: 28px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 22px;
-    }
-
-    .card-number {
-      display: inline-grid;
-      place-items: center;
-      min-width: 40px;
-      height: 40px;
-      margin-bottom: 16px;
-      border-radius: 8px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 900;
-    }
-
-    .course-layout {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .course-nav {
-      position: sticky;
-      top: 92px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .course-nav a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 8px;
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .course-nav a:hover {
-      background: var(--soft);
-      color: var(--primary-dark);
-    }
-
-    .lesson {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 26px;
-      margin-bottom: 18px;
-    }
-
-    .lesson ul,
-    .lesson ol {
-      margin-top: 8px;
-      padding-left: 22px;
-    }
-
-    .callout {
-      border-left: 5px solid var(--primary);
-      background: var(--soft);
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin: 18px 0;
-    }
-
-    .danger {
-      border-left-color: var(--accent);
-      background: #fff0f0;
-    }
-
-    .warning {
-      border-left-color: var(--warning);
-      background: #fff6e8;
-    }
-
-    .schema-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .schema-item {
-      display: grid;
-      grid-template-columns: 54px 1fr;
-      gap: 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-      background: #fff;
-    }
-
-    .schema-item strong {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 1.4rem;
-    }
-
-    .checklist label {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      border-top: 1px solid var(--line);
-      padding: 11px 0;
-      color: var(--muted);
-    }
-
-    .checklist label:first-of-type {
-      border-top: 0;
-    }
-
-    input[type="checkbox"],
-    input[type="radio"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary);
-      flex: 0 0 auto;
-    }
-
-    details {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .quiz-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 22px;
-      margin-bottom: 16px;
-    }
-
-    .quiz-options {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .quiz-options label {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
-    .quiz-result {
-      display: none;
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 8px;
-      background: var(--soft);
-      font-weight: 900;
-    }
-
-    .exam-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .exam-table th,
-    .exam-table td {
-      text-align: left;
-      padding: 14px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-
-    .exam-table th {
-      background: var(--primary-dark);
-      color: #fff;
-    }
-
-    .footer {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 30px 22px 50px;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      color: var(--muted);
-    }
-
-    .footer a {
-      color: var(--primary);
-      font-weight: 900;
-      text-decoration: none;
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .course-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .course-nav {
-        position: static;
-      }
-
-      .grid-2,
-      .grid-3,
-      .grid-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 700px) {
-      .nav-toggle {
-        display: inline-flex;
-      }
-
-      .nav-links {
-        position: absolute;
-        left: 16px;
-        right: 16px;
-        top: 70px;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 12px;
-        box-shadow: var(--shadow);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .grid-2,
-      .grid-3,
-      .grid-4 {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 52px;
-      }
-
-      .footer {
-        flex-direction: column;
-      }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EHK / IK Vollversion | EMS Schulungsportal</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <header class="site-header">
+  <header class="topbar">
     <nav class="nav">
-      <a class="brand" href="#start">
-        <span class="brand-mark">EMS</span>
-        <span>EHK / IK Guide</span>
-      </a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
-        Menü
-      </button>
-
-      <div class="nav-links" id="nav-links">
-        <a href="#kurs">Kurs</a>
-        <a href="#schema">ABCDE</a>
-        <a href="#impfung">Impfkurs</a>
-        <a href="#sop">SOP</a>
+      <a class="brand" href="#start"><span class="brand-mark">EMS</span><span>EHK / IK Vollversion</span></a>
+      <div class="nav-links">
+        <a href="#kursstart">Kurs</a>
+        <a href="#lehrbuch">Lehrbuch</a>
         <a href="#checklisten">Checklisten</a>
         <a href="#pruefung">Prüfung</a>
         <a href="#fragen">Fragen</a>
@@ -543,331 +23,44 @@
   <main>
     <section class="hero" id="start">
       <div>
-        <p class="eyebrow">EMS Fortbildung für staatliche Fraktionen</p>
-        <h1>Erste-Hilfe- und Impfkurs Guide</h1>
-        <p class="hero-text">
-          Dieser Guide dient als ablesbares Schulungsportal für den EHK / IK.
-          Der Kurs wird durch EMS-Kräfte an andere staatliche Fraktionen vermittelt,
-          damit alle Beteiligten bei Einsätzen nach einheitlichen, aktuellen und
-          nachvollziehbaren Standards handeln.
-        </p>
-
+        <p class="eyebrow">EMS-Fortbildung für staatliche Fraktionen</p>
+        <h1>Erste-Hilfe- und Impfkurs als vollständiges Lehrbuch</h1>
+        <p class="hero-text">Diese Vollversion ist als lange, ablesbare Kursunterlage aufgebaut. Sie verbindet den ursprünglichen Ausbildungsstoff mit einer dienstlichen, realistisch klingenden Sprache und richtet sich an staatliche Fraktionen, die durch EMS-Kräfte auf aktuelle Standards gebracht werden.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#kurs">Kurs lesen</a>
-          <a class="button secondary" href="#fragen">Prüfungsfragen üben</a>
+          <a class="button primary" href="#kursstart">Kurs beginnen</a>
+          <a class="button secondary" href="#lehrbuch">Zum Lehrbuch</a>
+          <button class="button secondary" onclick="window.print()">Drucken / PDF</button>
         </div>
       </div>
-
-      <aside class="status-panel">
-        <div>
-          <span class="status-label">Lehrträger</span>
-          <strong>Emergency Medical Services</strong>
-        </div>
-        <div>
-          <span class="status-label">Zielgruppe</span>
-          <strong>Staatliche Fraktionen</strong>
-        </div>
-        <div>
-          <span class="status-label">Inhalte</span>
-          <strong>Erste Hilfe, Impfkurs, Prüfung</strong>
-        </div>
+      <aside class="stats">
+        <div><span>Lehrträger</span><strong>Emergency Medical Services</strong></div>
+        <div><span>Zielgruppe</span><strong>Polizei, Feuerwehr und weitere staatliche Fraktionen</strong></div>
+        <div><span>Umfang</span><strong>Vollständige Langfassung mit Kapiteln, Checklisten und Prüfung</strong></div>
       </aside>
     </section>
 
-    <section class="section" id="kurs">
+    <section class="section" id="kursstart">
       <div class="section-heading">
-        <p class="eyebrow">Kursunterlagen</p>
-        <h2>Kompletter Lernbereich zum Ablesen</h2>
-        <p>
-          Die folgenden Module können direkt im Unterricht vorgelesen, gemeinsam besprochen
-          oder zur Vorbereitung auf die Prüfung genutzt werden.
-        </p>
+        <p class="eyebrow">Kurslogik</p>
+        <h2>Wie diese Unterlage gelehrt wird</h2>
+        <p>Der Kurs wird von EMS-Ausbildern strukturiert geführt. Jedes Modul wird zuerst erklärt, anschließend an einem Fallbeispiel angewendet und zum Schluss mit Fragen oder einer praktischen Übung geprüft.</p>
       </div>
-
-      <div class="course-layout">
-        <aside class="course-nav">
-          <a href="#modul-1">1. Auftrag und Grenzen</a>
-          <a href="#modul-2">2. Eigenschutz</a>
-          <a href="#schema">3. ABCDE</a>
-          <a href="#modul-4">4. Blutungen und Wunden</a>
-          <a href="#modul-5">5. Bewusstlosigkeit</a>
-          <a href="#modul-6">6. Reanimation</a>
-          <a href="#impfung">7. Impfkurs</a>
-          <a href="#kommunikation">8. Kommunikation</a>
-          <a href="#sop">9. SOP</a>
-          <a href="#checklisten">10. Checklisten</a>
-        </aside>
-
-        <div>
-          <article class="lesson" id="modul-1">
-            <p class="eyebrow">Modul 1</p>
-            <h3>Auftrag und Grenzen des EHK / IK</h3>
-            <p>
-              Der Erste-Hilfe- und Impfkurs vermittelt staatlichen Fraktionen die Fähigkeit,
-              bei medizinischen Lagen geordnet zu handeln, Gefahren zu erkennen, Patienten
-              bis zum Eintreffen des EMS zu betreuen und Informationen sauber zu übergeben.
-            </p>
-            <p>
-              Teilnehmende ersetzen keine voll ausgebildeten EMS-Kräfte. Sie führen nur
-              Maßnahmen durch, die im Kurs freigegeben wurden. Sobald eine Lage unklar,
-              kritisch oder instabil ist, wird EMS nachgefordert.
-            </p>
-            <div class="callout">
-              <strong>Merksatz:</strong> Sicher erkennen, ruhig handeln, früh melden,
-              vollständig übergeben.
-            </div>
-          </article>
-
-          <article class="lesson" id="modul-2">
-            <p class="eyebrow">Modul 2</p>
-            <h3>Eigenschutz und Lageerkundung</h3>
-            <p>
-              Vor jeder Hilfeleistung wird die Umgebung geprüft. Niemand betritt eine
-              unsichere Einsatzstelle ohne Absicherung. Gefahren können Verkehr, Waffen,
-              Feuer, instabile Gebäude, aggressive Personen, austretende Stoffe oder
-              unklare Menschenmengen sein.
-            </p>
-            <ol>
-              <li>Umgebung prüfen und Abstand halten.</li>
-              <li>Gefahren erkennen und absichern lassen.</li>
-              <li>Eigene Schutzausrüstung nutzen.</li>
-              <li>Anzahl der Patienten feststellen.</li>
-              <li>EMS frühzeitig nachfordern.</li>
-            </ol>
-            <div class="callout danger">
-              <strong>Wichtig:</strong> Eine gefährdete Einsatzkraft kann niemandem helfen.
-              Eigenschutz steht immer vor Patientenversorgung.
-            </div>
-          </article>
-
-          <article class="lesson" id="schema">
-            <p class="eyebrow">Modul 3</p>
-            <h3>ABCDE-Schema</h3>
-            <p>
-              Das ABCDE-Schema ist die feste Reihenfolge der Erstbeurteilung. Es hilft,
-              lebensbedrohliche Probleme früh zu erkennen und nichts Wichtiges zu vergessen.
-            </p>
-
-            <div class="schema-list">
-              <div class="schema-item">
-                <strong>A</strong>
-                <div>
-                  <h3>Airway | Atemweg</h3>
-                  <p>Patient ansprechen. Prüfen, ob der Atemweg frei ist. Bei Bewusstlosigkeit Atemweg freimachen und stabile Seitenlage vorbereiten.</p>
-                </div>
-              </div>
-
-              <div class="schema-item">
-                <strong>B</strong>
-                <div>
-                  <h3>Breathing | Atmung</h3>
-                  <p>Atmung sehen, hören und fühlen. Atemnot erkennen. Enge Kleidung lockern, beruhigen und aufrecht lagern, wenn es zur Situation passt.</p>
-                </div>
-              </div>
-
-              <div class="schema-item">
-                <strong>C</strong>
-                <div>
-                  <h3>Circulation | Kreislauf</h3>
-                  <p>Starke Blutungen sofort stoppen. Auf Blässe, Kaltschweißigkeit, Zittern, Schwäche und Schockzeichen achten.</p>
-                </div>
-              </div>
-
-              <div class="schema-item">
-                <strong>D</strong>
-                <div>
-                  <h3>Disability | Bewusstsein</h3>
-                  <p>Bewusstseinslage prüfen: wach, ansprechbar, reagiert auf Schmerzreiz oder keine Reaktion. Orientierung und Pupillen beobachten.</p>
-                </div>
-              </div>
-
-              <div class="schema-item">
-                <strong>E</strong>
-                <div>
-                  <h3>Exposure | Umfeld und weitere Verletzungen</h3>
-                  <p>Weitere Verletzungen suchen, Patient vor Kälte schützen, Privatsphäre wahren und Zustand regelmäßig neu bewerten.</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="lesson" id="modul-4">
-            <p class="eyebrow">Modul 4</p>
-            <h3>Blutungen, Wunden und Verletzungen</h3>
-            <p>
-              Starke Blutungen gehören zu den dringendsten Problemen. Sie werden sofort
-              versorgt, auch wenn andere Untersuchungsschritte noch nicht abgeschlossen sind.
-            </p>
-            <ol>
-              <li>Handschuhe anlegen.</li>
-              <li>Wunde freilegen, soweit nötig und angemessen.</li>
-              <li>Direkten Druck auf die Blutung ausüben.</li>
-              <li>Druckverband anlegen.</li>
-              <li>Patient warmhalten und Schockzeichen beobachten.</li>
-              <li>EMS über Art, Ort und Stärke der Blutung informieren.</li>
-            </ol>
-            <div class="callout warning">
-              Fremdkörper, die tief in einer Wunde stecken, werden nicht entfernt.
-              Sie werden stabilisiert und von EMS oder Klinikpersonal weiterbehandelt.
-            </div>
-          </article>
-
-          <article class="lesson" id="modul-5">
-            <p class="eyebrow">Modul 5</p>
-            <h3>Bewusstlosigkeit</h3>
-            <p>
-              Eine bewusstlose Person ist immer kritisch. Zuerst wird geprüft, ob die
-              Person reagiert und normal atmet.
-            </p>
-            <ol>
-              <li>Laut ansprechen.</li>
-              <li>Vorsichtig an der Schulter rütteln, wenn keine Gefahr dagegen spricht.</li>
-              <li>Atmung kontrollieren.</li>
-              <li>Bei normaler Atmung stabile Seitenlage herstellen.</li>
-              <li>EMS alarmieren und Atmung laufend kontrollieren.</li>
-              <li>Bei fehlender normaler Atmung Reanimation beginnen.</li>
-            </ol>
-          </article>
-
-          <article class="lesson" id="modul-6">
-            <p class="eyebrow">Modul 6</p>
-            <h3>Reanimation</h3>
-            <p>
-              Reanimation wird begonnen, wenn eine Person nicht reagiert und keine normale
-              Atmung vorhanden ist. Der Beginn darf nicht unnötig verzögert werden.
-            </p>
-            <ol>
-              <li>EMS alarmieren oder Alarmierung beauftragen.</li>
-              <li>Patient auf festen Untergrund legen.</li>
-              <li>Thoraxkompressionen in der Mitte des Brustkorbs beginnen.</li>
-              <li>Falls vorhanden, AED / Defibrillator vorbereiten und Anweisungen beachten.</li>
-              <li>Nicht ohne Grund unterbrechen.</li>
-              <li>Bis zur Übernahme durch EMS oder eindeutige Lebenszeichen fortführen.</li>
-            </ol>
-            <div class="callout danger">
-              Bei Reanimation zählt jede Sekunde. Unklare Diskussionen werden vermieden:
-              eine Person drückt, eine Person alarmiert, eine Person holt Material.
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="impfung">
-      <div class="section-heading">
-        <p class="eyebrow">Impfkurs</p>
-        <h2>IK Ablauf: vorbereiten, aufklären, dokumentieren</h2>
-        <p>
-          Das IK-Modul vermittelt einen sicheren Ablauf rund um Impfmaßnahmen. Im Mittelpunkt
-          stehen Hygiene, Einwilligung, Beobachtung und saubere Dokumentation.
-        </p>
-      </div>
-
       <div class="grid-4">
-        <article class="card">
-          <span class="card-number">1</span>
-          <h3>Vorbereitung</h3>
-          <p>Material prüfen, Arbeitsplatz desinfizieren, Abwurf bereitstellen und Dokumentation vorbereiten.</p>
-        </article>
-        <article class="card">
-          <span class="card-number">2</span>
-          <h3>Abfrage</h3>
-          <p>Identität, Einwilligung, Allergien, aktuelle Beschwerden und frühere Reaktionen abfragen.</p>
-        </article>
-        <article class="card">
-          <span class="card-number">3</span>
-          <h3>Durchführung</h3>
-          <p>Ruhig erklären, hygienisch arbeiten und nur im freigegebenen Kompetenzrahmen handeln.</p>
-        </article>
-        <article class="card">
-          <span class="card-number">4</span>
-          <h3>Nachbeobachtung</h3>
-          <p>Patient kurz beobachten, Beschwerden ernst nehmen und Auffälligkeiten sofort an EMS melden.</p>
-        </article>
+        <article class="card"><strong>1. Verstehen</strong><p>Begriffe, Abläufe und medizinische Prioritäten werden verständlich eingeführt.</p></article>
+        <article class="card"><strong>2. Anwenden</strong><p>ABCDE, SAMPLE, Hygiene, Blutungskontrolle und Impfablauf werden an Fällen trainiert.</p></article>
+        <article class="card"><strong>3. Übergeben</strong><p>Teilnehmende lernen, relevante Informationen kurz und vollständig an EMS zu übergeben.</p></article>
+        <article class="card"><strong>4. Prüfen</strong><p>Theorie, mündliche Begründung und praktische Durchführung werden getrennt bewertet.</p></article>
       </div>
-
-      <div class="lesson">
-        <h3>Vorlesetext für den Impfkurs</h3>
-        <p>
-          Vor jeder Impfung wird sichergestellt, dass die richtige Person vor uns sitzt,
-          die Maßnahme verstanden wurde und eine Einwilligung vorliegt. Danach werden
-          Allergien, aktuelle Beschwerden und frühere Impfreaktionen abgefragt. Während
-          der Durchführung achten wir auf Hygiene, ruhige Kommunikation und klare
-          Dokumentation. Nach der Maßnahme bleibt die Person kurz unter Beobachtung.
-          Bei Kreislaufproblemen, Atemnot, Hautreaktionen, starker Angst oder anderen
-          Auffälligkeiten wird unverzüglich EMS eingebunden.
-        </p>
+      <div class="callout">
+        <strong>Leitsatz:</strong> Der EHK / IK befähigt staatliche Fraktionen zur sicheren Erstreaktion. Er ersetzt keine EMS-Fachausbildung, verbessert aber die gemeinsame Einsatzqualität erheblich.
       </div>
-    </section>
-
-    <section class="section" id="kommunikation">
-      <div class="section-heading">
-        <p class="eyebrow">Kommunikation</p>
-        <h2>Patientenansprache und Übergabe</h2>
-      </div>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>Patientenansprache</h3>
-          <p>
-            Ruhig vorstellen, erklären was passiert, einfache Sprache nutzen und keine
-            falschen Versprechen machen. Ein ruhiger Ton hilft, Stress zu senken und
-            bessere Informationen zu erhalten.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Übergabe an EMS</h3>
-          <ul>
-            <li>Was ist passiert?</li>
-            <li>Wie viele Patienten gibt es?</li>
-            <li>Welche Gefahren bestehen noch?</li>
-            <li>Welche Symptome oder Verletzungen wurden erkannt?</li>
-            <li>Welche Maßnahmen wurden durchgeführt?</li>
-            <li>Hat sich der Zustand verändert?</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="sop">
-      <div class="section-heading">
-        <p class="eyebrow">Standardabläufe</p>
-        <h2>SOP für typische Einsatzlagen</h2>
-      </div>
-
-      <details open>
-        <summary>Bewusstlose Person</summary>
-        <p>Ansprechen, Atmung prüfen, EMS alarmieren. Bei normaler Atmung stabile Seitenlage. Bei fehlender normaler Atmung Reanimation beginnen.</p>
-      </details>
-
-      <details>
-        <summary>Verkehrsunfall</summary>
-        <p>Einsatzstelle absichern, Anzahl der Patienten feststellen, Feuerwehr / EMS nachfordern, Patienten nicht unnötig bewegen und ABCDE durchführen.</p>
-      </details>
-
-      <details>
-        <summary>Schuss- oder Stichverletzung</summary>
-        <p>Eigenschutz beachten, Polizei sichern lassen, starke Blutungen stoppen, Fremdkörper nicht entfernen, EMS frühzeitig informieren.</p>
-      </details>
-
-      <details>
-        <summary>Vergiftung</summary>
-        <p>Substanz, Menge und Zeitpunkt erfragen, Eigenschutz beachten, Bewusstsein und Atmung kontrollieren, keine eigenmächtigen Experimente durchführen, EMS einbinden.</p>
-      </details>
-
-      <details>
-        <summary>Massenanfall von Verletzten</summary>
-        <p>Überblick schaffen, Leitstelle informieren, weitere Kräfte nachfordern, lebensbedrohliche Blutungen priorisieren und Patienten nach Dringlichkeit sortieren.</p>
-      </details>
     </section>
 
     <section class="section" id="checklisten">
       <div class="section-heading">
         <p class="eyebrow">Checklisten</p>
-        <h2>Für Unterricht, Dienst und Prüfung</h2>
+        <h2>Direkt nutzbare Prüf- und Einsatzlisten</h2>
       </div>
-
       <div class="grid-3">
         <article class="card checklist">
           <h3>Erste Hilfe</h3>
@@ -876,227 +69,946 @@
           <label><input type="checkbox"> Patient angesprochen</label>
           <label><input type="checkbox"> Atmung kontrolliert</label>
           <label><input type="checkbox"> ABCDE durchgeführt</label>
-          <label><input type="checkbox"> EMS nachgefordert</label>
+          <label><input type="checkbox"> Blutungen versorgt</label>
+          <label><input type="checkbox"> EMS informiert</label>
           <label><input type="checkbox"> Übergabe vorbereitet</label>
         </article>
-
         <article class="card checklist">
           <h3>Impfkurs</h3>
-          <label><input type="checkbox"> Material geprüft</label>
-          <label><input type="checkbox"> Hygiene vorbereitet</label>
+          <label><input type="checkbox"> Arbeitsplatz vorbereitet</label>
+          <label><input type="checkbox"> Material und Hygiene geprüft</label>
           <label><input type="checkbox"> Identität bestätigt</label>
           <label><input type="checkbox"> Einwilligung eingeholt</label>
-          <label><input type="checkbox"> Allergien abgefragt</label>
+          <label><input type="checkbox"> Allergien und Beschwerden abgefragt</label>
           <label><input type="checkbox"> Nachbeobachtung durchgeführt</label>
           <label><input type="checkbox"> Dokumentation abgeschlossen</label>
         </article>
-
         <article class="card checklist">
-          <h3>Prüfungsvorbereitung</h3>
-          <label><input type="checkbox"> ABCDE sicher erklärt</label>
-          <label><input type="checkbox"> Bewusstlosigkeit erklärt</label>
-          <label><input type="checkbox"> Blutungskontrolle erklärt</label>
+          <h3>Prüfung</h3>
+          <label><input type="checkbox"> ABCDE frei erklärt</label>
+          <label><input type="checkbox"> SAMPLE / OPQRST verstanden</label>
+          <label><input type="checkbox"> Bewusstlosigkeit sicher bearbeitet</label>
+          <label><input type="checkbox"> Reanimation erklärt</label>
           <label><input type="checkbox"> Impfablauf erklärt</label>
           <label><input type="checkbox"> Übergabe geübt</label>
-          <label><input type="checkbox"> Fallbeispiel bestanden</label>
-          <label><input type="checkbox"> Fragenkatalog geübt</label>
+          <label><input type="checkbox"> Fragenkatalog bestanden</label>
         </article>
       </div>
     </section>
 
     <section class="section" id="pruefung">
       <div class="section-heading">
-        <p class="eyebrow">Prüfungsordnung</p>
-        <h2>Theorie, mündlich und praktisch</h2>
+        <p class="eyebrow">Prüfungsaufbau</p>
+        <h2>Theorie, mündliche Prüfung und Praxis</h2>
       </div>
-
-      <table class="exam-table">
-        <thead>
-          <tr>
-            <th>Teil</th>
-            <th>Inhalt</th>
-            <th>Bestanden, wenn...</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Theorie</td>
-            <td>Grundlagen, ABCDE, Hygiene, Impfablauf, Grenzen der Befugnisse</td>
-            <td>mindestens 70 Prozent richtig beantwortet wurden</td>
-          </tr>
-          <tr>
-            <td>Mündlich</td>
-            <td>Fallbeispiel erklären, Prioritäten setzen, Nachforderung begründen</td>
-            <td>der Ablauf sicher, ruhig und nachvollziehbar erklärt wurde</td>
-          </tr>
-          <tr>
-            <td>Praktisch</td>
-            <td>Patientenansprache, Erstbeurteilung, Maßnahme, Übergabe</td>
-            <td>keine kritischen Sicherheitsfehler gemacht wurden</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="grid-3">
+        <article class="card"><h3>Theorie</h3><p>Schriftliche Fragen zu Grundlagen, ABCDE, Hygiene, Kommunikation, Impfkurs, Dokumentation und Grenzen der eigenen Befugnisse.</p></article>
+        <article class="card"><h3>Mündlich</h3><p>Ein Fallbeispiel wird beschrieben. Die geprüfte Person erklärt Prioritäten, Maßnahmen, Risiken und wann EMS nachgefordert wird.</p></article>
+        <article class="card"><h3>Praktisch</h3><p>Patientenansprache, Eigenschutz, strukturierte Beurteilung, Maßnahme, Re-Evaluation und Übergabe werden vorgeführt.</p></article>
+      </div>
+      <div class="callout warning"><strong>Bestehensgrenze:</strong> Theorie mindestens 70 Prozent. Praktisch darf kein kritischer Sicherheitsfehler auftreten.</div>
     </section>
 
     <section class="section" id="fragen">
       <div class="section-heading">
-        <p class="eyebrow">Prüfungsfragen</p>
-        <h2>Interaktiver Fragenkatalog</h2>
-        <p>Wähle pro Frage eine Antwort aus und klicke danach auf Auswertung.</p>
+        <p class="eyebrow">Fragenkatalog</p>
+        <h2>Interaktive Prüfungsvorbereitung</h2>
+        <p>Wähle pro Frage eine Antwort. Ab 70 Prozent gilt der Theorieteil als bestanden, ab 80 Prozent als sicher vorbereitet.</p>
       </div>
-
       <form id="quiz">
-        <article class="quiz-card">
-          <h3>1. Was steht immer an erster Stelle?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q1" value="0"> Möglichst schnell behandeln</label>
-            <label><input type="radio" name="q1" value="1"> Eigenschutz und Lageerkundung</label>
-            <label><input type="radio" name="q1" value="0"> Sofortiger Transport ohne Prüfung</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>2. Wofür steht das A im ABCDE-Schema?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q2" value="1"> Airway / Atemweg</label>
-            <label><input type="radio" name="q2" value="0"> Allergie</label>
-            <label><input type="radio" name="q2" value="0"> Alarmierung</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>3. Was wird bei starker Blutung zuerst gemacht?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q3" value="0"> Patient stehen lassen</label>
-            <label><input type="radio" name="q3" value="1"> Blutung mit Druck / Verband kontrollieren</label>
-            <label><input type="radio" name="q3" value="0"> Erst lange befragen</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>4. Was ist bei Bewusstlosigkeit mit normaler Atmung richtig?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q4" value="1"> Stabile Seitenlage und Atmung weiter kontrollieren</label>
-            <label><input type="radio" name="q4" value="0"> Patient allein lassen</label>
-            <label><input type="radio" name="q4" value="0"> Sofort trinken geben</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>5. Was gehört vor einer Impfung zur Abfrage?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q5" value="0"> Nur der Name</label>
-            <label><input type="radio" name="q5" value="1"> Identität, Einwilligung, Allergien und Beschwerden</label>
-            <label><input type="radio" name="q5" value="0"> Nur der Dienstgrad</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>6. Was gehört in eine Übergabe an EMS?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q6" value="1"> Ereignis, Patientenzahl, Zustand, Maßnahmen und Veränderungen</label>
-            <label><input type="radio" name="q6" value="0"> Nur der Standort</label>
-            <label><input type="radio" name="q6" value="0"> Vermutungen und ungesicherte Aussagen</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>7. Wann wird EMS nachgefordert?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q7" value="0"> Erst nach Abschluss aller Maßnahmen</label>
-            <label><input type="radio" name="q7" value="1"> Frühzeitig bei unklarer, kritischer oder instabiler Lage</label>
-            <label><input type="radio" name="q7" value="0"> Gar nicht</label>
-          </div>
-        </article>
-
-        <article class="quiz-card">
-          <h3>8. Was ist bei einem tief steckenden Fremdkörper in einer Wunde richtig?</h3>
-          <div class="quiz-options">
-            <label><input type="radio" name="q8" value="0"> Sofort herausziehen</label>
-            <label><input type="radio" name="q8" value="1"> Nicht entfernen, stabilisieren und EMS informieren</label>
-            <label><input type="radio" name="q8" value="0"> Ignorieren</label>
-          </div>
-        </article>
-
+        <article class="question"><h3>1. Was steht vor jeder medizinischen Ma&#195;�nahme?</h3><div class="options">
+<label><input type="radio" name="q1" value="1"> Eigenschutz und Lageerkundung</label>
+<label><input type="radio" name="q1" value="0"> Sofortiger Transport ohne Pr&#195;&#188;fung</label>
+<label><input type="radio" name="q1" value="0"> Eine vollst&#195;&#164;ndige Diagnose am Einsatzort</label>
+</div></article>
+<article class="question"><h3>2. Wof&#195;&#188;r steht A im ABCDE-Schema?</h3><div class="options">
+<label><input type="radio" name="q2" value="1"> Airway / Atemweg</label>
+<label><input type="radio" name="q2" value="0"> Allergie</label>
+<label><input type="radio" name="q2" value="0"> Alarmierung</label>
+</div></article>
+<article class="question"><h3>3. Was wird bei einer starken Blutung priorisiert?</h3><div class="options">
+<label><input type="radio" name="q3" value="1"> Direkter Druck und Blutungskontrolle</label>
+<label><input type="radio" name="q3" value="0"> Langes Patientengespr&#195;&#164;ch</label>
+<label><input type="radio" name="q3" value="0"> Abwarten bis EMS eintrifft</label>
+</div></article>
+<article class="question"><h3>4. Was ist bei Bewusstlosigkeit mit normaler Atmung richtig?</h3><div class="options">
+<label><input type="radio" name="q4" value="1"> Stabile Seitenlage und laufende Atemkontrolle</label>
+<label><input type="radio" name="q4" value="0"> Trinken geben</label>
+<label><input type="radio" name="q4" value="0"> Patient allein lassen</label>
+</div></article>
+<article class="question"><h3>5. Wann wird mit Reanimation begonnen?</h3><div class="options">
+<label><input type="radio" name="q5" value="1"> Keine Reaktion und keine normale Atmung</label>
+<label><input type="radio" name="q5" value="0"> Bei jeder leichten Schw&#195;&#164;che</label>
+<label><input type="radio" name="q5" value="0"> Nur nach einer langen Befragung</label>
+</div></article>
+<article class="question"><h3>6. Was geh&#195;&#182;rt zur SAMPLE-Anamnese?</h3><div class="options">
+<label><input type="radio" name="q6" value="1"> Symptome, Allergien, Medikamente, Vorgeschichte, letzte Mahlzeit, Ereignis</label>
+<label><input type="radio" name="q6" value="0"> Standort, Aktenzeichen, Fahrzeugnummer</label>
+<label><input type="radio" name="q6" value="0"> Nur Name und Dienstgrad</label>
+</div></article>
+<article class="question"><h3>7. Was ist bei einem tief steckenden Fremdk&#195;&#182;rper richtig?</h3><div class="options">
+<label><input type="radio" name="q7" value="1"> Nicht entfernen, stabilisieren und EMS informieren</label>
+<label><input type="radio" name="q7" value="0"> Sofort herausziehen</label>
+<label><input type="radio" name="q7" value="0"> Ignorieren</label>
+</div></article>
+<article class="question"><h3>8. Was ist ein Ziel der Hygiene?</h3><div class="options">
+<label><input type="radio" name="q8" value="1"> Kreuzkontamination vermeiden</label>
+<label><input type="radio" name="q8" value="0"> Material schneller verbrauchen</label>
+<label><input type="radio" name="q8" value="0"> Dokumentation ersetzen</label>
+</div></article>
+<article class="question"><h3>9. Was geh&#195;&#182;rt vor einer Impfung zur Abfrage?</h3><div class="options">
+<label><input type="radio" name="q9" value="1"> Identit&#195;&#164;t, Einwilligung, Allergien und aktuelle Beschwerden</label>
+<label><input type="radio" name="q9" value="0"> Nur der Name</label>
+<label><input type="radio" name="q9" value="0"> Nur die Uhrzeit</label>
+</div></article>
+<article class="question"><h3>10. Was wird nach einer Impfung gemacht?</h3><div class="options">
+<label><input type="radio" name="q10" value="1"> Nachbeobachten und dokumentieren</label>
+<label><input type="radio" name="q10" value="0"> Patient ohne Hinweis wegschicken</label>
+<label><input type="radio" name="q10" value="0"> Dokumentation auslassen</label>
+</div></article>
+<article class="question"><h3>11. Welche Information geh&#195;&#182;rt in die &#195;�bergabe an EMS?</h3><div class="options">
+<label><input type="radio" name="q11" value="1"> Ereignis, Patientenzustand, Ma&#195;�nahmen und Ver&#195;&#164;nderungen</label>
+<label><input type="radio" name="q11" value="0"> Private Vermutungen</label>
+<label><input type="radio" name="q11" value="0"> Ungepr&#195;&#188;fte Ger&#195;&#188;chte</label>
+</div></article>
+<article class="question"><h3>12. Was bedeutet Re-Evaluation?</h3><div class="options">
+<label><input type="radio" name="q12" value="1"> Zustand regelm&#195;&#164;&#195;�ig erneut pr&#195;&#188;fen</label>
+<label><input type="radio" name="q12" value="0"> Ma&#195;�nahmen nie wieder kontrollieren</label>
+<label><input type="radio" name="q12" value="0"> Patienten nur einmal ansehen</label>
+</div></article>
+<article class="question"><h3>13. Wie wird mit Schweigepflicht umgegangen?</h3><div class="options">
+<label><input type="radio" name="q13" value="1"> Patienteninformationen werden nur dienstlich notwendig weitergegeben</label>
+<label><input type="radio" name="q13" value="0"> Informationen werden frei geteilt</label>
+<label><input type="radio" name="q13" value="0"> Sie gilt nur au&#195;�erhalb des Dienstes</label>
+</div></article>
+<article class="question"><h3>14. Was ist bei unklarer oder kritischer Lage richtig?</h3><div class="options">
+<label><input type="radio" name="q14" value="1"> Fr&#195;&#188;hzeitig EMS nachfordern</label>
+<label><input type="radio" name="q14" value="0"> Warten bis die Lage eskaliert</label>
+<label><input type="radio" name="q14" value="0"> Allein weiterarbeiten</label>
+</div></article>
+<article class="question"><h3>15. Was ist bei einem Verkehrsunfall zuerst wichtig?</h3><div class="options">
+<label><input type="radio" name="q15" value="1"> Absicherung und Lageerkundung</label>
+<label><input type="radio" name="q15" value="0"> Sofort jedes Fahrzeug bewegen</label>
+<label><input type="radio" name="q15" value="0"> Patienten ohne Pr&#195;&#188;fung herausziehen</label>
+</div></article>
+<article class="question"><h3>16. Was beschreibt AVPU?</h3><div class="options">
+<label><input type="radio" name="q16" value="1"> Bewusstseinslage</label>
+<label><input type="radio" name="q16" value="0"> Blutgruppe</label>
+<label><input type="radio" name="q16" value="0"> Fahrzeugkontrolle</label>
+</div></article>
+<article class="question"><h3>17. Was ist bei der Dokumentation wichtig?</h3><div class="options">
+<label><input type="radio" name="q17" value="1"> Vollst&#195;&#164;ndig, zeitnah und nachvollziehbar</label>
+<label><input type="radio" name="q17" value="0"> M&#195;&#182;glichst kurz und ungenau</label>
+<label><input type="radio" name="q17" value="0"> Nur bei schweren F&#195;&#164;llen</label>
+</div></article>
+<article class="question"><h3>18. Was ist das Ziel des Kurses?</h3><div class="options">
+<label><input type="radio" name="q18" value="1"> Einheitliches, sicheres Handeln staatlicher Fraktionen bis zur EMS-&#195;�bernahme</label>
+<label><input type="radio" name="q18" value="0"> EMS zu ersetzen</label>
+<label><input type="radio" name="q18" value="0"> Medizinische Regeln zu umgehen</label>
+</div></article>
         <button class="button primary" type="button" onclick="checkQuiz()">Auswertung</button>
         <button class="button secondary" type="reset" onclick="resetQuiz()">Zurücksetzen</button>
-
         <div class="quiz-result" id="quiz-result"></div>
       </form>
     </section>
+
+    <section class="section" id="lehrbuch">
+      <div class="section-heading">
+        <p class="eyebrow">Vollständiges Lehrbuch</p>
+        <h2>Langfassung der Kursunterlage</h2>
+        <p>Der folgende Bereich enthält den umfangreichen Ausbildungsstoff in überarbeiteter dienstlicher Sprache. Er ist bewusst ausführlich gehalten, damit der Kurs wie ein echtes Handbuch studiert werden kann.</p>
+      </div>
+    </section>
+
+    <div class="course-shell">
+      <aside class="toc">
+        <h2>Inhalt</h2>
+        <a href="#vorwort">Vorwort</a>
+<a href="#zielsetzung-des-handbuchs">Zielsetzung des Handbuchs</a>
+<a href="#didaktischer-aufbau">Didaktischer Aufbau</a>
+<a href="#lernziele">Lernziele</a>
+<a href="#ausbildungsordnung">Ausbildungsordnung</a>
+<a href="#verhaltenskodex">Verhaltenskodex</a>
+<a href="#dienstbekleidung">Dienstbekleidung</a>
+<a href="#medizinische-schweigepflicht">Medizinische Schweigepflicht</a>
+<a href="#haftung-und-verantwortlichkeit">Haftung und Verantwortlichkeit</a>
+<a href="#kapitel-1-grundlagen-der-medizin">Kapitel 1 - Grundlagen der Medizin</a>
+<a href="#kapitel-2-anatomie">Kapitel 2 - Anatomie</a>
+<a href="#kapitel-3-histologie">Kapitel 3 - Histologie</a>
+<a href="#kapitel-4-physiologie">Kapitel 4 - Physiologie</a>
+<a href="#kapitel-5-pathophysiologie">Kapitel 5 - Pathophysiologie</a>
+<a href="#kapitel-6-patientenbeurteilung">Kapitel 6 - Patientenbeurteilung</a>
+<a href="#kapitel-7-hygiene">Kapitel 7 - Hygiene</a>
+<a href="#kapitel-8-materialkunde">Kapitel 8 - Materialkunde</a>
+<a href="#kapitel-9-pharmakologie">Kapitel 9 - Pharmakologie</a>
+<a href="#kapitel-10-medikamente">Kapitel 10 - Medikamente</a>
+<a href="#kapitel-11-einsatzablauf">Kapitel 11 - Einsatzablauf</a>
+<a href="#kapitel-12-fahrzeugkunde">Kapitel 12 - Fahrzeugkunde</a>
+<a href="#kapitel-13-ehk-fahrzeugkontrolle">Kapitel 13 - EHK-Fahrzeugkontrolle</a>
+<a href="#kapitel-14-standard-operating-procedures-sop">Kapitel 14 - Standard Operating Procedures (SOP)</a>
+<a href="#kapitel-15-kommunikation">Kapitel 15 - Kommunikation</a>
+<a href="#kapitel-16-praktische-ausbildung">Kapitel 16 - Praktische Ausbildung</a>
+<a href="#kapitel-17-pr-fung">Kapitel 17 - Pr&#252;fung</a>
+<a href="#kapitel-18-anhang">Kapitel 18 - Anhang</a>
+<a href="#vorwort-2">Vorwort</a>
+<a href="#zielsetzung-des-handbuchs-2">Zielsetzung des Handbuchs</a>
+<a href="#didaktischer-aufbau-2">Didaktischer Aufbau</a>
+<a href="#lernziele-2">Lernziele</a>
+<a href="#ausbildungsordnung-2">Ausbildungsordnung</a>
+<a href="#verhaltenskodex-2">Verhaltenskodex</a>
+<a href="#dienstbekleidung-2">Dienstbekleidung</a>
+<a href="#medizinische-schweigepflicht-2">Medizinische Schweigepflicht</a>
+<a href="#haftung-und-verantwortlichkeit-2">Haftung und Verantwortlichkeit</a>
+<a href="#kapitel-1-grundlagen-der-medizin-2">Kapitel 1 - Grundlagen der Medizin</a>
+<a href="#kapitel-2-anatomie-2">Kapitel 2 - Anatomie</a>
+<a href="#kapitel-3-histologie-2">Kapitel 3 - Histologie</a>
+<a href="#kapitel-4-physiologie-2">Kapitel 4 - Physiologie</a>
+<a href="#kapitel-5-pathophysiologie-2">Kapitel 5 - Pathophysiologie</a>
+<a href="#kapitel-6-patientenbeurteilung-2">Kapitel 6 - Patientenbeurteilung</a>
+<a href="#kapitel-7-hygiene-2">Kapitel 7 - Hygiene</a>
+<a href="#kapitel-8-materialkunde-2">Kapitel 8 - Materialkunde</a>
+<a href="#kapitel-9-pharmakologie-2">Kapitel 9 - Pharmakologie</a>
+<a href="#kapitel-10-dienstlich-freigegebene-medikamente">Kapitel 10 - dienstlich freigegebene Medikamente</a>
+<a href="#kapitel-11-einsatzablauf-2">Kapitel 11 - Einsatzablauf</a>
+<a href="#kapitel-12-fahrzeugkunde-2">Kapitel 12 - Fahrzeugkunde</a>
+<a href="#kapitel-13-ehk-fahrzeugkontrolle-2">Kapitel 13 - EHK-Fahrzeugkontrolle</a>
+<a href="#kapitel-14-standard-operating-procedures-sop-2">Kapitel 14 - Standard Operating Procedures (SOP)</a>
+<a href="#kapitel-15-kommunikation-2">Kapitel 15 - Kommunikation</a>
+<a href="#kapitel-16-praktische-ausbildung-2">Kapitel 16 - Praktische Ausbildung</a>
+<a href="#kapitel-17-pr-fung-2">Kapitel 17 - Pr&#252;fung</a>
+<a href="#kapitel-18-anhang-2">Kapitel 18 - Anhang</a>
+      </aside>
+      <article class="reader">
+        <h3 id="ehk-ik-ausbildungshandbuch">EHK-IK | AUSBILDUNGSHANDBUCH</h3>
+<h3 id="lehrbuch-f-r-ausbildung-und-praxis">Lehrbuch f&#252;r Ausbildung und Praxis</h3>
+<p>&#195;&#188;berarbeitet als EMS-Schulungsunterlage f&#195;&#188;r staatliche Fraktionen</p>
+<h3 id="inhaltsverzeichnis">Inhaltsverzeichnis</h3>
+<section class="chapter" id="vorwort"><h2>Vorwort</h2>
+<h3 id="einf-hrung">Einf&#252;hrung</h3>
+<section class="chapter" id="zielsetzung-des-handbuchs"><h2>Zielsetzung des Handbuchs</h2>
+<section class="chapter" id="didaktischer-aufbau"><h2>Didaktischer Aufbau</h2>
+<section class="chapter" id="lernziele"><h2>Lernziele</h2>
+<section class="chapter" id="ausbildungsordnung"><h2>Ausbildungsordnung</h2>
+<h3 id="ausbildungsdauer-und-abschnitte">Ausbildungsdauer und -abschnitte</h3>
+<h3 id="rechte-und-pflichten-w-hrend-der-ausbildung">Rechte und Pflichten w&#228;hrend der Ausbildung</h3>
+<h3 id="pr-fungsordnung">Pr&#252;fungsordnung</h3>
+<h3 id="pflichten-eines-sanit-ters">Pflichten eines Sanit&#228;ters</h3>
+<section class="chapter" id="verhaltenskodex"><h2>Verhaltenskodex</h2>
+<section class="chapter" id="dienstbekleidung"><h2>Dienstbekleidung</h2>
+<section class="chapter" id="medizinische-schweigepflicht"><h2>Medizinische Schweigepflicht</h2>
+<section class="chapter" id="haftung-und-verantwortlichkeit"><h2>Haftung und Verantwortlichkeit</h2>
+<section class="chapter" id="kapitel-1-grundlagen-der-medizin"><h2>Kapitel 1 - Grundlagen der Medizin</h2>
+<h3 id="1-1-was-ist-medizin">1.1 Was ist Medizin?</h3>
+<h3 id="1-2-geschichte-der-notfallmedizin">1.2 Geschichte der Notfallmedizin</h3>
+<h3 id="1-3-entwicklung-des-rettungswesens">1.3 Entwicklung des Rettungswesens</h3>
+<h3 id="1-4-medizinische-fachrichtungen">1.4 Medizinische Fachrichtungen</h3>
+<h3 id="1-5-aufbau-des-gesundheitswesens">1.5 Aufbau des Gesundheitswesens</h3>
+<h3 id="1-6-rolle-des-rettungsdienstes">1.6 Rolle des Rettungsdienstes</h3>
+<h3 id="1-7-pr-klinische-versorgung">1.7 Pr&#228;klinische Versorgung</h3>
+<h3 id="1-8-klinische-versorgung">1.8 Klinische Versorgung</h3>
+<h3 id="1-9-evidenzbasierte-medizin">1.9 Evidenzbasierte Medizin</h3>
+<h3 id="1-10-medizinische-leitlinien">1.10 Medizinische Leitlinien</h3>
+<section class="chapter" id="kapitel-2-anatomie"><h2>Kapitel 2 - Anatomie</h2>
+<h3 id="2-1-anatomische-lagebezeichnungen">2.1 Anatomische Lagebezeichnungen</h3>
+<h3 id="2-2-k-rperebenen">2.2 K&#246;rperebenen</h3>
+<h3 id="2-3-k-rperachsen">2.3 K&#246;rperachsen</h3>
+<h3 id="2-4-k-rperh-hlen">2.4 K&#246;rperh&#246;hlen</h3>
+<h3 id="2-5-organsysteme">2.5 Organsysteme</h3>
+<h3 id="2-6-knochen">2.6 Knochen</h3>
+<h3 id="2-7-gelenke">2.7 Gelenke</h3>
+<h3 id="2-8-muskulatur">2.8 Muskulatur</h3>
+<h3 id="2-9-haut">2.9 Haut</h3>
+<h3 id="2-10-blutgef-e">2.10 Blutgef&#228;&#223;e</h3>
+<h3 id="2-11-herz">2.11 Herz</h3>
+<h3 id="2-12-lunge">2.12 Lunge</h3>
+<h3 id="2-13-leber">2.13 Leber</h3>
+<h3 id="2-14-milz">2.14 Milz</h3>
+<h3 id="2-15-magen">2.15 Magen</h3>
+<h3 id="2-16-darm">2.16 Darm</h3>
+<h3 id="2-17-bauchspeicheldr-se">2.17 Bauchspeicheldr&#252;se</h3>
+<h3 id="2-18-nieren">2.18 Nieren</h3>
+<h3 id="2-19-harnblase">2.19 Harnblase</h3>
+<h3 id="2-20-gehirn">2.20 Gehirn</h3>
+<h3 id="2-21-r-ckenmark">2.21 R&#252;ckenmark</h3>
+<h3 id="2-22-lymphsystem">2.22 Lymphsystem</h3>
+<section class="chapter" id="kapitel-3-histologie"><h2>Kapitel 3 - Histologie</h2>
+<h3 id="3-1-zellaufbau">3.1 Zellaufbau</h3>
+<h3 id="3-2-zellmembran">3.2 Zellmembran</h3>
+<h3 id="3-3-organellen">3.3 Organellen</h3>
+<h3 id="3-4-dna">3.4 DNA</h3>
+<h3 id="3-5-rna">3.5 RNA</h3>
+<h3 id="3-6-zellteilung">3.6 Zellteilung</h3>
+<h3 id="3-7-muskelgewebe">3.7 Muskelgewebe</h3>
+<h3 id="3-8-nervengewebe">3.8 Nervengewebe</h3>
+<h3 id="3-9-bindegewebe">3.9 Bindegewebe</h3>
+<h3 id="3-10-epithelgewebe">3.10 Epithelgewebe</h3>
+<section class="chapter" id="kapitel-4-physiologie"><h2>Kapitel 4 - Physiologie</h2>
+<h3 id="4-1-hom-ostase">4.1 Hom&#246;ostase</h3>
+<h3 id="4-2-stoffwechsel">4.2 Stoffwechsel</h3>
+<h3 id="4-3-zellatmung">4.3 Zellatmung</h3>
+<h3 id="4-4-atp">4.4 ATP</h3>
+<h3 id="4-5-blutkreislauf">4.5 Blutkreislauf</h3>
+<h3 id="4-6-herzzeitvolumen">4.6 Herzzeitvolumen</h3>
+<h3 id="4-7-blutdruck">4.7 Blutdruck</h3>
+<h3 id="4-8-sauerstofftransport">4.8 Sauerstofftransport</h3>
+<h3 id="4-9-co2-transport">4.9 CO2-Transport</h3>
+<h3 id="4-10-atmung">4.10 Atmung</h3>
+<h3 id="4-11-diffusion">4.11 Diffusion</h3>
+<h3 id="4-12-osmose">4.12 Osmose</h3>
+<h3 id="4-13-s-ure-basen-haushalt">4.13 S&#228;ure-Basen-Haushalt</h3>
+<h3 id="4-14-elektrolyte">4.14 Elektrolyte</h3>
+<h3 id="4-15-temperaturregulation">4.15 Temperaturregulation</h3>
+<section class="chapter" id="kapitel-5-pathophysiologie"><h2>Kapitel 5 - Pathophysiologie</h2>
+<h3 id="5-1-schock">5.1 Schock</h3>
+<h3 id="5-2-hypovol-mie">5.2 Hypovol&#228;mie</h3>
+<h3 id="5-3-hypoxie">5.3 Hypoxie</h3>
+<h3 id="5-4-isch-mie">5.4 Isch&#228;mie</h3>
+<h3 id="5-5-hyperkapnie">5.5 Hyperkapnie</h3>
+<h3 id="5-6-acidose">5.6 Acidose</h3>
+<h3 id="5-7-alkalose">5.7 Alkalose</h3>
+<h3 id="5-8-entz-ndung">5.8 Entz&#252;ndung</h3>
+<h3 id="5-9-sepsis">5.9 Sepsis</h3>
+<h3 id="5-10-organversagen">5.10 Organversagen</h3>
+<section class="chapter" id="kapitel-6-patientenbeurteilung"><h2>Kapitel 6 - Patientenbeurteilung</h2>
+<h3 id="6-1-eigenschutz">6.1 Eigenschutz</h3>
+<h3 id="6-2-einsatzstellenanalyse">6.2 Einsatzstellenanalyse</h3>
+<h3 id="6-3-lageerkundung">6.3 Lageerkundung</h3>
+<h3 id="6-4-abcde-schema">6.4 ABCDE-Schema</h3>
+<h3 id="6-5-sample-schema">6.5 SAMPLE-Schema</h3>
+<h3 id="6-6-opqrst-schema">6.6 OPQRST-Schema</h3>
+<h3 id="6-7-glasgow-coma-scale">6.7 Glasgow-Coma-Scale</h3>
+<h3 id="6-8-avpu">6.8 AVPU</h3>
+<h3 id="6-9-pupillenkontrolle">6.9 Pupillenkontrolle</h3>
+<h3 id="6-10-vitalparameter">6.10 Vitalparameter</h3>
+<h3 id="6-11-re-evaluation">6.11 Re-Evaluation</h3>
+<section class="chapter" id="kapitel-7-hygiene"><h2>Kapitel 7 - Hygiene</h2>
+<h3 id="7-1-grundlagen">7.1 Grundlagen</h3>
+<h3 id="7-2-h-ndedesinfektion">7.2 H&#228;ndedesinfektion</h3>
+<h3 id="7-3-kontamination">7.3 Kontamination</h3>
+<h3 id="7-4-kreuzkontamination">7.4 Kreuzkontamination</h3>
+<h3 id="7-5-sterilit-t">7.5 Sterilit&#228;t</h3>
+<h3 id="7-6-pers-nliche-schutzausr-stung">7.6 Pers&#246;nliche Schutzausr&#252;stung</h3>
+<h3 id="7-7-reinigung">7.7 Reinigung</h3>
+<h3 id="7-8-entsorgung">7.8 Entsorgung</h3>
+<section class="chapter" id="kapitel-8-materialkunde"><h2>Kapitel 8 - Materialkunde</h2>
+<h3 id="8-1-notfalltasche">8.1 Notfalltasche</h3>
+<h3 id="8-2-defibrillator">8.2 Defibrillator</h3>
+<h3 id="8-3-funkger-t">8.3 Funkger&#228;t</h3>
+<h3 id="8-4-trage">8.4 Trage</h3>
+<h3 id="8-5-verb-nde">8.5 Verb&#228;nde</h3>
+<h3 id="8-6-schienen">8.6 Schienen</h3>
+<h3 id="8-7-sauerstoff">8.7 Sauerstoff</h3>
+<h3 id="8-8-beatmungsbeutel">8.8 Beatmungsbeutel</h3>
+<h3 id="8-9-medikamente">8.9 Medikamente</h3>
+<section class="chapter" id="kapitel-9-pharmakologie"><h2>Kapitel 9 - Pharmakologie</h2>
+<h3 id="9-1-allgemeine-pharmakologie">9.1 Allgemeine Pharmakologie</h3>
+<h3 id="9-2-pharmakokinetik">9.2 Pharmakokinetik</h3>
+<h3 id="9-3-pharmakodynamik">9.3 Pharmakodynamik</h3>
+<h3 id="9-4-resorption">9.4 Resorption</h3>
+<h3 id="9-5-distribution">9.5 Distribution</h3>
+<h3 id="9-6-metabolismus">9.6 Metabolismus</h3>
+<h3 id="9-7-elimination">9.7 Elimination</h3>
+<h3 id="9-8-nebenwirkungen">9.8 Nebenwirkungen</h3>
+<h3 id="9-9-kontraindikationen">9.9 Kontraindikationen</h3>
+<h3 id="9-10-wechselwirkungen">9.10 Wechselwirkungen</h3>
+<section class="chapter" id="kapitel-10-medikamente"><h2>Kapitel 10 - Medikamente</h2>
+<h3 id="10-1-verb-nde">10.1 Verb&#228;nde</h3>
+<h3 id="10-2-codein">10.2 Codein</h3>
+<h3 id="10-3-aktivkohle">10.3 Aktivkohle</h3>
+<h3 id="10-4-azithromycin">10.4 Azithromycin</h3>
+<h3 id="10-5-epinephrin">10.5 Epinephrin</h3>
+<h3 id="10-6-defibrillator">10.6 Defibrillator</h3>
+<h3 id="10-7-medikamentenauswahl">10.7 Medikamentenauswahl</h3>
+<h3 id="10-8-dosierung-im-dienst">10.8 Dosierung im Dienst</h3>
+<h3 id="10-9-dokumentation">10.9 Dokumentation</h3>
+<section class="chapter" id="kapitel-11-einsatzablauf"><h2>Kapitel 11 - Einsatzablauf</h2>
+<h3 id="11-1-alarmierung">11.1 Alarmierung</h3>
+<h3 id="11-2-anfahrt">11.2 Anfahrt</h3>
+<h3 id="11-3-absicherung">11.3 Absicherung</h3>
+<h3 id="11-4-patientenkontakt">11.4 Patientenkontakt</h3>
+<h3 id="11-5-untersuchung">11.5 Untersuchung</h3>
+<h3 id="11-6-behandlung">11.6 Behandlung</h3>
+<h3 id="11-7-dokumentation">11.7 Dokumentation</h3>
+<h3 id="11-8-transportentscheidung">11.8 Transportentscheidung</h3>
+<h3 id="11-9-bergabe">11.9 &#220;bergabe</h3>
+<section class="chapter" id="kapitel-12-fahrzeugkunde"><h2>Kapitel 12 - Fahrzeugkunde</h2>
+<h3 id="12-1-aufbau-eines-rettungswagens">12.1 Aufbau eines Rettungswagens</h3>
+<h3 id="12-2-beladung">12.2 Beladung</h3>
+<h3 id="12-3-schranksystem">12.3 Schranksystem</h3>
+<h3 id="12-4-medikamentenlagerung">12.4 Medikamentenlagerung</h3>
+<h3 id="12-5-hygiene">12.5 Hygiene</h3>
+<h3 id="12-6-fahrzeugpflege">12.6 Fahrzeugpflege</h3>
+<h3 id="12-7-betankung">12.7 Betankung</h3>
+<h3 id="12-8-einsatzbereitschaft">12.8 Einsatzbereitschaft</h3>
+<section class="chapter" id="kapitel-13-ehk-fahrzeugkontrolle"><h2>Kapitel 13 - EHK-Fahrzeugkontrolle</h2>
+<h3 id="13-1-sichtpr-fung">13.1 Sichtpr&#252;fung</h3>
+<h3 id="13-2-au-enkontrolle">13.2 Au&#223;enkontrolle</h3>
+<h3 id="13-3-reifen">13.3 Reifen</h3>
+<h3 id="13-4-beleuchtung">13.4 Beleuchtung</h3>
+<h3 id="13-5-warnanlage">13.5 Warnanlage</h3>
+<h3 id="13-6-funk">13.6 Funk</h3>
+<h3 id="13-7-motorraum">13.7 Motorraum</h3>
+<h3 id="13-8-kraftstoff">13.8 Kraftstoff</h3>
+<h3 id="13-9-lstand">13.9 &#214;lstand</h3>
+<h3 id="13-10-k-hlmittel">13.10 K&#252;hlmittel</h3>
+<h3 id="13-11-bremsfl-ssigkeit">13.11 Bremsfl&#252;ssigkeit</h3>
+<h3 id="13-12-batterie">13.12 Batterie</h3>
+<h3 id="13-13-defibrillator">13.13 Defibrillator</h3>
+<h3 id="13-14-verb-nde">13.14 Verb&#228;nde</h3>
+<h3 id="13-15-codein">13.15 Codein</h3>
+<h3 id="13-16-aktivkohle">13.16 Aktivkohle</h3>
+<h3 id="13-17-azithromycin">13.17 Azithromycin</h3>
+<h3 id="13-18-epinephrin">13.18 Epinephrin</h3>
+<h3 id="13-19-vollst-ndigkeit">13.19 Vollst&#228;ndigkeit</h3>
+<h3 id="13-20-dokumentation">13.20 Dokumentation</h3>
+<section class="chapter" id="kapitel-14-standard-operating-procedures-sop"><h2>Kapitel 14 - Standard Operating Procedures (SOP)</h2>
+<h3 id="bewusstlose-person">Bewusstlose Person</h3>
+<h3 id="verkehrsunfall">Verkehrsunfall</h3>
+<h3 id="schussverletzung">Schussverletzung</h3>
+<h3 id="stichverletzung">Stichverletzung</h3>
+<h3 id="vergiftung">Vergiftung</h3>
+<h3 id="erk-ltung">Erk&#228;ltung</h3>
+<h3 id="kreislaufstillstand">Kreislaufstillstand</h3>
+<h3 id="massenanfall-verletzter">Massenanfall Verletzter</h3>
+<h3 id="reanimation">Reanimation</h3>
+<h3 id="patiententransport">Patiententransport</h3>
+<section class="chapter" id="kapitel-15-kommunikation"><h2>Kapitel 15 - Kommunikation</h2>
+<h3 id="patientengespr-ch">Patientengespr&#228;ch</h3>
+<h3 id="angeh-rige">Angeh&#246;rige</h3>
+<h3 id="polizei">Polizei</h3>
+<h3 id="feuerwehr">Feuerwehr</h3>
+<h3 id="leitstelle">Leitstelle</h3>
+<h3 id="funkdisziplin">Funkdisziplin</h3>
+<h3 id="dokumentation">Dokumentation</h3>
+<section class="chapter" id="kapitel-16-praktische-ausbildung"><h2>Kapitel 16 - Praktische Ausbildung</h2>
+<h3 id="verb-nde">Verb&#228;nde</h3>
+<h3 id="patientenansprache">Patientenansprache</h3>
+<h3 id="abcde">ABCDE</h3>
+<h3 id="gcs">GCS</h3>
+<h3 id="reanimation-2">Reanimation</h3>
+<h3 id="defibrillator">Defibrillator</h3>
+<h3 id="medikamente">Medikamente</h3>
+<h3 id="fahrzeugkontrolle">Fahrzeugkontrolle</h3>
+<h3 id="fallbeispiele">Fallbeispiele</h3>
+<section class="chapter" id="kapitel-17-pr-fung"><h2>Kapitel 17 - Pr&#252;fung</h2>
+<h3 id="schriftliche-pr-fung">Schriftliche Pr&#252;fung</h3>
+<h3 id="m-ndliche-pr-fung">M&#252;ndliche Pr&#252;fung</h3>
+<h3 id="praktische-pr-fung">Praktische Pr&#252;fung</h3>
+<h3 id="bewertungssystem">Bewertungssystem</h3>
+<h3 id="bestehensgrenze">Bestehensgrenze</h3>
+<h3 id="wiederholungspr-fung">Wiederholungspr&#252;fung</h3>
+<section class="chapter" id="kapitel-18-anhang"><h2>Kapitel 18 - Anhang</h2>
+<h3 id="abk-rzungsverzeichnis">Abk&#252;rzungsverzeichnis</h3>
+<h3 id="lateinische-fachbegriffe">Lateinische Fachbegriffe</h3>
+<h3 id="medizinisches-glossar">Medizinisches Glossar</h3>
+<h3 id="organverzeichnis">Organverzeichnis</h3>
+<h3 id="knochenverzeichnis">Knochenverzeichnis</h3>
+<h3 id="muskelverzeichnis">Muskelverzeichnis</h3>
+<h3 id="nervenverzeichnis">Nervenverzeichnis</h3>
+<h3 id="gef-verzeichnis">Gef&#228;&#223;verzeichnis</h3>
+<h3 id="medikamentenverzeichnis">Medikamentenverzeichnis</h3>
+<h3 id="checklisten">Checklisten</h3>
+<h3 id="pr-fungsprotokolle">Pr&#252;fungsprotokolle</h3>
+<h3 id="ausbildungsnachweis">Ausbildungsnachweis</h3>
+<h3 id="eigenst-ndigkeitserkl-rung">Eigenst&#228;ndigkeitserkl&#228;rung</h3>
+<h3 id="unterschriftenseite">Unterschriftenseite</h3>
+<section class="chapter" id="vorwort-2"><h2>Vorwort</h2>
+<p>Das vorliegende Ausbildungshandbuch wurde f&#252;r den Erste-Hilfe- / Impfkurs (EHK / IK) erstellt. Es richtet sich an alle Personen, die ihr Wissen auffrischen oder vertiefen m&#246;chten. Der Aufbau des Handbuches folgt einer klassischen Lehrbuchgliederung: von den naturwissenschaftlichen Grundlagen &#252;ber die Anatomie und Physiologie bis hin zur praktischen Anwendung im Einsatzgeschehen, der Fahrzeug- und Materialkunde sowie den Standard Operating Procedures (SOP), die das Handeln der Einsatzkr&#228;fte im Einsatzgebiet verbindlich regeln. Jedes Kapitel schlie&#223;t mit Verweisen auf angrenzende Themen, sodass ein vernetztes Verst&#228;ndnis entsteht, wie es auch in der realen pr&#228;klinischen Notfallmedizin angestrebt wird. Wir w&#252;nschen allen Kursteilnehmenden und EMS-EMS-Ausbildern viel Erfolg beim Studium dieses Werkes und beim Einsatz in den Stra&#223;en der Stadt.</p>
+<h3 id="einf-hrung-2">Einf&#252;hrung</h3>
+<p>Der Erste hilfe kurs bildet das R&#252;ckgrat der medizinischen Versorgung innerhalb des Einsatzumfelds. Er &#252;bernimmt die pr&#228;klinische Versorgung von Unfallopfern, akut erkrankten Personen sowie Verletzten aus Gewaltdelikten und stellt die Schnittstelle zwischen dem Ereignisort und der weiterf&#252;hrenden klinischen Versorgung dar. Die Ausbildung zum EHK-Teilnehmenden orientiert sich an der Struktur realer rettungsdienstlicher Ausbildungsg&#228;nge, insbesondere an der Ausbildung zum Rettungssanit&#228;ter (RettSan) und in Teilen an der Notfallsanit&#228;ter-Ausbildung, wobei Inhalte f&#252;r den Dienstbetrieb didaktisch reduziert, umstrukturiert oder durch dienstliche Regelungen ersetzt wurden. Diese Einf&#252;hrung erl&#228;utert die Zielsetzung des Handbuchs, den didaktischen Aufbau sowie die grundlegenden Begrifflichkeiten, die in den folgenden Kapiteln vorausgesetzt werden. Sie richtet sich sowohl an Neueinsteiger ohne Vorkenntnisse als auch an erfahrene Teilnehmende, die ihr Handeln auf eine fundierte fachliche Grundlage stellen m&#246;chten.</p>
+<section class="chapter" id="zielsetzung-des-handbuchs-2"><h2>Zielsetzung des Handbuchs</h2>
+<p>Das Handbuch verfolgt drei zentrale Ziele. Erstens soll es eine einheitliche Wissensbasis f&#252;r alle Einsatzkr&#195;&#164;fte schaffen, sodass Eins&#228;tze nach nachvollziehbaren, wiederholbaren Mustern ablaufen. Zweitens soll es die Qualit&#228;t des Diensttrainings erh&#246;hen, indem es Teilnehmenden erlaubt, medizinische Situationen glaubw&#252;rdiger, detaillierter und mit gr&#246;&#223;erem erz&#228;hlerischem Tiefgang darzustellen. Drittens dient es als Grundlage f&#252;r die theoretische und praktische Pr&#252;fung, die am Ende der Ausbildung steht.</p>
+<section class="chapter" id="didaktischer-aufbau-2"><h2>Didaktischer Aufbau</h2>
+<p>Jedes Kapitel beginnt mit einer kurzen &#220;bersicht der behandelten Themen und schlie&#223;t, sofern sinnvoll, mit Kontrollfragen oder Verweisen auf verwandte Kapitel. Fachbegriffe werden bei ihrer ersten Verwendung erl&#228;utert und im Glossar (Kapitel 18) noch einmal gesammelt aufgef&#252;hrt. Die Kapitel sind so angeordnet, dass aufbauendes Lernen m&#246;glich ist: Grundlagenwissen aus den Kapiteln 1 bis 5 wird in den Kapiteln 6 bis 13 auf die praktische Anwendung &#252;bertragen, w&#228;hrend die Kapitel 14 bis 17 den konkreten Einsatzalltag und die Pr&#252;fungsvorbereitung in den Mittelpunkt stellen.</p>
+<section class="chapter" id="lernziele-2"><h2>Lernziele</h2>
+<p>Nach erfolgreichem Abschluss dieser Ausbildung sollen die Kursteilnehmenden in der Lage sein, die grundlegenden anatomischen und physiologischen Zusammenh&#228;nge des menschlichen K&#246;rpers zu benennen und in einfacher Form zu erkl&#228;ren, typische Verletzungs- und Erkrankungsmuster im Einsatzgebiet zu erkennen und einer strukturierten Erstversorgung zuzuf&#252;hren, das ABCDE-Schema sowie die erg&#228;nzenden Beurteilungsschemata (SAMPLE, OPQRST, GCS, AVPU) korrekt und in der richtigen Reihenfolge anzuwenden, die dienstlich freigegebenen Medikamente sachgerecht, situationsangemessen und regelkonform einzusetzen, die vorgeschriebenen Hygienema&#223;nahmen einzuhalten, das Rettungsfahrzeug und seine Beladung selbstst&#228;ndig zu kontrollieren und einsatzbereit zu halten, sich in der Kommunikation mit Leitstelle, Polizei, Feuerwehr und Angeh&#246;rigen professionell zu verhalten sowie die Standard Operating Procedures f&#252;r die wichtigsten Einsatzszenarien sicher anzuwenden. � Anatomische und physiologische Grundbegriffe korrekt verwenden � Systematische Patientenbeurteilung nach ABCDE durchf&#252;hren</p>
+<h3 id="sample-und-opqrst-anamnese-strukturiert-erheben">� SAMPLE- und OPQRST-Anamnese strukturiert erheben</h3>
+<h3 id="bewusstseinslage-nach-gcs-und-avpu-einsch-tzen">� Bewusstseinslage nach GCS und AVPU einsch&#228;tzen</h3>
+<p>� dienstlich freigegebene Medikamente indikationsgerecht anwenden � Hygienevorschriften und Eigenschutz konsequent einhalten � Fahrzeug- und Materialkontrolle eigenst&#228;ndig durchf&#252;hren</p>
+<h3 id="sops-f-r-standardeins-tze-sicher-abrufen-und-anwenden">� SOPs f&#252;r Standardeins&#228;tze sicher abrufen und anwenden</h3>
+<p>� Einsatzdokumentation vollst&#228;ndig und nachvollziehbar f&#252;hren</p>
+<section class="chapter" id="ausbildungsordnung-2"><h2>Ausbildungsordnung</h2>
+<p>Die Ausbildung zum EHK-Teilnehmenden gliedert sich in einen theoretischen und einen praktischen Ausbildungsabschnitt. Der theoretische Abschnitt umfasst das Selbststudium dieses Handbuchs sowie begleitende Lehrg&#228;nge, in denen die Inhalte der Kapitel 1 bis 11 vermittelt und vertieft werden. Der praktische Abschnitt umfasst angeleitete &#220;bungsdienste, in denen die Kursteilnehmenden unter Aufsicht erfahrener Einsatzkr&#195;&#164;fte erste Eins&#228;tze begleiten, Verbandstechniken &#252;ben, den Umgang mit dem Defibrillator erlernen und die Fahrzeugkontrolle nach dem EHK-Schema ein&#252;ben.</p>
+<h3 id="ausbildungsdauer-und-abschnitte-2">Ausbildungsdauer und -abschnitte</h3>
+<p>Die Ausbildungsdauer richtet sich nach dem individuellen Lernfortschritt, umfasst jedoch in der Regel eine Mindestanzahl begleiteter Diensteinheiten, bevor eine Zulassung zur Pr&#252;fung erfolgen kann. EMS-Ausbilder dokumentieren den Fortschritt jedes Kursteilnehmenden fortlaufend, sodass L&#252;cken fr&#252;hzeitig erkannt und durch zus&#228;tzliche &#220;bungseinheiten geschlossen werden k&#246;nnen.</p>
+<h3 id="rechte-und-pflichten-w-hrend-der-ausbildung-2">Rechte und Pflichten w&#228;hrend der Ausbildung</h3>
+<p>Kursteilnehmende d&#252;rfen im Rahmen begleiteter Dienste einfache T&#228;tigkeiten unter Aufsicht durchf&#252;hren, tragen jedoch keine eigenst&#228;ndige Verantwortung f&#252;r Behandlungsentscheidungen, solange die Ausbildung nicht abgeschlossen ist. EMS-Ausbilder sind verpflichtet, R&#252;ckmeldung in konstruktiver Form zu geben und den Kursteilnehmenden ausreichend Gelegenheit zur praktischen &#220;bung einzur&#228;umen.</p>
+<h3 id="pr-fungsordnung-2">Pr&#252;fungsordnung</h3>
+<p>Die Pr&#252;fung zum EHK-Teilnehmenden besteht aus einem schriftlichen, einem m&#252;ndlichen und einem praktischen Teil, die in Kapitel 17 im Detail beschrieben werden. Zur Pr&#252;fung zugelassen wird, wer die vorgeschriebenen Ausbildungsinhalte nachweislich durchlaufen und die vorgesehene Mindestanzahl an begleiteten Diensten absolviert hat. Die Pr&#252;fungsordnung legt ferner fest, unter welchen Bedingungen eine Pr&#252;fung wiederholt werden kann und welche Fristen dabei einzuhalten sind. Die Bestehensgrenze sowie das Bewertungssystem sind einheitlich f&#252;r alle Kursteilnehmenden und werden vor Pr&#252;fungsbeginn transparent kommuniziert. Eine nicht bestandene Pr&#252;fung f&#252;hrt nicht zum Ausschluss aus der Ausbildung, sondern zu einer verpflichtenden Nachschulung in den betroffenen Themenbereichen vor der Wiederholungspr&#252;fung.</p>
+<h3 id="pflichten-eines-sanit-ters-2">Pflichten eines Sanit&#228;ters</h3>
+<p>Ein Sanit&#228;ter im Dienst des EHK verpflichtet sich, jederzeit im Rahmen seiner Ausbildung und Befugnisse zu handeln, die Sicherheit von Patienten, Kollegen und sich selbst an oberste Stelle zu setzen, Eins&#228;tze wahrheitsgem&#228;&#223; und vollst&#228;ndig zu dokumentieren, mit anderen Einsatzkr&#228;ften - insbesondere Polizei und Feuerwehr - kooperativ zusammenzuarbeiten, die Schweigepflicht gegen&#252;ber Dritten zu wahren und die Dienstbekleidung sowie das Erscheinungsbild den Vorschriften entsprechend zu tragen. Dar&#252;ber hinaus ist jeder Sanit&#228;ter verpflichtet, sich fortlaufend fortzubilden, Fehler transparent zu melden und aus Eins&#228;tzen resultierende Lernerfahrungen an das Team weiterzugeben. Verst&#246;&#223;e gegen diese Pflichten k&#246;nnen disziplinarische Konsequenzen nach sich ziehen, die von einer Ermahnung bis zum Ausschluss aus dem Dienst reichen k&#246;nnen.</p>
+<section class="chapter" id="verhaltenskodex-2"><h2>Verhaltenskodex</h2>
+<p>Der Verhaltenskodex regelt den Umgang der Sanit&#228;ter untereinander sowie mit Patienten, Angeh&#246;rigen und anderen Beh&#246;rden. Grundprinzipien sind Respekt, Sachlichkeit, Neutralit&#228;t gegen&#252;ber allen Beteiligten unabh&#228;ngig von deren Vorgeschichte, sowie Zur&#252;ckhaltung in der Kommunikation &#252;ber laufende oder abgeschlossene Eins&#228;tze gegen&#252;ber Au&#223;enstehenden. Sanit&#228;ter verhalten sich an der Einsatzstelle stets professionell, auch wenn die Situation angespannt, aggressiv oder emotional aufl&#228;dt ist. Deeskalation hat Vorrang vor Konfrontation; bei Gefahr f&#252;r die eigene Sicherheit ist die Einsatzstelle zu verlassen und die Polizei nachzufordern, bevor eine Behandlung fortgesetzt wird.</p>
+<section class="chapter" id="dienstbekleidung-2"><h2>Dienstbekleidung</h2>
+<p>Die Dienstbekleidung dient der Wiedererkennbarkeit als Einsatzkraft und dem Schutz vor Kontamination. Sie besteht aus einheitlicher, dienstlich festgelegter Oberbekleidung mit sichtbarer Kennzeichnung, festem Schuhwerk sowie, je nach Einsatzlage, zus&#228;tzlicher pers&#246;nlicher Schutzausr&#252;stung wie Handschuhen. Private, nicht dienstlich gekennzeichnete Kleidung ist im aktiven Dienst nicht zul&#228;ssig. Die Dienstbekleidung ist sauber zu halten und bei sichtbarer Verunreinigung, insbesondere durch Blut oder andere K&#246;rperfl&#252;ssigkeiten, zeitnah zu wechseln, um eine Kreuzkontamination zwischen Eins&#228;tzen zu vermeiden.</p>
+<section class="chapter" id="medizinische-schweigepflicht-2"><h2>Medizinische Schweigepflicht</h2>
+<p>Alle im Rahmen eines Einsatzes erlangten Informationen &#252;ber Patienten unterliegen der Schweigepflicht. Sie d&#252;rfen nicht ohne Zustimmung des Patienten oder eine ausdr&#252;ckliche dienstliche Notwendigkeit an Dritte weitergegeben werden. Ausnahmen bestehen gegen&#252;ber weiterbehandelndem Personal im Rahmen der &#220;bergabe sowie gegen&#252;ber Polizei und Feuerwehr, soweit dies f&#252;r die Gefahrenabwehr zwingend erforderlich ist. Verst&#246;&#223;e gegen die Schweigepflicht stellen einen schweren Versto&#223; gegen den Verhaltenskodex dar und werden entsprechend geahndet. Dokumentationen sind so aufzubewahren, dass ein unbefugter Zugriff ausgeschlossen ist.</p>
+<section class="chapter" id="haftung-und-verantwortlichkeit-2"><h2>Haftung und Verantwortlichkeit</h2>
+<p>Sanit&#228;ter handeln im Rahmen ihrer Ausbildung und der ihnen erteilten Befugnisse. Ma&#223;nahmen, die au&#223;erhalb dieses Rahmens liegen, insbesondere die eigenm&#228;chtige Anwendung nicht freigegebener Medikamente oder Verfahren, begr&#252;nden eine pers&#246;nliche Verantwortlichkeit des Handelnden. Die Verantwortung f&#252;r Entscheidungen am Einsatzort tr&#228;gt grunds&#228;tzlich die rangh&#246;chste anwesende, entsprechend qualifizierte Einsatzkraft. Im Zweifelsfall gilt der Grundsatz, dass keine Behandlung besser ist als eine falsche Behandlung au&#223;erhalb der eigenen Kompetenz; in solchen F&#228;llen ist R&#252;cksprache mit erfahrenerem Personal oder der Leitstelle zu halten, bevor weitere Ma&#223;nahmen ergriffen werden.</p>
+<section class="chapter" id="kapitel-1-grundlagen-der-medizin-2"><h2>Kapitel 1 - Grundlagen der Medizin</h2>
+<h3 id="1-1-was-ist-medizin-2">1.1 Was ist Medizin?</h3>
+<p>Medizin ist die Wissenschaft und Praxis der Erkennung, Behandlung und Vorbeugung von Krankheiten sowie der Erhaltung und Wiederherstellung der Gesundheit. Sie verbindet naturwissenschaftliche Grundlagen - insbesondere Biologie, Chemie und Physik - mit praktischem, am Patienten orientiertem Handeln. Innerhalb der Medizin unterscheidet man traditionell zwischen theoretischer Medizin, die sich mit Grundlagenwissenschaften wie Anatomie, Physiologie und Biochemie befasst, klinischer Medizin, die sich der Diagnostik und Therapie am Patienten widmet, und angewandter Medizin, zu der auch die Notfall- und Rettungsmedizin z&#228;hlt. F&#252;r den EHK-Dienst ist vor allem die notfallmedizinische Perspektive relevant: Es geht nicht um die abschlie&#223;ende Diagnose oder Heilung einer Erkrankung, sondern um die rasche Erkennung lebensbedrohlicher Zust&#228;nde, deren Stabilisierung und die sichere &#220;bergabe an die weiterbehandelnde Stelle. Dieses Prinzip wird h&#228;ufig mit dem Begriff der &quot;Load and Go&quot;-Philosophie umschrieben, die bei zeitkritischen Zust&#228;nden Vorrang vor einer vollst&#228;ndigen Diagnostik am Einsatzort hat.</p>
+<h3 id="1-2-geschichte-der-notfallmedizin-2">1.2 Geschichte der Notfallmedizin</h3>
+<p>Die Urspr&#252;nge der organisierten Notfallversorgung reichen bis in milit&#228;rische Kontexte zur&#252;ck, in denen Verwundete m&#246;glichst schnell vom Schlachtfeld geborgen und versorgt werden mussten. Historisch gilt die Einf&#252;hrung strukturierter Verwundetenbergung als fr&#252;her Vorl&#228;ufer moderner Rettungsketten: verletzte Personen wurden nach Dringlichkeit geordnet versorgt, ein Prinzip, das sich bis heute in der Triage wiederfindet. Im zivilen Bereich entwickelte sich die Notfallmedizin im Laufe des 20. Jahrhunderts parallel zur Zunahme des Stra&#223;enverkehrs und der damit verbundenen Verletzungsmuster. Die Erkenntnis, dass die ersten Minuten nach einem Unfall oder akuten Ereignis (&quot;goldene Stunde&quot;) ma&#223;geblich &#252;ber das &#220;berleben und die Folgesch&#228;den entscheiden, f&#252;hrte zum Aufbau fl&#228;chendeckender Rettungsdienststrukturen mit standardisierter Ausbildung, einheitlicher Ausr&#252;stung und klar geregelten Zust&#228;ndigkeiten.</p>
+<h3 id="1-3-entwicklung-des-rettungswesens-2">1.3 Entwicklung des Rettungswesens</h3>
+<p>Das moderne Rettungswesen hat sich von einem reinen Transportdienst zu einer eigenst&#228;ndigen medizinischen Disziplin entwickelt. W&#228;hrend fr&#252;her die Bef&#246;rderung des Patienten in ein Krankenhaus im Vordergrund stand, ist heute die aktive Behandlung bereits am Einsatzort - die sogenannte pr&#228;klinische Versorgung - integraler Bestandteil des Rettungsdienstes. Dies umfasst unter anderem die Sicherung der Vitalfunktionen, die Schmerzbehandlung, die Blutstillung sowie in bestimmten Systemen auch erweiterte Ma&#223;nahmen wie die Anlage ven&#246;ser Zug&#228;nge oder die Verabreichung von Medikamenten. Auch innerhalb des Einsatzgebiets hat sich die Darstellung des Rettungswesens &#252;ber die Zeit ver&#228;ndert: von einer stark vereinfachten Transportfunktion hin zu einem System, das eigene Diagnose- und Behandlungsschemata, ein abgestuftes Ausbildungssystem und klare &#220;bergaberegeln zur Klinik kennt - Gegenstand dieses Handbuchs.</p>
+<h3 id="1-4-medizinische-fachrichtungen-2">1.4 Medizinische Fachrichtungen</h3>
+<p>Die reale Medizin gliedert sich in zahlreiche Fachrichtungen, von denen f&#252;r das Verst&#228;ndnis der Notfallmedizin insbesondere folgende relevant sind: die Innere Medizin, die sich mit inneren Organen und internistischen Krankheitsbildern befasst, die Chirurgie, die operative Eingriffe und die Versorgung von Verletzungen umfasst, die An&#228;sthesiologie, zu deren Kernbereichen die Notfallmedizin traditionell z&#228;hlt, sowie die Neurologie, die sich mit Erkrankungen des Nervensystems auseinandersetzt. Notfallsanit&#228;ter und Rettungssanit&#228;ter bewegen sich an der Schnittstelle dieser Disziplinen: Sie m&#252;ssen internistische Notf&#228;lle wie Herzinfarkt oder Schlaganfall ebenso erkennen k&#246;nnen wie traumatologische Verletzungsmuster, ohne selbst Fach&#228;rzte einer dieser Disziplinen zu sein. Diese Breite an Grundlagenwissen bei gleichzeitig begrenzter Behandlungstiefe ist charakteristisch f&#252;r die pr&#228;klinische Notfallmedizin.</p>
+<h3 id="1-5-aufbau-des-gesundheitswesens-2">1.5 Aufbau des Gesundheitswesens</h3>
+<p>Das Gesundheitswesen l&#228;sst sich grob in ambulante Versorgung, station&#228;re Versorgung und Rettungsdienst gliedern. Die ambulante Versorgung &#252;bernimmt niedergelassene &#196;rzte, die station&#228;re Versorgung erfolgt in Krankenh&#228;usern unterschiedlicher Versorgungsstufen, und der Rettungsdienst bildet das verbindende Element zwischen dem Ort des Geschehens und der station&#228;ren Weiterbehandlung. Innerhalb des Einsatzgebiets wird dieses System in vereinfachter Form abgebildet: Der EHK-Dienst entspricht dem Rettungsdienst, das Krankenhaus der station&#228;ren Versorgung. Eine ambulante Versorgungsebene existiert in reduzierter Form; ihre Funktion wird teilweise durch die im Fahrzeug mitgef&#252;hrten dienstlich freigegebene Medikamente und einfache Behandlungsma&#223;nahmen am Einsatzort &#252;bernommen.</p>
+<h3 id="1-6-rolle-des-rettungsdienstes-2">1.6 Rolle des Rettungsdienstes</h3>
+<p>Der Rettungsdienst hat die Aufgabe, bei Notf&#228;llen jeder Art schnellstm&#246;glich fachgerechte Hilfe zu leisten, die Vitalfunktionen der Patienten zu sichern und einen sicheren Transport in die entsprechende Versorgungseinrichtung zu gew&#228;hrleisten. Er arbeitet dabei eng mit Polizei und Feuerwehr zusammen, insbesondere bei Eins&#228;tzen mit Gefahr f&#252;r die Einsatzkr&#228;fte oder bei Massenanf&#228;llen von Verletzten. Die Rolle des Rettungsdienstes im Einsatzgebiet folgt diesem Vorbild: Er stellt die medizinische Erstversorgung sicher, koordiniert sich mit anderen Beh&#246;rden &#252;ber die Leitstelle und trifft die Entscheidung &#252;ber Art und Dringlichkeit des Transports in die Klinik.</p>
+<h3 id="1-7-pr-klinische-versorgung-2">1.7 Pr&#228;klinische Versorgung</h3>
+<p>Unter pr&#228;klinischer Versorgung versteht man alle medizinischen Ma&#223;nahmen, die vor Erreichen einer Klinik durchgef&#252;hrt werden. Sie umfasst die Beurteilung der Einsatzstelle, die systematische Untersuchung des Patienten, lebensrettende Sofortma&#223;nahmen sowie die Vorbereitung des Transports. Ziel ist es, den Zustand des Patienten so zu stabilisieren, dass keine weitere Verschlechterung eintritt, bevor eine weiterf&#252;hrende Behandlung m&#246;glich ist. Zentrale Werkzeuge der pr&#228;klinischen Versorgung sind strukturierte Beurteilungsschemata wie das in Kapitel 6 behandelte ABCDE-Schema, das eine systematische Abarbeitung der wichtigsten Vitalfunktionen in der Reihenfolge ihrer Dringlichkeit erm&#246;glicht.</p>
+<h3 id="1-8-klinische-versorgung-2">1.8 Klinische Versorgung</h3>
+<p>Die klinische Versorgung schlie&#223;t an die pr&#228;klinische Phase an und umfasst die weiterf&#252;hrende Diagnostik und Therapie im Krankenhaus. F&#252;r den EHK-Dienst ist insbesondere die strukturierte &#220;bergabe an das Klinikpersonal von Bedeutung: Sie stellt sicher, dass alle relevanten pr&#228;klinisch erhobenen Informationen - Unfallmechanismus, Vitalparameter, durchgef&#252;hrte Ma&#223;nahmen - nicht verloren gehen. Eine unvollst&#228;ndige oder unstrukturierte &#220;bergabe kann dazu f&#252;hren, dass wichtige Informationen erst verz&#246;gert bekannt werden, was die weitere Behandlung erschwert. Aus diesem Grund wird in Kapitel 11 ein standardisiertes &#220;bergabeschema behandelt.</p>
+<h3 id="1-9-evidenzbasierte-medizin-2">1.9 Evidenzbasierte Medizin</h3>
+<p>Evidenzbasierte Medizin bezeichnet den Ansatz, medizinische Entscheidungen auf Grundlage bestm&#246;glicher verf&#252;gbarer wissenschaftlicher Erkenntnisse, klinischer Erfahrung und der individuellen Situation des Patienten zu treffen. Sie hat sich als Gegenmodell zu rein erfahrungsbasierten oder traditionsgeleiteten Behandlungsans&#228;tzen etabliert und pr&#228;gt seit Jahrzehnten die Entwicklung medizinischer Leitlinien. Auch wenn der EHK-Dienst im Einsatzgebiet eigene, vereinfachte Regelwerke verwendet, orientiert sich die Struktur dieses Handbuchs am Grundgedanken der evidenzbasierten Medizin: Handlungsanweisungen sollen nachvollziehbar begr&#252;ndet, konsistent und &#252;berpr&#252;fbar sein, statt auf reiner Willk&#252;r oder Einzelfallentscheidungen zu beruhen.</p>
+<h3 id="1-10-medizinische-leitlinien-2">1.10 Medizinische Leitlinien</h3>
+<p>Leitlinien sind systematisch entwickelte Empfehlungen, die &#196;rzten und weiterem medizinischem Personal helfen sollen, angemessene Entscheidungen in spezifischen klinischen Situationen zu treffen. Sie werden von Fachgesellschaften erarbeitet, regelm&#228;&#223;ig aktualisiert und nach dem Grad ihrer wissenschaftlichen Absicherung klassifiziert. Die in diesem Handbuch beschriebenen Standard Operating Procedures (Kapitel 14) &#252;bernehmen die Funktion von Leitlinien f&#252;r den EHK-Dienst: Sie geben ein einheitliches, verbindliches Vorgehen f&#252;r wiederkehrende Einsatzsituationen vor und schaffen damit Handlungssicherheit f&#252;r alle Einsatzkr&#195;&#164;fte, unabh&#228;ngig von deren individuellem Erfahrungsstand.</p>
+<section class="chapter" id="kapitel-2-anatomie-2"><h2>Kapitel 2 - Anatomie</h2>
+<p>Die Anatomie ist die Lehre vom Bau des menschlichen K&#246;rpers. Sie bildet die Grundlage jeder medizinischen T&#228;tigkeit, da sich Diagnostik, Behandlung und Kommunikation &#252;ber Verletzungen und Erkrankungen stets auf anatomische Strukturen und deren Lagebeziehungen zueinander beziehen. Dieses Kapitel f&#252;hrt die wichtigsten anatomischen Grundbegriffe sowie die f&#252;r den EHK-Dienst relevanten Organsysteme ein.</p>
+<h3 id="2-1-anatomische-lagebezeichnungen-2">2.1 Anatomische Lagebezeichnungen</h3>
+<p>Um Befunde eindeutig beschreiben zu k&#246;nnen, verwendet die Anatomie ein standardisiertes System von Lagebezeichnungen, die sich immer auf die anatomische Grundstellung beziehen: aufrechter Stand, Blick nach vorne, Arme seitlich am K&#246;rper mit nach vorne gerichteten Handfl&#228;chen. Wichtige Begriffe sind kranial (kopfw&#228;rts) und kaudal (fu&#223;w&#228;rts), ventral (bauchw&#228;rts, vorne) und dorsal (r&#252;ckenw&#228;rts, hinten), medial (zur K&#246;rpermitte hin) und lateral (von der K&#246;rpermitte weg), proximal (rumpfnah) und distal (rumpffern). Diese Begriffe erlauben es, Verletzungen und Befunde unabh&#228;ngig von der tats&#228;chlichen K&#246;rperhaltung des Patienten pr&#228;zise zu beschreiben, zum Beispiel eine Wunde am distalen Unterarm oder eine Schwellung am medialen Kn&#246;chel. F&#252;r die Dokumentation im EHK-Dienst ist die konsequente Verwendung dieser Begriffe Voraussetzung f&#252;r eine verst&#228;ndliche &#220;bergabe.</p>
+<h3 id="2-2-k-rperebenen-2">2.2 K&#246;rperebenen</h3>
+<p>Der K&#246;rper wird gedanklich durch drei senkrecht aufeinander stehende Ebenen unterteilt: die Sagittalebene, die den K&#246;rper in eine linke und rechte H&#228;lfte teilt, die Frontalebene (Koronalebene), die den K&#246;rper in eine vordere und hintere H&#228;lfte teilt, und die Transversalebene, die den K&#246;rper in eine obere und untere H&#228;lfte teilt. Die Medianebene ist die spezielle Sagittalebene genau in der K&#246;rpermitte, die den K&#246;rper symmetrisch teilt. Diese Ebenen werden vor allem in der Bildgebung verwendet, sind aber auch f&#252;r die Beschreibung von Bewegungen und Schnittf&#252;hrungen bei Verletzungen von Bedeutung, etwa zur Unterscheidung eines Quer- von einem L&#228;ngsschnitts einer Wunde.</p>
+<h3 id="2-3-k-rperachsen-2">2.3 K&#246;rperachsen</h3>
+<p>Erg&#228;nzend zu den Ebenen definiert man drei K&#246;rperachsen: die Longitudinalachse (L&#228;ngsachse, von kranial nach kaudal), die Sagittalachse (von ventral nach dorsal) und die Transversalachse (von links nach rechts). Bewegungen in Gelenken werden h&#228;ufig als Rotation um eine dieser Achsen beschrieben. F&#252;r den EHK-Dienst sind Achsen vor allem bei der Beurteilung von Gelenkverletzungen relevant, etwa wenn eine abnorme Beweglichkeit oder Fehlstellung entlang einer bestimmten Achse auf eine Fraktur oder Luxation hindeutet.</p>
+<h3 id="2-4-k-rperh-hlen-2">2.4 K&#246;rperh&#246;hlen</h3>
+<p>Der menschliche K&#246;rper enth&#228;lt mehrere gro&#223;e H&#246;hlen, die innere Organe sch&#252;tzend umschlie&#223;en: die Sch&#228;delh&#246;hle mit dem Gehirn, die Brusth&#246;hle (Thorax) mit Herz und Lunge, die Bauchh&#246;hle (Abdomen) mit Magen, Darm, Leber, Milz, Bauchspeicheldr&#252;se und Nieren, sowie die Beckenh&#246;hle mit Harnblase und inneren Geschlechtsorganen. Die Kenntnis der K&#246;rperh&#246;hlen ist f&#252;r die Einsch&#228;tzung stumpfer und penetrierender Verletzungen von zentraler Bedeutung: Eine Verletzung im Bereich des unteren Thorax kann sowohl Lungen- als auch Bauchorgane betreffen, da sich Brust- und Bauchh&#246;hle je nach Atemphase &#252;berlappen k&#246;nnen, was bei der Einsch&#228;tzung von Stich- und Schussverletzungen zu ber&#252;cksichtigen ist.</p>
+<h3 id="2-5-organsysteme-2">2.5 Organsysteme</h3>
+<p>Der K&#246;rper gliedert sich in mehrere Organsysteme, die jeweils spezifische Funktionen erf&#252;llen und eng zusammenwirken: das Herz-Kreislauf-System, das Atmungssystem, das Verdauungssystem, das Harnsystem, das Nervensystem, das Muskel-Skelett-System, das Hautsystem und das Lymph- beziehungsweise Immunsystem. Die folgenden Abschnitte behandeln die f&#252;r den Rettungsdienst wichtigsten Organe dieser Systeme im Einzelnen.</p>
+<h3 id="2-6-knochen-2">2.6 Knochen</h3>
+<p>Das menschliche Skelett besteht aus &#252;ber 200 Knochen, die dem K&#246;rper Stabilit&#228;t geben, innere Organe sch&#252;tzen, als Ansatzpunkte f&#252;r Muskeln dienen und &#252;ber das Knochenmark an der Blutbildung beteiligt sind. Man unterscheidet lange R&#246;hrenknochen (etwa Oberschenkel- und Oberarmknochen), kurze Knochen (etwa Hand- und Fu&#223;wurzelknochen), platte Knochen (etwa Sch&#228;del- und Beckenknochen) sowie unregelm&#228;&#223;ig geformte Knochen (etwa Wirbelk&#246;rper). F&#252;r die pr&#228;klinische Versorgung ist die Unterscheidung zwischen stabilen und instabilen Frakturen sowie zwischen geschlossenen und offenen Br&#252;chen entscheidend, da sich hieraus unterschiedliche Behandlungspriorit&#228;ten ergeben, insbesondere hinsichtlich der Blutungskontrolle bei offenen Frakturen.</p>
+<h3 id="2-7-gelenke-2">2.7 Gelenke</h3>
+<p>Gelenke verbinden zwei oder mehr Knochen miteinander und erm&#246;glichen Bewegung. Man unterscheidet echte Gelenke mit Gelenkspalt, Gelenkknorpel und Gelenkkapsel von unechten Gelenken, bei denen die Knochen durch Bindegewebe, Knorpel oder Knochen fest miteinander verbunden sind. Nach ihrer Form und dem Bewegungsausma&#223; unterscheidet man unter anderem Kugelgelenke (Schultergelenk), Scharniergelenke (Ellenbogengelenk) und Sattelgelenke (Daumensattelgelenk). Verletzungen von Gelenken reichen von der Distorsion (Verstauchung) &#252;ber die Subluxation bis zur vollst&#228;ndigen Luxation (Ausrenkung). Die Beurteilung von Schwellung, Fehlstellung und Bewegungseinschr&#228;nkung erlaubt am Einsatzort eine erste Einsch&#228;tzung des Verletzungsausma&#223;es, auch ohne bildgebende Diagnostik.</p>
+<h3 id="2-8-muskulatur-2">2.8 Muskulatur</h3>
+<p>Die Skelettmuskulatur erm&#246;glicht willk&#252;rliche Bewegungen und ist &#252;ber Sehnen an Knochen verankert. Sie besteht aus quergestreiften Muskelfasern, die sich unter Nervenreiz kontrahieren. Neben der Skelettmuskulatur existieren die glatte Muskulatur, die unter anderem in den W&#228;nden von Hohlorganen wie Darm und Blutgef&#228;&#223;en vorkommt, sowie die Herzmuskulatur, die eine Sonderform mit eigenst&#228;ndiger elektrischer Erregungsbildung darstellt. Muskelverletzungen reichen von der Zerrung &#252;ber den Muskelfaserriss bis zum vollst&#228;ndigen Muskelriss und &#228;u&#223;ern sich typischerweise durch Schmerz, Schwellung und Funktionseinschr&#228;nkung. Massive Muskelverletzungen, etwa bei Quetschungen, k&#246;nnen zudem zu relevantem Blutverlust in das umliegende Gewebe f&#252;hren.</p>
+<h3 id="2-9-haut-2">2.9 Haut</h3>
+<p>Die Haut ist das gr&#246;&#223;te Organ des menschlichen K&#246;rpers und erf&#252;llt zentrale Schutzfunktionen: Sie bildet eine Barriere gegen Krankheitserreger, reguliert die K&#246;rpertemperatur, ist am Fl&#252;ssigkeitshaushalt beteiligt und enth&#228;lt Sinnesrezeptoren f&#252;r Ber&#252;hrung, Druck, Temperatur und Schmerz. Sie gliedert sich in drei Schichten: Oberhaut (Epidermis), Lederhaut (Dermis) und Unterhaut (Subkutis). F&#252;r die Notfallversorgung ist die Haut vor allem im Zusammenhang mit Verbrennungen, Wunden und der Beurteilung von Kreislaufzeichen relevant: Hautfarbe, Hauttemperatur und Rekapillarisierungszeit liefern wichtige Hinweise auf die periphere Durchblutung und damit auf den Kreislaufzustand des Patienten.</p>
+<h3 id="2-10-blutgef-e-2">2.10 Blutgef&#228;&#223;e</h3>
+<p>Das Gef&#228;&#223;system transportiert Blut durch den gesamten K&#246;rper und gliedert sich in Arterien, die Blut vom Herzen wegf&#252;hren, Venen, die Blut zum Herzen zur&#252;ckf&#252;hren, und Kapillaren, in denen der Stoffaustausch zwischen Blut und Gewebe stattfindet. Arterien besitzen aufgrund des hohen Drucks eine dicke, muskul&#246;se Wand, w&#228;hrend Venen d&#252;nnwandiger sind und &#252;ber Venenklappen den R&#252;ckfluss des Blutes unterst&#252;tzen. Verletzungen gro&#223;er Arterien f&#252;hren aufgrund des hohen Drucks zu schnellem, oft pulsierendem Blutverlust und stellen einen der zeitkritischsten Notf&#228;lle in der pr&#228;klinischen Versorgung dar, w&#228;hrend ven&#246;se Blutungen in der Regel langsamer, aber dennoch relevant verlaufen k&#246;nnen.</p>
+<h3 id="2-11-herz-2">2.11 Herz</h3>
+<p>Das Herz ist ein muskul&#228;res Hohlorgan, das als Pumpe den Blutkreislauf aufrechterh&#228;lt. Es besteht aus vier Kammern - rechtem und linkem Vorhof sowie rechter und linker Kammer - die durch Herzklappen voneinander und von den abgehenden Gef&#228;&#223;en getrennt sind. Die rechte Herzh&#228;lfte pumpt sauerstoffarmes Blut in den Lungenkreislauf, die linke Herzh&#228;lfte sauerstoffreiches Blut in den K&#246;rperkreislauf. Das Herz besitzt ein eigenes Erregungsbildungs- und Erregungsleitungssystem, das eine rhythmische Kontraktion unabh&#228;ngig von bewusster Steuerung erm&#246;glicht. St&#246;rungen dieses Systems k&#246;nnen zu lebensbedrohlichen Rhythmusst&#246;rungen bis hin zum Kreislaufstillstand f&#252;hren, worauf in Kapitel 5 und den zugeh&#246;rigen SOPs n&#228;her eingegangen wird.</p>
+<h3 id="2-12-lunge-2">2.12 Lunge</h3>
+<p>Die Lunge ist das zentrale Organ des Gasaustauschs. Sie gliedert sich in den rechten Lungenfl&#252;gel mit drei Lappen und den linken Lungenfl&#252;gel mit zwei Lappen. &#220;ber die Atemwege gelangt Luft bis in die Lungenbl&#228;schen (Alveolen), wo Sauerstoff ins Blut aufgenommen und Kohlendioxid abgegeben wird. Verletzungen der Lunge, etwa durch penetrierende Thoraxtraumata, k&#246;nnen zu einem Pneumothorax (Luft im Pleuraspalt) oder H&#228;matothorax (Blut im Pleuraspalt) f&#252;hren, die beide die Atemfunktion erheblich beeintr&#228;chtigen und in der Patientenbeurteilung nach dem ABCDE-Schema besondere Aufmerksamkeit erfordern.</p>
+<h3 id="2-13-leber-2">2.13 Leber</h3>
+<p>Die Leber ist die gr&#246;&#223;te Dr&#252;se des K&#246;rpers und liegt im rechten Oberbauch. Sie &#252;bernimmt zentrale Aufgaben im Stoffwechsel, darunter den Abbau von Giftstoffen und Medikamenten, die Produktion von Gerinnungsfaktoren und die Speicherung von N&#228;hrstoffen. Aufgrund ihrer starken Durchblutung kann eine Verletzung der Leber zu erheblichem inneren Blutverlust f&#252;hren. Stumpfe Bauchtraumata, etwa bei Verkehrsunf&#228;llen oder St&#252;rzen, betreffen h&#228;ufig die Leber, ohne dass &#228;u&#223;erlich sichtbare Verletzungszeichen vorliegen m&#252;ssen. Eine sorgf&#228;ltige Anamnese des Unfallmechanismus ist daher entscheidend, um eine m&#246;gliche innere Blutung fr&#252;hzeitig in Betracht zu ziehen.</p>
+<h3 id="2-14-milz-2">2.14 Milz</h3>
+<p>Die Milz liegt im linken Oberbauch und ist unter anderem an der Immunabwehr sowie am Abbau alter roter Blutk&#246;rperchen beteiligt. Sie z&#228;hlt aufgrund ihrer weichen Struktur und guten Durchblutung zu den am h&#228;ufigsten verletzten Organen bei stumpfen Bauchtraumata, insbesondere bei St&#252;rzen und Anprallverletzungen im Bereich der linken Flanke. Eine Milzverletzung kann zu schnellem, teils verz&#246;gert einsetzendem inneren Blutverlust f&#252;hren. Hinweise k&#246;nnen ein Druckschmerz im linken Oberbauch, eine Abwehrspannung oder Zeichen eines beginnenden Schocks sein, ohne dass &#228;u&#223;ere Verletzungsspuren vorhanden sein m&#252;ssen.</p>
+<h3 id="2-15-magen-2">2.15 Magen</h3>
+<p>Der Magen ist ein muskul&#228;res Hohlorgan, das der Speicherung und Vorverdauung der Nahrung dient. Durch die Produktion von Magens&#228;ure und Verdauungsenzymen wird die Nahrung mechanisch und chemisch aufbereitet, bevor sie in den D&#252;nndarm weitergeleitet wird. Im Rettungsdienst ist der Magen vor allem im Zusammenhang mit Erbrechen und der damit verbundenen Aspirationsgefahr relevant: Bewusstlose Patienten mit erhaltener Spontanatmung werden daher grunds&#228;tzlich in eine stabile Seitenlage gebracht, um ein Verschlucken von Erbrochenem zu verhindern.</p>
+<h3 id="2-16-darm-2">2.16 Darm</h3>
+<p>Der Darm gliedert sich in D&#252;nndarm und Dickdarm und ist f&#252;r die Aufnahme von N&#228;hrstoffen und Wasser sowie die Eindickung und Ausscheidung unverdaulicher Nahrungsbestandteile zust&#228;ndig. Aufgrund seiner L&#228;nge und Lage f&#252;llt der Darm einen Gro&#223;teil der Bauchh&#246;hle aus, was ihn bei penetrierenden Bauchverletzungen zu einem h&#228;ufig betroffenen Organ macht. Darmverletzungen bergen neben dem Blutungsrisiko auch die Gefahr einer Bauchfellentz&#252;ndung (Peritonitis), da Darminhalt in die Bauchh&#246;hle austreten kann. Symptome wie zunehmende Bauchschmerzen und eine bretthart gespannte Bauchdecke sind ernst zu nehmende Warnzeichen.</p>
+<h3 id="2-17-bauchspeicheldr-se-2">2.17 Bauchspeicheldr&#252;se</h3>
+<p>Die Bauchspeicheldr&#252;se (Pankreas) liegt im Oberbauch hinter dem Magen und erf&#252;llt zwei Hauptfunktionen: die Produktion von Verdauungsenzymen f&#252;r den D&#252;nndarm sowie die Produktion der Hormone Insulin und Glukagon zur Regulation des Blutzuckerspiegels. Aufgrund ihrer gesch&#252;tzten Lage ist sie bei Traumata seltener betroffen als Leber oder Milz, Verletzungen k&#246;nnen jedoch schwerwiegende Folgen wie eine Bauchspeicheldr&#252;senentz&#252;ndung nach sich ziehen.</p>
+<h3 id="2-18-nieren-2">2.18 Nieren</h3>
+<p>Die beiden Nieren liegen beidseits der Wirbels&#228;ule im hinteren Oberbauch und sind zentrale Organe der Ausscheidung: Sie filtern Stoffwechselendprodukte und &#252;bersch&#252;ssige Fl&#252;ssigkeit aus dem Blut und regulieren den Wasser- und Elektrolythaushalt sowie den Blutdruck &#252;ber hormonelle Mechanismen. Aufgrund ihrer starken Durchblutung k&#246;nnen Nierenverletzungen, etwa durch stumpfe Gewalteinwirkung auf die Flanke, zu erheblichem Blutverlust f&#252;hren. Ein sichtbares Zeichen kann Blut im Urin sein, das jedoch pr&#228;klinisch nicht immer zuverl&#228;ssig festgestellt werden kann.</p>
+<h3 id="2-19-harnblase-2">2.19 Harnblase</h3>
+<p>Die Harnblase speichert den von den Nieren produzierten Urin bis zur Ausscheidung. Sie liegt im kleinen Becken und ist bei gef&#252;llter Blase besonders anf&#228;llig f&#252;r Verletzungen im Rahmen stumpfer Beckentraumata, etwa bei Verkehrsunf&#228;llen. Beckenfrakturen k&#246;nnen neben der Harnblase auch gro&#223;e Blutgef&#228;&#223;e im Becken verletzen und zu massivem, pr&#228;klinisch schwer kontrollierbarem Blutverlust f&#252;hren, weshalb der Verdacht auf eine Beckenfraktur ein besonders vorsichtiges Vorgehen bei der Untersuchung erfordert.</p>
+<h3 id="2-20-gehirn-2">2.20 Gehirn</h3>
+<p>Das Gehirn ist das zentrale Steuerorgan des Nervensystems und liegt gesch&#252;tzt in der Sch&#228;delh&#246;hle. Es gliedert sich unter anderem in Gro&#223;hirn, Kleinhirn und Hirnstamm, wobei der Hirnstamm lebenswichtige Funktionen wie Atmung und Kreislaufregulation steuert. Das Gehirn ist auf eine konstante Sauerstoff- und Glukoseversorgung angewiesen und toleriert bereits kurze Unterbrechungen der Durchblutung nur schlecht. Sch&#228;del-Hirn-Traumata reichen von der leichten Gehirnersch&#252;tterung bis zu schweren Hirnverletzungen mit Bewusstlosigkeit und neurologischen Ausf&#228;llen. Die Glasgow-Coma-Scale (Kapitel 6.7) dient der standardisierten Einsch&#228;tzung der Bewusstseinslage bei Verdacht auf ein Sch&#228;del-Hirn-Trauma.</p>
+<h3 id="2-21-r-ckenmark-2">2.21 R&#252;ckenmark</h3>
+<p>Das R&#252;ckenmark verl&#228;uft gesch&#252;tzt im Wirbelkanal und leitet Nervenimpulse zwischen Gehirn und K&#246;rper weiter. Es ist zudem Sitz zahlreicher Reflexb&#246;gen. Eine Verletzung des R&#252;ckenmarks kann je nach H&#246;he und Ausma&#223; zu teilweisen oder vollst&#228;ndigen L&#228;hmungen unterhalb der Verletzungsstelle f&#252;hren. Bei Verdacht auf eine Wirbels&#228;ulenverletzung, etwa nach St&#252;rzen aus gro&#223;er H&#246;he oder Hochrasanztraumata, ist eine achsengerechte Lagerung und Immobilisation des Patienten von zentraler Bedeutung, um eine Verschlimmerung einer m&#246;glichen R&#252;ckenmarksverletzung zu vermeiden.</p>
+<h3 id="2-22-lymphsystem-2">2.22 Lymphsystem</h3>
+<p>Das Lymphsystem umfasst ein Netzwerk aus Lymphgef&#228;&#223;en, Lymphknoten sowie lymphatischen Organen wie Milz und Thymus. Es ist zentral an der Immunabwehr beteiligt und transportiert Gewebefl&#252;ssigkeit (Lymphe) zur&#252;ck in den ven&#246;sen Blutkreislauf. F&#252;r die Notfallmedizin ist das Lymphsystem vor allem im Zusammenhang mit allergischen Reaktionen relevant, bei denen es zu einer &#252;berschie&#223;enden Immunantwort mit Freisetzung von Entz&#252;ndungsmediatoren kommen kann, was in schweren F&#228;llen zu einem anaphylaktischen Schock f&#252;hren kann (siehe Kapitel 5).</p>
+<section class="chapter" id="kapitel-3-histologie-2"><h2>Kapitel 3 - Histologie</h2>
+<p>Die Histologie ist die Lehre von den Geweben des K&#246;rpers, also der mikroskopischen Ebene zwischen einzelnen Zellen und ganzen Organen. Ein grundlegendes Verst&#228;ndnis der Gewebearten hilft dabei, Verletzungsmuster und Heilungsprozesse besser einzuordnen, auch wenn der EHK-Dienst selbst keine mikroskopische Diagnostik durchf&#252;hrt.</p>
+<h3 id="3-1-zellaufbau-2">3.1 Zellaufbau</h3>
+<p>Die Zelle ist die kleinste strukturelle und funktionelle Einheit des K&#246;rpers. Sie besteht aus einer Zellmembran, die den Zellinhalt umschlie&#223;t, dem Zytoplasma, in dem die Zellorganellen eingebettet sind, und in den meisten Zellen einem Zellkern, der das Erbgut enth&#228;lt. Jede Zelle erf&#252;llt spezifische Aufgaben, die auf die Funktion des jeweiligen Gewebes abgestimmt sind.</p>
+<h3 id="3-2-zellmembran-2">3.2 Zellmembran</h3>
+<p>Die Zellmembran besteht aus einer Doppelschicht von Lipidmolek&#252;len, in die zahlreiche Proteine eingelagert sind. Sie reguliert, welche Stoffe in die Zelle hinein- oder aus ihr herausgelangen k&#246;nnen, und ist damit ma&#223;geblich am Stoffaustausch sowie an der Signal&#252;bertragung zwischen Zellen beteiligt.</p>
+<h3 id="3-3-organellen-2">3.3 Organellen</h3>
+<p>Innerhalb der Zelle befinden sich verschiedene Organellen mit spezialisierten Aufgaben: Mitochondrien erzeugen den Gro&#223;teil der zellul&#228;ren Energie in Form von ATP, das endoplasmatische Retikulum ist an der Protein- und Lipidsynthese beteiligt, der Golgi-Apparat verpackt und transportiert Proteine, und Lysosomen bauen zellul&#228;re Abfallstoffe ab.</p>
+<h3 id="3-4-dna-2">3.4 DNA</h3>
+<p>Die DNA (Desoxyribonukleins&#228;ure) ist der Tr&#228;ger der genetischen Information und liegt im Zellkern in Form von Chromosomen vor. Sie enth&#228;lt die Bauanleitung f&#252;r s&#228;mtliche Proteine des K&#246;rpers und wird bei jeder Zellteilung verdoppelt, um an die Tochterzellen weitergegeben zu werden.</p>
+<h3 id="3-5-rna-2">3.5 RNA</h3>
+<p>Die RNA (Ribonukleins&#228;ure) &#252;bernimmt verschiedene Aufgaben bei der Umsetzung der genetischen Information in Proteine. Die Boten-RNA (mRNA) &#252;bertr&#228;gt die genetische Information vom Zellkern zu den Ribosomen, wo anhand dieser Information Proteine synthetisiert werden.</p>
+<h3 id="3-6-zellteilung-2">3.6 Zellteilung</h3>
+<p>Die Zellteilung erm&#246;glicht Wachstum, Regeneration und die Erneuerung abgestorbener Zellen. Die Mitose f&#252;hrt zur Bildung zweier genetisch identischer Tochterzellen und ist die Grundlage der Wundheilung, bei der gesch&#228;digtes Gewebe durch neu gebildete Zellen ersetzt wird.</p>
+<h3 id="3-7-muskelgewebe-2">3.7 Muskelgewebe</h3>
+<p>Muskelgewebe zeichnet sich durch seine Kontraktionsf&#228;higkeit aus und wird in drei Typen unterteilt: quergestreifte Skelettmuskulatur, glatte Muskulatur der inneren Organe und Gef&#228;&#223;e sowie Herzmuskelgewebe. Bei Verletzungen des Muskelgewebes kommt es je nach Ausma&#223; zu Einblutungen, Funktionsverlust und Schmerzen.</p>
+<h3 id="3-8-nervengewebe-2">3.8 Nervengewebe</h3>
+<p>Nervengewebe besteht aus Nervenzellen (Neuronen), die elektrische Signale weiterleiten, sowie Gliazellen, die Nervenzellen strukturell und funktionell unterst&#252;tzen. Nervengewebe besitzt nur eine sehr begrenzte Regenerationsf&#228;higkeit, weshalb Verletzungen des zentralen Nervensystems h&#228;ufig bleibende Sch&#228;den verursachen.</p>
+<h3 id="3-9-bindegewebe-2">3.9 Bindegewebe</h3>
+<p>Bindegewebe verbindet, st&#252;tzt und sch&#252;tzt andere Gewebearten und -organe. Zu ihm z&#228;hlen unter anderem lockeres und straffes Bindegewebe, Fettgewebe, Knorpelgewebe und Knochengewebe. Sehnen und B&#228;nder, die aus straffem Bindegewebe bestehen, spielen bei Gelenkverletzungen eine zentrale Rolle.</p>
+<h3 id="3-10-epithelgewebe-2">3.10 Epithelgewebe</h3>
+<p>Epithelgewebe bedeckt &#228;u&#223;ere und innere Oberfl&#228;chen des K&#246;rpers, etwa die Haut sowie die Schleimh&#228;ute von Atemwegen und Verdauungstrakt. Es dient dem Schutz vor mechanischen Einfl&#252;ssen und Krankheitserregern und besitzt in vielen Bereichen eine hohe Regenerationsf&#228;higkeit, wie sich an der vergleichsweise schnellen Heilung oberfl&#228;chlicher Hautwunden zeigt.</p>
+<section class="chapter" id="kapitel-4-physiologie-2"><h2>Kapitel 4 - Physiologie</h2>
+<p>Die Physiologie beschreibt die normalen Funktionsabl&#228;ufe des K&#246;rpers. W&#228;hrend die Anatomie den Bau der Organe beschreibt, erkl&#228;rt die Physiologie, wie diese Organe zusammenwirken, um lebensnotwendige Prozesse aufrechtzuerhalten. F&#252;r den EHK-Dienst ist physiologisches Grundwissen die Voraussetzung, um pathologische Abweichungen - etwa einen erh&#246;hten Puls oder eine ver&#228;nderte Atemfrequenz - &#252;berhaupt als solche zu erkennen.</p>
+<h3 id="4-1-hom-ostase-2">4.1 Hom&#246;ostase</h3>
+<p>Hom&#246;ostase bezeichnet die F&#228;higkeit des K&#246;rpers, innere Bedingungen wie Temperatur, pH-Wert, Blutzucker und Elektrolytkonzentrationen innerhalb enger Grenzen konstant zu halten, unabh&#228;ngig von &#228;u&#223;eren Einfl&#252;ssen. Dies geschieht &#252;ber Regelkreise, die Abweichungen erkennen und durch Gegenma&#223;nahmen ausgleichen. Viele Notfallsituationen lassen sich als Zusammenbruch der Hom&#246;ostase verstehen: Ein Schockzustand etwa beschreibt das Versagen des Kreislaufsystems, eine ausreichende Durchblutung und damit Sauerstoffversorgung der Organe aufrechtzuerhalten.</p>
+<h3 id="4-2-stoffwechsel-2">4.2 Stoffwechsel</h3>
+<p>Der Stoffwechsel (Metabolismus) umfasst alle chemischen Prozesse, mit denen der K&#246;rper N&#228;hrstoffe in Energie und k&#246;rpereigene Substanzen umwandelt. Man unterscheidet den Katabolismus, bei dem gr&#246;&#223;ere Molek&#252;le abgebaut und Energie freigesetzt wird, vom Anabolismus, bei dem aus kleineren Bausteinen k&#246;rpereigene Strukturen aufgebaut werden.</p>
+<h3 id="4-3-zellatmung-2">4.3 Zellatmung</h3>
+<p>Die Zellatmung ist der Prozess, mit dem Zellen aus N&#228;hrstoffen und Sauerstoff Energie in Form von ATP gewinnen. Sie findet gr&#246;&#223;tenteils in den Mitochondrien statt. Ohne ausreichende Sauerstoffzufuhr muss die Zelle auf ineffizientere, anaerobe Stoffwechselwege ausweichen, was unter anderem zur Bildung von Laktat f&#252;hrt.</p>
+<h3 id="4-4-atp-2">4.4 ATP</h3>
+<p>Adenosintriphosphat (ATP) ist die universelle Energiew&#228;hrung der Zelle. Nahezu alle energieverbrauchenden Prozesse - von der Muskelkontraktion &#252;ber die Aufrechterhaltung von Membranpotentialen bis zur Proteinsynthese - sind auf ATP als unmittelbare Energiequelle angewiesen.</p>
+<h3 id="4-5-blutkreislauf-2">4.5 Blutkreislauf</h3>
+<p>Der Blutkreislauf gliedert sich in den K&#246;rperkreislauf, der sauerstoffreiches Blut vom Herzen zu den Organen und sauerstoffarmes Blut zur&#252;ck zum Herzen transportiert, und den Lungenkreislauf, der Blut zur Sauerstoffaufnahme durch die Lunge leitet. Beide Kreisl&#228;ufe sind hintereinandergeschaltet und werden vom Herzen als zentraler Pumpe angetrieben.</p>
+<h3 id="4-6-herzzeitvolumen-2">4.6 Herzzeitvolumen</h3>
+<p>Das Herzzeitvolumen beschreibt die pro Minute vom Herzen ausgeworfene Blutmenge und ergibt sich aus dem Produkt von Herzfrequenz und Schlagvolumen. Es ist ein zentraler Parameter zur Beurteilung der Kreislaufleistung: Bei Blutverlust versucht der K&#246;rper zun&#228;chst, das Herzzeitvolumen durch eine Erh&#246;hung der Herzfrequenz aufrechtzuerhalten, bevor der Blutdruck abf&#228;llt.</p>
+<h3 id="4-7-blutdruck-2">4.7 Blutdruck</h3>
+<p>Der Blutdruck beschreibt den Druck, den das Blut auf die Gef&#228;&#223;w&#228;nde aus&#252;bt, und wird als systolischer (w&#228;hrend der Herzkontraktion) und diastolischer Wert (w&#228;hrend der Erschlaffungsphase) angegeben. Er wird durch Herzzeitvolumen und Gef&#228;&#223;widerstand bestimmt und ist einer der wichtigsten Vitalparameter in der Notfallmedizin. Ein Blutdruckabfall ist h&#228;ufig ein sp&#228;tes Zeichen einer Kreislaufinstabilit&#228;t, da der K&#246;rper &#252;ber Kompensationsmechanismen zun&#228;chst versucht, den Blutdruck trotz Volumenmangel aufrechtzuerhalten. Ein niedriger Blutdruck sollte daher stets als ernstzunehmendes Warnzeichen gewertet werden.</p>
+<h3 id="4-8-sauerstofftransport-2">4.8 Sauerstofftransport</h3>
+<p>Sauerstoff wird im Blut &#252;berwiegend gebunden an H&#228;moglobin in den roten Blutk&#246;rperchen transportiert. Die Sauerstoffs&#228;ttigung gibt an, wie viel Prozent des H&#228;moglobins mit Sauerstoff beladen ist, und wird im Rettungsdienst mittels Pulsoxymeter gemessen.</p>
+<h3 id="4-9-co2-transport-2">4.9 CO2-Transport</h3>
+<p>Kohlendioxid entsteht als Abfallprodukt der Zellatmung und wird auf mehreren Wegen zur Lunge zur&#252;cktransportiert: gel&#246;st im Blutplasma, gebunden an H&#228;moglobin und - zum gr&#246;&#223;ten Teil - in Form von Bikarbonat. Der CO2-Gehalt des Blutes beeinflusst ma&#223;geblich den Atemantrieb und den S&#228;ure-Basen-Haushalt.</p>
+<h3 id="4-10-atmung-2">4.10 Atmung</h3>
+<p>Die Atmung dient dem Gasaustausch zwischen K&#246;rper und Umwelt: Sauerstoffaufnahme und Kohlendioxidabgabe. Sie gliedert sich in die &#228;u&#223;ere Atmung, den Gasaustausch in der Lunge, und die innere Atmung, die Zellatmung im Gewebe. Atemfrequenz und Atemtiefe werden &#252;ber Atemzentren im Hirnstamm reguliert, die vor allem auf den CO2-Gehalt des Blutes reagieren.</p>
+<h3 id="4-11-diffusion-2">4.11 Diffusion</h3>
+<p>Diffusion beschreibt die Bewegung von Molek&#252;len von einem Ort hoher zu einem Ort niedrigerer Konzentration. Sie ist das grundlegende physikalische Prinzip, nach dem der Gasaustausch in der Lunge sowie zwischen Kapillaren und Gewebe abl&#228;uft, ohne dass hierf&#252;r aktive Energie aufgewendet werden muss.</p>
+<h3 id="4-12-osmose-2">4.12 Osmose</h3>
+<p>Osmose ist die Bewegung von Wasser durch eine halbdurchl&#228;ssige Membran entlang eines Konzentrationsgef&#228;lles gel&#246;ster Teilchen. Sie spielt eine zentrale Rolle bei der Regulation des Fl&#252;ssigkeitshaushalts zwischen Blut, Zellzwischenraum und Zellinnerem und ist relevant f&#252;r das Verst&#228;ndnis von Fl&#252;ssigkeitsverschiebungen etwa im Rahmen eines Schocks.</p>
+<h3 id="4-13-s-ure-basen-haushalt-2">4.13 S&#228;ure-Basen-Haushalt</h3>
+<p>Der S&#228;ure-Basen-Haushalt beschreibt die Regulation des pH-Werts im Blut, der in einem sehr engen Bereich konstant gehalten werden muss, damit Enzyme und Zellfunktionen normal ablaufen k&#246;nnen. Lunge und Nieren sind die zentralen Organe zur Regulation des S&#228;ure-Basen-Haushalts, indem sie CO2 beziehungsweise S&#228;uren und Basen ausscheiden.</p>
+<h3 id="4-14-elektrolyte-2">4.14 Elektrolyte</h3>
+<p>Elektrolyte sind im K&#246;rperwasser gel&#246;ste Ionen wie Natrium, Kalium, Calcium und Chlorid, die f&#252;r zahlreiche K&#246;rperfunktionen essenziell sind, darunter die elektrische Erregung von Nerven- und Muskelzellen. St&#246;rungen des Elektrolythaushalts, insbesondere des Kaliumspiegels, k&#246;nnen schwerwiegende Herzrhythmusst&#246;rungen verursachen.</p>
+<h3 id="4-15-temperaturregulation-2">4.15 Temperaturregulation</h3>
+<p>Die Temperaturregulation h&#228;lt die K&#246;rperkerntemperatur trotz wechselnder Umgebungsbedingungen konstant. Zentrale Steuerstelle ist der Hypothalamus, der &#252;ber Mechanismen wie Schwitzen, Zittern und Ver&#228;nderung der Hautdurchblutung die W&#228;rmeabgabe beziehungsweise W&#228;rmeproduktion anpasst. Sowohl Unterk&#252;hlung als auch &#220;berhitzung stellen relevante Notfallbilder dar, die im Rahmen der Patientenbeurteilung erkannt werden m&#252;ssen.</p>
+<section class="chapter" id="kapitel-5-pathophysiologie-2"><h2>Kapitel 5 - Pathophysiologie</h2>
+<p>Die Pathophysiologie beschreibt, wie sich normale K&#246;rperfunktionen im Krankheits- oder Verletzungsfall ver&#228;ndern. Sie bildet die Br&#252;cke zwischen der reinen Grundlagenwissenschaft und dem klinischen Erkennen von Notfallbildern und ist damit f&#252;r die Patientenbeurteilung im EHK-Dienst von zentraler praktischer Bedeutung.</p>
+<h3 id="5-1-schock-2">5.1 Schock</h3>
+<p>Als Schock bezeichnet man ein Missverh&#228;ltnis zwischen Sauerstoffbedarf und Sauerstoffangebot der K&#246;rperzellen, das unbehandelt zu Organversagen und Tod f&#252;hren kann. Man unterscheidet unter anderem den hypovol&#228;mischen Schock durch Volumenmangel, den kardiogenen Schock durch Pumpversagen des Herzens, den anaphylaktischen Schock im Rahmen schwerer allergischer Reaktionen sowie den septischen Schock im Rahmen einer schweren Infektion. Allen Schockformen gemeinsam sind typische klinische Zeichen wie Tachykardie, blasse und kaltschwei&#223;ige Haut, verl&#228;ngerte Rekapillarisierungszeit und im fortgeschrittenen Stadium ein Blutdruckabfall sowie eine Bewusstseinstr&#252;bung. Die fr&#252;hzeitige Erkennung eines Schockzustands ist eine der wichtigsten Aufgaben der pr&#228;klinischen Patientenbeurteilung.</p>
+<h3 id="5-2-hypovol-mie-2">5.2 Hypovol&#228;mie</h3>
+<p>Hypovol&#228;mie bezeichnet einen verminderten zirkulierenden Blutvolumenanteil, meist infolge von Blutverlust, kann aber auch durch starken Fl&#252;ssigkeitsverlust etwa bei Erbrechen oder Durchfall entstehen. Der K&#246;rper kompensiert eine Hypovol&#228;mie zun&#228;chst durch Engstellung peripherer Gef&#228;&#223;e und Erh&#246;hung der Herzfrequenz, bevor der Blutdruck sichtbar abf&#228;llt.</p>
+<h3 id="5-3-hypoxie-2">5.3 Hypoxie</h3>
+<p>Hypoxie beschreibt eine unzureichende Sauerstoffversorgung des Gewebes. Sie kann durch eine gest&#246;rte Atmung, eine gest&#246;rte Sauerstoffaufnahme in der Lunge, eine unzureichende Kreislaufleistung oder eine gest&#246;rte Sauerstoffverwertung in der Zelle entstehen. Besonders empfindlich auf Hypoxie reagiert das Gehirn, das bereits nach wenigen Minuten irreversible Sch&#228;den erleiden kann.</p>
+<h3 id="5-4-isch-mie-2">5.4 Isch&#228;mie</h3>
+<p>Isch&#228;mie bezeichnet eine unzureichende Durchblutung eines Gewebes oder Organs, etwa durch ein verschlossenes Gef&#228;&#223;. Sie f&#252;hrt lokal zu einer Sauerstoff- und N&#228;hrstoffunterversorgung und kann, wenn sie lange genug anh&#228;lt, zum Absterben des betroffenen Gewebes f&#252;hren, wie es etwa beim Herzinfarkt oder isch&#228;mischen Schlaganfall der Fall ist.</p>
+<h3 id="5-5-hyperkapnie-2">5.5 Hyperkapnie</h3>
+<p>Hyperkapnie beschreibt einen erh&#246;hten Kohlendioxidgehalt im Blut, meist infolge einer unzureichenden Abatmung, etwa bei einer stark verlangsamten oder oberfl&#228;chlichen Atmung. Sie kann zu einer Verschiebung des S&#228;ure-Basen-Haushalts in Richtung Azidose f&#252;hren und &#228;u&#223;ert sich unter anderem durch Kopfschmerzen, Verwirrtheit und in schweren F&#228;llen Bewusstseinstr&#252;bung.</p>
+<h3 id="5-6-acidose-2">5.6 Acidose</h3>
+<p>Eine Azidose bezeichnet eine Verschiebung des Blut-pH-Werts in den sauren Bereich. Man unterscheidet die respiratorische Azidose, meist durch unzureichende Abatmung von Kohlendioxid bedingt, von der metabolischen Azidose, die durch vermehrte S&#228;ureproduktion oder Basenverlust entsteht, etwa im Rahmen eines Schocks mit anaerobem Stoffwechsel und Laktatbildung.</p>
+<h3 id="5-7-alkalose-2">5.7 Alkalose</h3>
+<p>Eine Alkalose bezeichnet eine Verschiebung des Blut-pH-Werts in den basischen Bereich. Die respiratorische Alkalose entsteht meist durch eine &#252;berm&#228;&#223;ige Abatmung von Kohlendioxid, etwa im Rahmen einer Hyperventilation bei starker Angst oder Panik, w&#228;hrend die metabolische Alkalose seltener ist und zum Beispiel durch starkes Erbrechen entstehen kann.</p>
+<h3 id="5-8-entz-ndung-2">5.8 Entz&#252;ndung</h3>
+<p>Entz&#252;ndung ist eine grundlegende Abwehrreaktion des K&#246;rpers auf sch&#228;digende Reize wie Krankheitserreger, Verletzungen oder Fremdk&#246;rper. Sie &#228;u&#223;ert sich klassischerweise durch R&#246;tung, Schwellung, &#220;berw&#228;rmung, Schmerz und Funktionseinschr&#228;nkung des betroffenen Bereichs und dient dazu, den sch&#228;digenden Reiz zu beseitigen und die Heilung einzuleiten.</p>
+<h3 id="5-9-sepsis-2">5.9 Sepsis</h3>
+<p>Eine Sepsis entsteht, wenn die k&#246;rpereigene Reaktion auf eine Infektion &#252;berschie&#223;end verl&#228;uft und dabei k&#246;rpereigenes Gewebe und Organe sch&#228;digt. Sie kann sich innerhalb kurzer Zeit zu einem lebensbedrohlichen septischen Schock mit Kreislaufversagen entwickeln und stellt daher einen zeitkritischen internistischen Notfall dar.</p>
+<h3 id="5-10-organversagen-2">5.10 Organversagen</h3>
+<p>Organversagen bezeichnet den Verlust der Funktionsf&#228;higkeit eines oder mehrerer Organe, h&#228;ufig als Folge eines lang anhaltenden Schockzustands, einer schweren Sepsis oder eines ausgedehnten Traumas. Ein Multiorganversagen, bei dem mehrere Organsysteme gleichzeitig betroffen sind, ist mit einer hohen Sterblichkeit verbunden und unterstreicht die Bedeutung einer schnellen und konsequenten pr&#228;klinischen Stabilisierung des Patienten.</p>
+<section class="chapter" id="kapitel-6-patientenbeurteilung-2"><h2>Kapitel 6 - Patientenbeurteilung</h2>
+<p>Die Patientenbeurteilung ist das Herzst&#252;ck jedes Einsatzes. Sie folgt einer festen, immer gleichen Reihenfolge, damit auch unter Stress und Zeitdruck keine lebenswichtige Information &#252;bersehen wird. Dieses Kapitel beschreibt die im EHK-Dienst verbindlich vorgeschriebene Vorgehensweise von der Eigensicherung bis zur wiederholten Kontrolle (Re-Evaluation) w&#228;hrend des Transports.</p>
+<h3 id="6-1-eigenschutz-2">6.1 Eigenschutz</h3>
+<p>Vor jeder Patientenversorgung steht der Eigenschutz. Kein Sanit&#228;ter darf sich selbst in Gefahr bringen, um einem Patienten zu helfen, da ein verletzter Helfer die Einsatzlage verschlimmert statt sie zu verbessern. Eigenschutz umfasst das Tragen pers&#246;nlicher Schutzausr&#252;stung, die Beurteilung der Einsatzstelle auf fortbestehende Gefahren wie Verkehr, Feuer, einsturzgef&#228;hrdete Strukturen oder aggressive Personen sowie die Anforderung von Polizei oder Feuerwehr, bevor die Einsatzstelle betreten wird, wenn diese nicht sicher ist. Der Grundsatz lautet: Erst wenn die Einsatzstelle als sicher eingesch&#228;tzt wird, beginnt die eigentliche Patientenversorgung. Diese Entscheidung wird kontinuierlich neu getroffen, da sich Gefahrenlagen w&#228;hrend eines Einsatzes ver&#228;ndern k&#246;nnen.</p>
+<h3 id="6-2-einsatzstellenanalyse-2">6.2 Einsatzstellenanalyse</h3>
+<p>Die Einsatzstellenanalyse erfolgt unmittelbar bei Ankunft und dient dazu, sich in Sekunden einen &#220;berblick &#252;ber die Gesamtlage zu verschaffen: Wie viele Patienten sind betroffen? Welcher Unfallmechanismus liegt vor? Sind weitere Kr&#228;fte wie Polizei oder Feuerwehr bereits vor Ort oder nachzufordern? Werden zus&#228;tzliche Rettungsmittel ben&#246;tigt, etwa bei einem Massenanfall von Verletzten? Diese ersten Eindr&#252;cke bestimmen ma&#223;geblich das weitere Vorgehen und werden so fr&#252;h wie m&#246;glich an die Leitstelle r&#252;ckgemeldet, damit gegebenenfalls zus&#228;tzliche Kr&#228;fte alarmiert werden k&#246;nnen, bevor sich die Lage versch&#228;rft.</p>
+<h3 id="6-3-lageerkundung-2">6.3 Lageerkundung</h3>
+<p>Die Lageerkundung vertieft die erste Einsatzstellenanalyse und umfasst die genauere Betrachtung des Unfallmechanismus sowie erkennbarer Gefahrenquellen im unmittelbaren Umfeld des Patienten. Bei Verkehrsunf&#228;llen wird beispielsweise das Ausma&#223; der Fahrzeugverformung beurteilt, da es R&#252;ckschl&#252;sse auf die Krafteinwirkung und damit auf m&#246;gliche innere Verletzungen zul&#228;sst, auch wenn &#228;u&#223;erlich zun&#228;chst wenig zu erkennen ist. Auch die Anzahl und ungef&#228;hre Sichtung der Betroffenen geh&#246;rt zur Lageerkundung: Wer ist ansprechbar, wer bewegt sich nicht, wer schreit oder l&#228;uft umher? Diese ersten Beobachtungen flie&#223;en in die sp&#228;tere Priorisierung der Behandlung ein.</p>
+<h3 id="6-4-abcde-schema-2">6.4 ABCDE-Schema</h3>
+<p>Das ABCDE-Schema ist das zentrale Werkzeug der systematischen Patientenbeurteilung. Es gliedert die Untersuchung in f&#252;nf aufeinanderfolgende Schritte, deren Reihenfolge der Dringlichkeit f&#252;r das &#220;berleben des Patienten entspricht: A - Airway (Atemweg): Ist der Atemweg frei, oder liegt eine Verlegung durch Fremdk&#246;rper, Schwellung oder die Zunge bei Bewusstlosigkeit vor? B - Breathing (Atmung): Atmet der Patient ausreichend, wie ist Atemfrequenz, Atemtiefe und Symmetrie der Brustkorbbewegung? C - Circulation (Kreislauf): Wie sind Puls, Hautfarbe, Hauttemperatur und Rekapillarisierungszeit, gibt es sichtbare oder vermutete Blutungen? D - Disability (neurologisches Defizit): Wie ist die Bewusstseinslage, reagieren die Pupillen normal, gibt es Hinweise auf ein neurologisches Defizit? E - Exposure/Environment (Entkleidung/Umgebung): Vollst&#228;ndige Entkleidung zur Verletzungssuche unter Ber&#252;cksichtigung des W&#228;rmeerhalts und der Umgebungsbedingungen. Zentral am ABCDE-Schema ist, dass jede erkannte lebensbedrohliche St&#246;rung sofort behandelt wird, bevor mit dem n&#228;chsten Buchstaben fortgefahren wird. Wird etwa unter &quot;A&quot; eine Atemwegsverlegung festgestellt, wird diese umgehend behoben, bevor die Beurteilung der Atmung unter &quot;B&quot; beginnt. Dieses &quot;Treat as you go&quot;-Prinzip verhindert, dass eine lebensbedrohliche St&#246;rung &#252;bersehen bleibt, w&#228;hrend bereits die n&#228;chsten Untersuchungsschritte durchgef&#252;hrt werden. Nach Durchlaufen aller f&#252;nf Buchstaben erfolgt eine erste Entscheidung &#252;ber Transportpriorit&#228;t und -ziel. Das ABCDE-Schema wird w&#228;hrend des gesamten Einsatzes wiederholt angewendet, sobald sich der Zustand des Patienten ver&#228;ndert oder neue Informationen vorliegen.</p>
+<h3 id="6-5-sample-schema-2">6.5 SAMPLE-Schema</h3>
+<p>Das SAMPLE-Schema dient der strukturierten Erhebung der Patientenanamnese und erg&#228;nzt die k&#246;rperliche Untersuchung um wichtige Hintergrundinformationen. Es steht f&#252;r: S - Symptome (welche Beschwerden bestehen aktuell), A - Allergien, M - Medikamente (welche Medikamente nimmt der Patient regelm&#228;&#223;ig ein), P - Patientengeschichte/Vorerkrankungen, L - letzte Mahlzeit (relevant unter anderem f&#252;r die Einsch&#228;tzung des Aspirationsrisikos), E - Ereignis (was ist unmittelbar vor dem Notfall geschehen). Diese Informationen werden, sofern m&#246;glich, direkt vom Patienten erfragt; ist dieser nicht ansprechbar, k&#246;nnen Angeh&#246;rige, Umstehende oder mitgef&#252;hrte Gegenst&#228;nde wie ein Medikamentenplan wichtige Hinweise liefern. Das SAMPLE-Schema wird in der Regel im Anschluss an die Erstversorgung nach ABCDE erhoben, kann bei stabilen Patienten aber auch parallel zur k&#246;rperlichen Untersuchung erfolgen.</p>
+<h3 id="6-6-opqrst-schema-2">6.6 OPQRST-Schema</h3>
+<p>Das OPQRST-Schema dient der strukturierten Erfassung eines Leitsymptoms, meist eines Schmerzes, und liefert wichtige Hinweise auf dessen Ursache. Es steht f&#252;r: O - Onset (Beginn: pl&#246;tzlich oder allm&#228;hlich), P - Provocation/Palliation (was verst&#228;rkt oder lindert die Beschwerde), Q - Quality (Charakter des Schmerzes, etwa stechend, dr&#252;ckend oder brennend), R - Region/Radiation (Ort und Ausstrahlung des Schmerzes), S - Severity (Schmerzst&#228;rke, h&#228;ufig auf einer Skala von null bis zehn), T - Time (zeitlicher Verlauf: konstant, wiederkehrend, sich ver&#228;ndernd). Ein pl&#246;tzlich einsetzender, stechender Brustschmerz mit Ausstrahlung in den linken Arm etwa liefert im Rahmen des OPQRST-Schemas deutlich andere Hinweise als ein langsam zunehmender, dumpfer Schmerz - diese Unterscheidung kann f&#252;r die Verdachtsdiagnose und die Dringlichkeit des Transports entscheidend sein.</p>
+<h3 id="6-7-glasgow-coma-scale-2">6.7 Glasgow-Coma-Scale</h3>
+<p>Die Glasgow-Coma-Scale (GCS) dient der standardisierten Einsch&#228;tzung der Bewusstseinslage anhand dreier Kriterien: Augen&#246;ffnung (1 bis 4 Punkte), verbale Reaktion (1 bis 5 Punkte) und motorische Reaktion (1 bis 6 Punkte). Die Summe der drei Werte ergibt einen Gesamtscore zwischen 3 und 15 Punkten, wobei 15 Punkte vollem Bewusstsein entsprechen und niedrigere Werte auf eine zunehmend schwere Bewusstseinsst&#246;rung hinweisen. Ein GCS-Wert von 8 Punkten oder darunter gilt als Hinweis auf eine schwere Bewusstseinsst&#246;rung, bei der unter anderem die Schutzreflexe der Atemwege gef&#228;hrdet sein k&#246;nnen. Die GCS wird im Verlauf wiederholt erhoben, um Verbesserungen oder Verschlechterungen des Bewusstseinszustands objektiv zu dokumentieren.</p>
+<h3 id="6-8-avpu-2">6.8 AVPU</h3>
+<p>Das AVPU-Schema stellt eine vereinfachte, schnelle Alternative zur GCS dar und wird vor allem in der ersten Einsch&#228;tzung eines Patienten verwendet. Es unterscheidet vier Stufen: A - Alert (wach und orientiert), V - Verbal (reagiert auf Ansprache), P - Pain (reagiert nur auf Schmerzreiz), U - Unresponsive (keine Reaktion erkennbar). AVPU eignet sich besonders f&#252;r die erste Sichtung, etwa bei mehreren Patienten gleichzeitig, w&#228;hrend die detailliertere GCS im weiteren Verlauf der Untersuchung angewendet wird, sobald mehr Zeit f&#252;r eine differenzierte Beurteilung zur Verf&#252;gung steht.</p>
+<h3 id="6-9-pupillenkontrolle-2">6.9 Pupillenkontrolle</h3>
+<p>Die Kontrolle der Pupillen liefert wichtige Hinweise auf neurologische St&#246;rungen. Beurteilt werden Gr&#246;&#223;e, Seitengleichheit und Lichtreaktion beider Pupillen. Weite, nicht auf Licht reagierende Pupillen k&#246;nnen unter anderem auf eine schwere Hirnsch&#228;digung oder einen erh&#246;hten Hirndruck hindeuten, w&#228;hrend eine einseitig weite Pupille ein dringliches Warnzeichen f&#252;r eine lokale Hirnsch&#228;digung, etwa durch eine Blutung, sein kann. Auch punktf&#246;rmig verengte Pupillen k&#246;nnen diagnostisch relevant sein und in Kombination mit anderen Symptomen Hinweise auf bestimmte Vergiftungen liefern. Die Pupillenkontrolle wird im Rahmen von &quot;D - Disability&quot; des ABCDE-Schemas durchgef&#252;hrt.</p>
+<h3 id="6-10-vitalparameter-2">6.10 Vitalparameter</h3>
+<p>Zu den zentralen Vitalparametern z&#228;hlen Herzfrequenz, Atemfrequenz, Blutdruck, Sauerstoffs&#228;ttigung und K&#246;rpertemperatur. Sie werden m&#246;glichst fr&#252;h im Einsatzverlauf erhoben und liefern objektive, &#252;berpr&#252;fbare Messwerte, die die subjektive Einsch&#228;tzung des Patientenzustands erg&#228;nzen und im Verlauf vergleichbar machen. Einzelne Werte sollten nie isoliert betrachtet werden: Eine normale Herzfrequenz bei gleichzeitig sehr blasser Haut und verl&#228;ngerter Rekapillarisierungszeit etwa kann trotzdem auf eine beginnende Kreislaufinstabilit&#228;t hindeuten, die sich erst im Verlauf durch ver&#228;nderte Vitalparameter deutlicher zeigt.</p>
+<h3 id="6-11-re-evaluation-2">6.11 Re-Evaluation</h3>
+<p>Die Re-Evaluation bezeichnet die wiederholte, regelm&#228;&#223;ige Kontrolle des Patientenzustands w&#228;hrend der gesamten Einsatzdauer, insbesondere w&#228;hrend des Transports. Sie stellt sicher, dass Verschlechterungen fr&#252;hzeitig erkannt und Behandlungsma&#223;nahmen entsprechend angepasst werden k&#246;nnen. In der Praxis bedeutet dies, das ABCDE-Schema in regelm&#228;&#223;igen Abst&#228;nden erneut zu durchlaufen, insbesondere nach jeder durchgef&#252;hrten Ma&#223;nahme sowie bei jeder erkennbaren Zustandsver&#228;nderung des Patienten. Die konsequente Re-Evaluation unterscheidet eine strukturierte von einer rein punktuellen Patientenversorgung.</p>
+<section class="chapter" id="kapitel-7-hygiene-2"><h2>Kapitel 7 - Hygiene</h2>
+<p>Hygienema&#223;nahmen sch&#252;tzen sowohl Patienten als auch das eigene Personal vor der &#220;bertragung von Krankheitserregern. Da EHK-Teilnehmenden im Laufe eines Dienstes mit vielen verschiedenen Patienten in engen Kontakt kommen, ist die konsequente Einhaltung von Hygieneregeln keine Formalie, sondern ein zentraler Bestandteil sicheren Arbeitens.</p>
+<h3 id="7-1-grundlagen-2">7.1 Grundlagen</h3>
+<p>Hygiene umfasst alle Ma&#223;nahmen, die der Vermeidung und Bek&#228;mpfung von Infektionen dienen. Man unterscheidet die pers&#246;nliche Hygiene, die Hygiene am Patienten sowie die Hygiene von Material und Fahrzeug. Alle drei Bereiche greifen ineinander: Selbst korrekte H&#228;ndedesinfektion n&#252;tzt wenig, wenn anschlie&#223;end kontaminiertes Material weiterverwendet wird.</p>
+<h3 id="7-2-h-ndedesinfektion-2">7.2 H&#228;ndedesinfektion</h3>
+<p>Die H&#228;ndedesinfektion ist die wirksamste Einzelma&#223;nahme zur Vermeidung von Infektions&#252;bertragungen. Sie erfolgt vor und nach jedem Patientenkontakt, vor sauberen sowie nach kontaminierenden T&#228;tigkeiten und nach dem Ablegen von Schutzhandschuhen, da Handschuhe die H&#228;ndedesinfektion nicht ersetzen.</p>
+<h3 id="7-3-kontamination-2">7.3 Kontamination</h3>
+<p>Kontamination bezeichnet die Verunreinigung von Haut, Kleidung, Material oder Umgebung mit potenziell infekti&#246;sem Material wie Blut, Speichel oder anderen K&#246;rperfl&#252;ssigkeiten. Jede Kontamination birgt ein &#220;bertragungsrisiko und muss durch geeignete Reinigungs- oder Desinfektionsma&#223;nahmen beseitigt werden, bevor das betroffene Material oder Fahrzeug wieder eingesetzt wird.</p>
+<h3 id="7-4-kreuzkontamination-2">7.4 Kreuzkontamination</h3>
+<p>Kreuzkontamination bezeichnet die &#220;bertragung von Erregern von einem Patienten oder Ort auf einen anderen, etwa durch nicht gewechselte Handschuhe oder unzureichend gereinigtes Material zwischen zwei Eins&#228;tzen. Sie ist eine der h&#228;ufigsten Ursachen vermeidbarer Infektions&#252;bertragungen im Rettungsdienst und wird durch konsequenten Materialwechsel und Handschuhwechsel zwischen Patientenkontakten vermieden.</p>
+<h3 id="7-5-sterilit-t-2">7.5 Sterilit&#228;t</h3>
+<p>Sterilit&#228;t bezeichnet die vollst&#228;ndige Freiheit von lebensf&#228;higen Mikroorganismen. Steriles Material, etwa Verbandsmaterial f&#252;r offene Wunden, muss bis zur Verwendung in unversehrter, geschlossener Verpackung aufbewahrt werden. Besch&#228;digte oder abgelaufene sterile Verpackungen d&#252;rfen nicht mehr als steril angesehen und entsprechend nicht mehr verwendet werden.</p>
+<h3 id="7-6-pers-nliche-schutzausr-stung-2">7.6 Pers&#246;nliche Schutzausr&#252;stung</h3>
+<p>Pers&#246;nliche Schutzausr&#252;stung (PSA) umfasst insbesondere Einmalhandschuhe, die bei jedem Patientenkontakt mit Blut oder K&#246;rperfl&#252;ssigkeiten getragen werden, sowie je nach Situation weitere Schutzausr&#252;stung. Sie sch&#252;tzt sowohl den Anwender vor einer Infektion als auch den Patienten vor einer Kontamination durch den Helfer.</p>
+<h3 id="7-7-reinigung-2">7.7 Reinigung</h3>
+<p>Die Reinigung von Material und Fahrzeug nach jedem Einsatz entfernt sichtbare Verschmutzungen und reduziert die Keimlast. Sie ist Voraussetzung f&#252;r eine anschlie&#223;ende Desinfektion, da organisches Material die Wirksamkeit vieler Desinfektionsmittel herabsetzt. Reinigung und Desinfektion werden daher grunds&#228;tzlich in dieser Reihenfolge durchgef&#252;hrt.</p>
+<h3 id="7-8-entsorgung-2">7.8 Entsorgung</h3>
+<p>Kontaminiertes Einmalmaterial, insbesondere gebrauchte Handschuhe, Verbandsmaterial und spitze oder scharfe Gegenst&#228;nde, wird getrennt von normalem Abfall in daf&#252;r vorgesehenen Beh&#228;ltern entsorgt, um eine Gef&#228;hrdung Dritter, etwa durch Stichverletzungen, zu vermeiden. Eine sachgerechte Entsorgung ist fester Bestandteil des Hygienekonzepts und schlie&#223;t jeden Einsatz ab.</p>
+<section class="chapter" id="kapitel-8-materialkunde-2"><h2>Kapitel 8 - Materialkunde</h2>
+<p>Dieses Kapitel behandelt das Standardmaterial, mit dem jeder EHK-Teilnehmenden im Dienst vertraut sein muss. Die Kenntnis von Aufbau, Funktion und korrekter Anwendung des Materials ist Voraussetzung f&#252;r einen reibungslosen Einsatzablauf, insbesondere unter Zeitdruck.</p>
+<h3 id="8-1-notfalltasche-2">8.1 Notfalltasche</h3>
+<p>Die Notfalltasche enth&#228;lt das Kernmaterial f&#252;r die Erstversorgung und wird bei jedem Patientenkontakt mitgef&#252;hrt. Sie ist standardisiert best&#252;ckt und nach einem festen Schema aufgeteilt, damit auch unter Stress jedes Material sofort auffindbar ist. Nach jedem Einsatz wird die Notfalltasche kontrolliert und fehlendes Material umgehend nachbest&#252;ckt.</p>
+<h3 id="8-2-defibrillator-2">8.2 Defibrillator</h3>
+<p>Der Defibrillator dient der Behandlung lebensbedrohlicher Herzrhythmusst&#246;rungen durch Abgabe eines elektrischen Schocks, der die ungeordnete elektrische Aktivit&#228;t des Herzens unterbrechen und eine R&#252;ckkehr zu einem geordneten Rhythmus erm&#246;glichen soll. Automatisierte Ger&#228;te analysieren den Herzrhythmus selbstst&#228;ndig und geben dem Anwender eine klare Handlungsempfehlung, wodurch ihre sichere Bedienung auch ohne tiefgehende kardiologische Kenntnisse m&#246;glich ist.</p>
+<h3 id="8-3-funkger-t-2">8.3 Funkger&#228;t</h3>
+<p>Das Funkger&#228;t ist die zentrale Kommunikationsverbindung zur Leitstelle und zu anderen Einsatzkr&#228;ften. &#220;ber Funk werden Einsatz&#252;bernahme, Statusmeldungen, Anforderungen zus&#228;tzlicher Kr&#228;fte sowie die &#220;bergabeank&#252;ndigung an die Klinik abgewickelt. Eine knappe, klare und disziplinierte Funksprache ist Voraussetzung f&#252;r eine st&#246;rungsfreie Kommunikation (siehe Kapitel 15.6).</p>
+<h3 id="8-4-trage-2">8.4 Trage</h3>
+<p>Die Trage dient dem sicheren Transport des Patienten vom Auffindeort zum Rettungsfahrzeug und darin zur Klinik. Vor jedem Transport wird die korrekte Fixierung des Patienten mit den vorhandenen Gurten &#252;berpr&#252;ft, um ein Herabfallen oder Verrutschen w&#228;hrend des Transports, insbesondere bei Kurvenfahrten oder Bremsman&#246;vern, zu verhindern.</p>
+<h3 id="8-5-verb-nde-2">8.5 Verb&#228;nde</h3>
+<p>Verb&#228;nde dienen der Blutstillung, der Wundabdeckung und dem Schutz vor weiterer Kontamination. Je nach Verletzung kommen unterschiedliche Verbandstechniken zum Einsatz, von einfachen Wundauflagen &#252;ber Druckverb&#228;nde bei st&#228;rkeren Blutungen bis zu Abbindesystemen bei sonst nicht beherrschbaren, lebensbedrohlichen Extremit&#228;tenblutungen.</p>
+<h3 id="8-6-schienen-2">8.6 Schienen</h3>
+<p>Schienen dienen der Ruhigstellung verletzter Extremit&#228;ten, um weitere Sch&#228;den an Nerven, Gef&#228;&#223;en oder Weichteilen durch Bewegung der Fraktur zu vermeiden und Schmerzen zu reduzieren. Die Anlage einer Schiene erfolgt m&#246;glichst in der vorgefundenen Stellung, sofern die Extremit&#228;t ausreichend durchblutet ist, um weiteres Trauma durch Repositionsversuche zu vermeiden.</p>
+<h3 id="8-7-sauerstoff-2">8.7 Sauerstoff</h3>
+<p>Mitgef&#252;hrter Sauerstoff dient der Behandlung von Patienten mit unzureichender Sauerstoffversorgung. Er wird &#252;ber verschiedene Applikationsformen verabreicht, deren Wahl von der ben&#246;tigten Sauerstoffkonzentration und dem Zustand des Patienten abh&#228;ngt. Sauerstoffflaschen unterliegen besonderen Lagerungs- und Handhabungsvorschriften, unter anderem wegen der Brandgefahr in Verbindung mit Fetten und &#214;len.</p>
+<h3 id="8-8-beatmungsbeutel-2">8.8 Beatmungsbeutel</h3>
+<p>Der Beatmungsbeutel erm&#246;glicht die manuelle Beatmung von Patienten mit unzureichender oder fehlender Eigenatmung. Er wird &#252;ber eine Maske oder einen erweiterten Atemweg mit dem Patienten verbunden und durch rhythmisches Zusammendr&#252;cken bedient, wobei auf ein angemessenes Atemzugvolumen und eine physiologische Beatmungsfrequenz zu achten ist, um eine &#220;berbl&#228;hung der Lunge zu vermeiden.</p>
+<h3 id="8-9-medikamente-2">8.9 Medikamente</h3>
+<p>Die im Fahrzeug mitgef&#252;hrten Medikamente unterliegen einer strengen Lagerungs-, Dokumentations- und Anwendungsvorschrift. Welche Medikamente im Einsatzgebiet zugelassen sind, unter welchen Bedingungen sie angewendet werden d&#252;rfen und wie ihre Wirkung im Regelwerk des Einsatzgebiets definiert ist, wird ausf&#252;hrlich in Kapitel 9 und Kapitel 10 behandelt.</p>
+<section class="chapter" id="kapitel-9-pharmakologie-2"><h2>Kapitel 9 - Pharmakologie</h2>
+<p>Die Pharmakologie ist die Lehre von der Wirkung, dem Schicksal und der Anwendung von Arzneimitteln im K&#246;rper. Sie liefert die begrifflichen Grundlagen, um auch das dienstliche Medikamentensystem aus Kapitel 10 fachlich einordnen zu k&#246;nnen, auch wenn dieses in seiner konkreten Ausgestaltung deutlich vereinfacht und an die dienstliche Ausbildungslogik angepasst ist.</p>
+<h3 id="9-1-allgemeine-pharmakologie-2">9.1 Allgemeine Pharmakologie</h3>
+<p>Die allgemeine Pharmakologie befasst sich mit grundlegenden Prinzipien, die f&#252;r alle Arzneistoffe gelten, unabh&#228;ngig von ihrer konkreten Anwendung: wie ein Stoff in den K&#246;rper gelangt, wie er dort wirkt, wie er verteilt und abgebaut wird und wie er den K&#246;rper wieder verl&#228;sst. Sie bildet die theoretische Grundlage f&#252;r zwei zentrale Teilgebiete: Pharmakokinetik und Pharmakodynamik.</p>
+<h3 id="9-2-pharmakokinetik-2">9.2 Pharmakokinetik</h3>
+<p>Die Pharmakokinetik beschreibt, was der K&#246;rper mit einem Arzneistoff macht: seine Aufnahme (Resorption), Verteilung (Distribution), seinen Abbau (Metabolismus) und seine Ausscheidung (Elimination). Diese vier Prozesse bestimmen gemeinsam, wie schnell ein Medikament wirkt, wie lange die Wirkung anh&#228;lt und wann es vollst&#228;ndig aus dem K&#246;rper entfernt ist.</p>
+<h3 id="9-3-pharmakodynamik-2">9.3 Pharmakodynamik</h3>
+<p>Die Pharmakodynamik beschreibt umgekehrt, was ein Arzneistoff mit dem K&#246;rper macht: &#252;ber welchen Wirkmechanismus, meist die Bindung an spezifische Rezeptoren oder Enzyme, ein Medikament seine gew&#252;nschte Wirkung entfaltet, und in welcher Dosis diese Wirkung eintritt.</p>
+<h3 id="9-4-resorption-2">9.4 Resorption</h3>
+<p>Resorption bezeichnet die Aufnahme eines Wirkstoffs vom Applikationsort in den Blutkreislauf. Sie h&#228;ngt unter anderem vom Applikationsweg ab: Ein oral eingenommenes Medikament muss zun&#228;chst den Magen-Darm-Trakt passieren, bevor es ins Blut gelangt, w&#228;hrend intraven&#246;s verabreichte Wirkstoffe unmittelbar im Blutkreislauf verf&#252;gbar sind.</p>
+<h3 id="9-5-distribution-2">9.5 Distribution</h3>
+<p>Distribution beschreibt die Verteilung eines Wirkstoffs im K&#246;rper nach seiner Aufnahme in den Blutkreislauf. Sie h&#228;ngt unter anderem von der Durchblutung verschiedener Gewebe sowie den chemischen Eigenschaften des Wirkstoffs ab und bestimmt, wie gut ein Medikament sein Zielgewebe erreicht.</p>
+<h3 id="9-6-metabolismus-2">9.6 Metabolismus</h3>
+<p>Der Metabolismus eines Arzneistoffs bezeichnet dessen chemischen Umbau im K&#246;rper, meist in der Leber. Durch den Metabolismus wird ein Wirkstoff h&#228;ufig in eine besser ausscheidbare Form &#252;berf&#252;hrt; teilweise entstehen dabei auch Abbauprodukte mit eigener, manchmal unerw&#252;nschter Wirkung.</p>
+<h3 id="9-7-elimination-2">9.7 Elimination</h3>
+<p>Elimination bezeichnet die endg&#252;ltige Entfernung eines Wirkstoffs und seiner Abbauprodukte aus dem K&#246;rper, meist &#252;ber die Nieren mit dem Urin oder &#252;ber die Leber mit der Galle. Die Geschwindigkeit der Elimination bestimmt ma&#223;geblich, wie lange ein Medikament wirksam bleibt und wie oft es verabreicht werden muss.</p>
+<h3 id="9-8-nebenwirkungen-2">9.8 Nebenwirkungen</h3>
+<p>Nebenwirkungen sind unerw&#252;nschte Effekte eines Arzneistoffs, die zus&#228;tzlich zur gew&#252;nschten Hauptwirkung auftreten k&#246;nnen. Sie werden je nach H&#228;ufigkeit und Schweregrad klassifiziert und sind bei der Auswahl und Dosierung eines Medikaments stets gegen den erwarteten Nutzen abzuw&#228;gen.</p>
+<h3 id="9-9-kontraindikationen-2">9.9 Kontraindikationen</h3>
+<p>Eine Kontraindikation bezeichnet einen Umstand, unter dem ein Medikament nicht oder nur mit besonderer Vorsicht angewendet werden darf, weil das Risiko den erwarteten Nutzen &#252;bersteigt. Kontraindikationen k&#246;nnen absolut sein, das hei&#223;t die Anwendung ist grunds&#228;tzlich untersagt, oder relativ, das hei&#223;t eine sorgf&#228;ltige Abw&#228;gung ist erforderlich.</p>
+<h3 id="9-10-wechselwirkungen-2">9.10 Wechselwirkungen</h3>
+<p>Wechselwirkungen entstehen, wenn zwei oder mehr gleichzeitig angewendete Medikamente sich gegenseitig in ihrer Wirkung beeinflussen, etwa indem eines das andere in seiner Aufnahme, Wirkung oder Ausscheidung verst&#228;rkt oder abschw&#228;cht. Die Kenntnis relevanter Wechselwirkungen ist Voraussetzung f&#252;r eine sichere Kombination mehrerer Medikamente.</p>
+<section class="chapter" id="kapitel-10-dienstlich-freigegebene-medikamente"><h2>Kapitel 10 - dienstlich freigegebene Medikamente</h2>
+<p>Wichtiger Hinweis: Die in diesem Kapitel beschriebenen Wirkungen der dienstlich freigegebene Medikamente sind ein eigenes, fiktives Regelwerk f&#252;r den Diensttrainingbetrieb und entsprechen nicht der tats&#228;chlichen medizinischen Wirkung der genannten Substanzen in der Realit&#228;t. Sie dienen ausschlie&#223;lich der einheitlichen Abbildung von Heilungs- und Behandlungsmechaniken im Einsatzgebiet und sind f&#252;r kein reales Handeln vorgesehen oder geeignet. Jeder EHK-Teilnehmenden wendet ausschlie&#223;lich die hier beschriebenen Einsatzsystemregeln an und orientiert sich nicht an realen Dosierungsangaben.</p>
+<h3 id="10-1-verb-nde-2">10.1 Verb&#228;nde</h3>
+<p>Verb&#228;nde sind im Einsatzgebietregelwerk das Basismittel zur Behandlung &#228;u&#223;erer Wunden und offener Blutungen. Sie werden auf sichtbare Verletzungen angelegt und stoppen im Spielsystem die fortlaufende Verschlechterung des Patientenzustands durch Blutverlust. Ein angelegter Verband ist Voraussetzung daf&#252;r, dass weitere Behandlungsschritte, etwa die Gabe von Codein, &#252;berhaupt zu einer spielmechanischen Besserung f&#252;hren.</p>
+<h3 id="10-2-codein-2">10.2 Codein</h3>
+<p>Codein-Tabletten sind im Einsatzgebiet das zentrale Mittel zur vollst&#228;ndigen Wiederherstellung des Gesundheitszustands eines Patienten. Nach Anlage der notwendigen Verb&#228;nde markiert die Gabe von Codein im Diensttraining den Abschluss der Behandlung: Der Patient gilt anschlie&#223;end als vollst&#228;ndig geheilt und einsatzf&#228;hig. Codein wird ausschlie&#223;lich verabreicht, wenn zuvor alle sichtbaren Wunden versorgt wurden, und wird in der Einsatzdokumentation als abschlie&#223;ende Behandlungsma&#223;nahme vermerkt.</p>
+<h3 id="10-3-aktivkohle-2">10.3 Aktivkohle</h3>
+<p>Aktivkohle ist im Einsatzgebietregelwerk das vorgesehene Mittel bei Verdacht auf eine Vergiftung. Sie wird Patienten verabreicht, die im Diensttraining Symptome einer Vergiftung zeigen, etwa nach der Einnahme einer sch&#228;dlichen Substanz, und hebt den entsprechenden Vergiftungsstatus des Patienten auf. Vor der Gabe von Aktivkohle wird nach M&#246;glichkeit erfragt, wodurch die Vergiftung ausgel&#246;st wurde, um dies in der Dokumentation festzuhalten.</p>
+<h3 id="10-4-azithromycin-2">10.4 Azithromycin</h3>
+<p>Azithromycin wird im Einsatzgebiet bei Patienten eingesetzt, die Symptome einer Erk&#228;ltung zeigen. Die Gabe behebt im Diensttraining den Erk&#228;ltungsstatus des Patienten. Da eine Erk&#228;ltung im Einsatzgebietkontext keinen akut lebensbedrohlichen Zustand darstellt, hat ihre Behandlung in der Einsatzpriorisierung stets Nachrang gegen&#252;ber Patienten mit Verletzungen oder Bewusstseinsst&#246;rungen.</p>
+<h3 id="10-5-epinephrin-2">10.5 Epinephrin</h3>
+<p>Epinephrin ist im Einsatzgebietregelwerk das vorgesehene Mittel, um bewusstlose Patienten wieder aufzuwecken. Es kommt zum Einsatz, wenn ein Patient im Diensttraining als bewusstlos gilt und keine Reaktion auf Ansprache zeigt. Vor der Gabe von Epinephrin wird, sofern die Situation es zul&#228;sst, zun&#228;chst eine kurze Beurteilung nach AVPU durchgef&#252;hrt, um den Bewusstseinsstatus zu best&#228;tigen. Die Gabe von Epinephrin wird stets dokumentiert, da sie im Einsatzgebietregelwerk als einschneidende Behandlungsma&#223;nahme gilt.</p>
+<h3 id="10-6-defibrillator-2">10.6 Defibrillator</h3>
+<p>Der Defibrillator erg&#228;nzt im Einsatzgebietregelwerk die medikament&#246;se Behandlung bei Patienten, die als klinisch tot gelten, also &#252;ber die reine Bewusstlosigkeit hinaus keinerlei Reaktion mehr zeigen. Er wird gem&#228;&#223; den Vorgaben aus Kapitel 8.2 eingesetzt und mit der anschlie&#223;enden Gabe von Epinephrin kombiniert, um einen Patienten in einen behandelbaren, bewusstlosen Zustand zur&#252;ckzuf&#252;hren, aus dem heraus die weitere Versorgung nach den Kapiteln 10.1 bis 10.5 erfolgt.</p>
+<h3 id="10-7-medikamentenauswahl-2">10.7 Medikamentenauswahl</h3>
+<p>Die Auswahl des richtigen Einsatzsystemmedikaments richtet sich nach dem im Diensttraining erkennbaren Zustand des Patienten: sichtbare Wunden erfordern Verb&#228;nde und im Anschluss Codein, ein Vergiftungsstatus erfordert Aktivkohle, ein Erk&#228;ltungsstatus erfordert Azithromycin, und Bewusstlosigkeit erfordert Epinephrin, gegebenenfalls nach vorheriger Defibrillation. Bestehen mehrere Zust&#228;nde gleichzeitig, wird zun&#228;chst der lebensbedrohlichere Zustand behandelt, bevor die &#252;brigen Symptome versorgt werden.</p>
+<h3 id="10-8-dosierung-im-dienst-2">10.8 Dosierung im Dienst</h3>
+<p>Die Dosierung der dienstlich freigegebene Medikamente folgt festen, im Regelwerk vorgegebenen Einheiten pro Anwendung und orientiert sich nicht an einer realen Gewichts- oder Wirkstoffberechnung. Eine &#220;berschreitung der vorgesehenen Anwendungsh&#228;ufigkeit bringt im Diensttraining keinen zus&#228;tzlichen Nutzen und ist daher zu unterlassen; sie dient ausschlie&#223;lich einer glaubw&#252;rdigen, nachvollziehbaren Darstellung des Behandlungsablaufs.</p>
+<h3 id="10-9-dokumentation-2">10.9 Dokumentation</h3>
+<p>Jede Gabe eines Einsatzsystemmedikaments wird im Einsatzprotokoll festgehalten: welches Mittel, bei welchem erkannten Zustand und zu welchem Zeitpunkt verabreicht wurde. Diese Dokumentation dient der Nachvollziehbarkeit des Einsatzverlaufs und ist insbesondere bei der &#220;bergabe an die Klinik oder bei R&#252;ckfragen durch EMS-Ausbilder von Bedeutung.</p>
+<section class="chapter" id="kapitel-11-einsatzablauf-2"><h2>Kapitel 11 - Einsatzablauf</h2>
+<p>Dieses Kapitel beschreibt den vollst&#228;ndigen Ablauf eines Einsatzes von der Alarmierung bis zur &#220;bergabe an die Klinik. Ein strukturierter Einsatzablauf sorgt daf&#252;r, dass keine wichtigen Schritte &#252;bersehen werden und alle Beteiligten - Leitstelle, Besatzung, Klinik - jederzeit den gleichen Kenntnisstand &#252;ber die Lage haben.</p>
+<h3 id="11-1-alarmierung-2">11.1 Alarmierung</h3>
+<p>Die Alarmierung erfolgt &#252;ber die Leitstelle, die erste Informationen zu Einsatzort, Einsatzstichwort und, sofern bekannt, Anzahl und Zustand der Patienten &#252;bermittelt. Diese ersten Informationen sind oft unvollst&#228;ndig oder vorl&#228;ufig und werden im Einsatzverlauf laufend pr&#228;zisiert; sie dienen jedoch bereits der ersten gedanklichen Vorbereitung auf die zu erwartende Lage.</p>
+<h3 id="11-2-anfahrt-2">11.2 Anfahrt</h3>
+<p>W&#228;hrend der Anfahrt bereitet sich die Besatzung auf den Einsatz vor: Zust&#228;ndigkeiten werden gekl&#228;rt, ben&#246;tigtes Material gedanklich durchgegangen und, falls m&#246;glich, weitere Informationen bei der Leitstelle erfragt. Die Anfahrt erfolgt unter Ber&#252;cksichtigung der Verkehrssicherheit, da ein Unfall der Einsatzkr&#228;fte selbst die Gesamtlage erheblich verschlechtern w&#252;rde.</p>
+<h3 id="11-3-absicherung-2">11.3 Absicherung</h3>
+<p>Bei Ankunft an der Einsatzstelle wird diese, sofern erforderlich, zun&#228;chst abgesichert, etwa durch geeignetes Abstellen des Fahrzeugs zum Schutz vor nachfolgendem Verkehr. Erst nach ausreichender Absicherung n&#228;hert sich die Besatzung dem Patienten, wie bereits in Kapitel 6.1 beschrieben.</p>
+<h3 id="11-4-patientenkontakt-2">11.4 Patientenkontakt</h3>
+<p>Der erste Patientenkontakt beginnt mit einer kurzen, freundlichen Vorstellung und einer ersten orientierenden Ansprache, die zugleich der Beurteilung von Bewusstsein und Reaktionsf&#228;higkeit dient. Ein ruhiger, professioneller Auftritt tr&#228;gt bereits in dieser Phase zur Beruhigung des Patienten bei und erleichtert die weitere Zusammenarbeit.</p>
+<h3 id="11-5-untersuchung-2">11.5 Untersuchung</h3>
+<p>Die Untersuchung folgt dem in Kapitel 6 beschriebenen ABCDE-Schema, erg&#228;nzt um SAMPLE- und gegebenenfalls OPQRST-Anamnese. Erkannte lebensbedrohliche Zust&#228;nde werden unmittelbar behandelt, bevor die Untersuchung fortgesetzt wird.</p>
+<h3 id="11-6-behandlung-2">11.6 Behandlung</h3>
+<p>Die Behandlung umfasst alle Ma&#223;nahmen zur Stabilisierung des Patientenzustands, von einfachen Verb&#228;nden &#252;ber die Gabe von dienstlich freigegebene Medikamenten bis zur Reanimation bei Kreislaufstillstand. Jede Behandlungsma&#223;nahme orientiert sich an der in den vorangegangenen Kapiteln beschriebenen Indikation und wird nicht ohne erkennbaren Grund durchgef&#252;hrt.</p>
+<h3 id="11-7-dokumentation-2">11.7 Dokumentation</h3>
+<p>Die Dokumentation begleitet den gesamten Einsatz und wird laufend erg&#228;nzt: Zeitpunkt der Alarmierung, erhobene Befunde, durchgef&#252;hrte Ma&#223;nahmen und deren Wirkung sowie die abschlie&#223;ende Transportentscheidung. Eine vollst&#228;ndige Dokumentation ist Voraussetzung f&#252;r eine korrekte &#220;bergabe und f&#252;r die Nachvollziehbarkeit des Einsatzes im Nachhinein.</p>
+<h3 id="11-8-transportentscheidung-2">11.8 Transportentscheidung</h3>
+<p>Die Transportentscheidung legt fest, ob, wohin und mit welcher Dringlichkeit ein Patient transportiert wird. Sie ber&#252;cksichtigt den aktuellen Zustand des Patienten, den Erfolg bereits durchgef&#252;hrter Ma&#223;nahmen sowie die Kapazit&#228;t der Zielklinik. Bei instabilen Patienten hat ein z&#252;giger Transport unter fortlaufender Behandlung Vorrang vor einer vollst&#228;ndigen Versorgung am Einsatzort.</p>
+<h3 id="11-9-bergabe-2">11.9 &#220;bergabe</h3>
+<p>Die &#220;bergabe an das Klinikpersonal erfolgt strukturiert und knapp: Unfallmechanismus beziehungsweise Beschwerdebild, erhobene Befunde, durchgef&#252;hrte Ma&#223;nahmen und deren Wirkung sowie relevante Anamneseinformationen werden in dieser Reihenfolge mitgeteilt. Eine gute &#220;bergabe stellt sicher, dass keine im Einsatzverlauf gewonnene Information verloren geht.</p>
+<section class="chapter" id="kapitel-12-fahrzeugkunde-2"><h2>Kapitel 12 - Fahrzeugkunde</h2>
+<p>Das Rettungsfahrzeug ist Arbeitsplatz, Materiallager und Transportmittel zugleich. Dieses Kapitel beschreibt seinen grunds&#228;tzlichen Aufbau sowie die Anforderungen an Beladung, Lagerung und Pflege, die f&#252;r einen sicheren und einsatzbereiten Zustand notwendig sind.</p>
+<h3 id="12-1-aufbau-eines-rettungswagens-2">12.1 Aufbau eines Rettungswagens</h3>
+<p>Ein Rettungswagen gliedert sich in Fahrerkabine und Patientenraum. Der Patientenraum enth&#228;lt die Trage, Sitzpl&#228;tze f&#252;r die Besatzung, Schranksysteme f&#252;r Material und Medikamente sowie fest installierte Ger&#228;te wie Sauerstoffanschl&#252;sse. Der Aufbau folgt einem einheitlichen Schema, damit sich jeder Einsatzkr&#195;&#164;fte unabh&#228;ngig vom konkreten Fahrzeug sofort zurechtfindet.</p>
+<h3 id="12-2-beladung-2">12.2 Beladung</h3>
+<p>Die Beladung des Fahrzeugs folgt einer festgelegten Ordnung, bei der h&#228;ufig ben&#246;tigtes Material leicht zug&#228;nglich verstaut ist. Eine einheitliche Beladung &#252;ber alle Fahrzeuge hinweg stellt sicher, dass Material auch in einem fremden Fahrzeug ohne Suchen gefunden wird.</p>
+<h3 id="12-3-schranksystem-2">12.3 Schranksystem</h3>
+<p>Das Schranksystem unterteilt den verf&#252;gbaren Stauraum in klar definierte F&#228;cher f&#252;r Verbandsmaterial, Schienen, pers&#246;nliche Schutzausr&#252;stung und weiteres Material. Jedes Fach ist beschriftet, sodass auch neues Personal sich schnell orientieren kann.</p>
+<h3 id="12-4-medikamentenlagerung-2">12.4 Medikamentenlagerung</h3>
+<p>Medikamente werden in einem gesonderten, verschlie&#223;baren Bereich gelagert, um unbefugten Zugriff zu verhindern und die &#220;bersicht &#252;ber den Medikamentenbestand zu erleichtern. Die Lagerung erfolgt geordnet nach Medikamentengruppe, damit im Einsatzfall kein Zeitverlust durch Suchen entsteht.</p>
+<h3 id="12-5-hygiene-2">12.5 Hygiene</h3>
+<p>Der Patientenraum wird nach jedem Einsatz gem&#228;&#223; den in Kapitel 7 beschriebenen Grunds&#228;tzen gereinigt und bei Bedarf desinfiziert. Kontaminierte Fl&#228;chen, insbesondere die Trage und h&#228;ufig ber&#252;hrte Oberfl&#228;chen, werden bevorzugt behandelt.</p>
+<h3 id="12-6-fahrzeugpflege-2">12.6 Fahrzeugpflege</h3>
+<p>Neben der hygienischen Reinigung umfasst die Fahrzeugpflege auch die allgemeine Sauberkeit und Funktionsf&#228;higkeit des Fahrzeugs im Sinne eines professionellen &#228;u&#223;eren Erscheinungsbilds. Ein gepflegtes Fahrzeug tr&#228;gt zur Wahrnehmung des EHK-Dienstes als kompetente Institution bei.</p>
+<h3 id="12-7-betankung-2">12.7 Betankung</h3>
+<p>Das Fahrzeug wird nach jedem Dienst beziehungsweise bei Unterschreiten eines Mindeststands betankt, damit zu Beginn des n&#228;chsten Dienstes keine Zeit f&#252;r eine Betankung verloren geht und jederzeit ausreichend Reichweite f&#252;r Eins&#228;tze zur Verf&#252;gung steht.</p>
+<h3 id="12-8-einsatzbereitschaft-2">12.8 Einsatzbereitschaft</h3>
+<p>Die Einsatzbereitschaft eines Fahrzeugs umfasst die Gesamtheit aller vorgenannten Punkte: vollst&#228;ndige Beladung, funktionsf&#228;hige Technik, ausreichende Betankung und hygienisch einwandfreier Zustand. Sie wird vor Dienstbeginn durch die in Kapitel 13 beschriebene EHK-Fahrzeugkontrolle systematisch &#252;berpr&#252;ft.</p>
+<section class="chapter" id="kapitel-13-ehk-fahrzeugkontrolle-2"><h2>Kapitel 13 - EHK-Fahrzeugkontrolle</h2>
+<p>Die Fahrzeugkontrolle wird zu Beginn jedes Dienstes durchgef&#252;hrt und stellt sicher, dass das Fahrzeug technisch, materiell und hygienisch einsatzbereit ist. Sie folgt einer festen Reihenfolge von der &#228;u&#223;eren Sichtpr&#252;fung bis zur vollst&#228;ndigen Kontrolle von Medikamenten und Material und wird nach Abschluss dokumentiert.</p>
+<h3 id="13-1-sichtpr-fung-2">13.1 Sichtpr&#252;fung</h3>
+<p>Die Sichtpr&#252;fung ist der erste Schritt der Fahrzeugkontrolle und verschafft einen groben &#220;berblick &#252;ber sichtbare Sch&#228;den, Verschmutzungen oder offensichtliche technische M&#228;ngel am gesamten Fahrzeug, bevor die Kontrolle im Detail fortgesetzt wird.</p>
+<h3 id="13-2-au-enkontrolle-2">13.2 Au&#223;enkontrolle</h3>
+<p>Bei der Au&#223;enkontrolle wird die Karosserie auf Besch&#228;digungen, die Fenster auf Risse und die T&#252;ren auf einwandfreie Funktion &#252;berpr&#252;ft. Auch die Sauberkeit der Kennzeichnung als Rettungsfahrzeug wird kontrolliert, da diese f&#252;r die Erkennbarkeit im Stra&#223;enverkehr wichtig ist.</p>
+<h3 id="13-3-reifen-2">13.3 Reifen</h3>
+<p>Die Reifen werden auf ausreichende Profiltiefe, sichtbare Besch&#228;digungen und korrekten Luftdruck gepr&#252;ft. Abgefahrene oder besch&#228;digte Reifen gef&#228;hrden die Fahrsicherheit gerade bei den h&#228;ufig eiligen Fahrten des Rettungsdienstes und werden vor Dienstantritt gemeldet.</p>
+<h3 id="13-4-beleuchtung-2">13.4 Beleuchtung</h3>
+<p>S&#228;mtliche Beleuchtungseinrichtungen - Abblendlicht, Fernlicht, Blinker, Bremslicht und R&#252;ckfahrlicht - werden auf Funktion gepr&#252;ft, da eine ausgefallene Beleuchtung sowohl die Verkehrssicherheit als auch die Erkennbarkeit des Fahrzeugs beeintr&#228;chtigt.</p>
+<h3 id="13-5-warnanlage-2">13.5 Warnanlage</h3>
+<p>Die Sonder- und Warnanlage, bestehend aus Blaulicht und Einsatzhorn, wird auf einwandfreie Funktion gepr&#252;ft, da sie im Einsatzfall die z&#252;gige und sichere Anfahrt zur Einsatzstelle erm&#246;glicht und andere Verkehrsteilnehmer rechtzeitig warnt.</p>
+<h3 id="13-6-funk-2">13.6 Funk</h3>
+<p>Das Funkger&#228;t wird auf Empfangs- und Sendefunktion gepr&#252;ft, &#252;blicherweise durch einen kurzen Funkkontakt mit der Leitstelle zu Dienstbeginn. Ein funktionierendes Funkger&#228;t ist Voraussetzung f&#252;r die Alarmierung und die gesamte Einsatzkommunikation.</p>
+<h3 id="13-7-motorraum-2">13.7 Motorraum</h3>
+<p>Im Motorraum wird auf sichtbare Undichtigkeiten, lose Leitungen oder andere offensichtliche Auff&#228;lligkeiten geachtet, bevor die Fl&#252;ssigkeitsst&#228;nde im Detail gepr&#252;ft werden.</p>
+<h3 id="13-8-kraftstoff-2">13.8 Kraftstoff</h3>
+<p>Der Kraftstoffstand wird kontrolliert und bei Bedarf vor Dienstbeginn aufgef&#252;llt, damit w&#228;hrend des Dienstes keine Zeit f&#252;r eine Betankung verloren geht, wie bereits in Kapitel 12.7 beschrieben.</p>
+<h3 id="13-9-lstand-2">13.9 &#214;lstand</h3>
+<p>Der &#214;lstand wird anhand des Peilstabs oder einer entsprechenden Anzeige kontrolliert. Ein zu niedriger &#214;lstand kann zu Motorsch&#228;den f&#252;hren und wird umgehend gemeldet, damit das Fahrzeug vor dem n&#228;chsten Einsatz nachgef&#252;llt oder ausgetauscht werden kann.</p>
+<h3 id="13-10-k-hlmittel-2">13.10 K&#252;hlmittel</h3>
+<p>Der K&#252;hlmittelstand wird gepr&#252;ft, um eine &#220;berhitzung des Motors w&#228;hrend l&#228;ngerer oder h&#228;ufiger Fahrten zu vermeiden. Sichtbarer K&#252;hlmittelverlust deutet auf eine Undichtigkeit hin und wird ebenfalls gemeldet.</p>
+<h3 id="13-11-bremsfl-ssigkeit-2">13.11 Bremsfl&#252;ssigkeit</h3>
+<p>Der Bremsfl&#252;ssigkeitsstand wird kontrolliert, da eine unzureichende Bremsfl&#252;ssigkeit die Bremsleistung und damit die Fahrsicherheit unmittelbar beeintr&#228;chtigt. Auff&#228;lligkeiten hierbei werden mit besonderer Priorit&#228;t gemeldet.</p>
+<h3 id="13-12-batterie-2">13.12 Batterie</h3>
+<p>Die Fahrzeugbatterie wird auf sichtbare Sch&#228;den sowie ausreichende Ladung gepr&#252;ft, da ein Ausfall der Batterie das gesamte Fahrzeug inklusive Funk und Beleuchtung au&#223;er Betrieb setzen w&#252;rde.</p>
+<h3 id="13-13-defibrillator-2">13.13 Defibrillator</h3>
+<p>Der mitgef&#252;hrte Defibrillator wird auf Ladezustand, Vollst&#228;ndigkeit des Zubeh&#246;rs und Funktionsf&#228;higkeit gepr&#252;ft. Da der Defibrillator im Kreislaufstillstand-Einsatz zeitkritisch ben&#246;tigt wird, hat seine Kontrolle hohe Priorit&#228;t.</p>
+<h3 id="13-14-verb-nde-2">13.14 Verb&#228;nde</h3>
+<p>Der Bestand an Verbandsmaterial wird auf Vollst&#228;ndigkeit und, soweit relevant, auf unversehrte sterile Verpackung gepr&#252;ft. Fehlendes Material wird vor Dienstantritt nachbest&#252;ckt.</p>
+<h3 id="13-15-codein-2">13.15 Codein</h3>
+<p>Der Bestand an Codein wird gez&#228;hlt und mit dem dokumentierten Soll-Bestand abgeglichen, da es sich um ein zentrales Einsatzsystemmedikament der Behandlung handelt, dessen Verf&#252;gbarkeit f&#252;r praktisch jeden Einsatz relevant ist.</p>
+<h3 id="13-16-aktivkohle-2">13.16 Aktivkohle</h3>
+<p>Der Bestand an Aktivkohle wird ebenfalls kontrolliert und gegebenenfalls nachbest&#252;ckt, damit bei Eins&#228;tzen mit Verdacht auf Vergiftung keine Verz&#246;gerung durch fehlendes Material entsteht.</p>
+<h3 id="13-17-azithromycin-2">13.17 Azithromycin</h3>
+<p>Der Bestand an Azithromycin wird gepr&#252;ft, auch wenn dieses Medikament aufgrund der geringeren Dringlichkeit von Erk&#228;ltungsf&#228;llen im Vergleich zu anderen dienstlich freigegebene Medikamenten seltener ben&#246;tigt wird.</p>
+<h3 id="13-18-epinephrin-2">13.18 Epinephrin</h3>
+<p>Der Bestand an Epinephrin wird besonders sorgf&#228;ltig gepr&#252;ft, da dieses Medikament bei bewusstlosen Patienten und in Kombination mit dem Defibrillator zum Einsatz kommt und damit zu den zeitkritischsten dienstlich freigegebene Medikamenten z&#228;hlt.</p>
+<h3 id="13-19-vollst-ndigkeit-2">13.19 Vollst&#228;ndigkeit</h3>
+<p>Nach Abschluss der Einzelkontrollen wird die Gesamtvollst&#228;ndigkeit des Fahrzeugs anhand der vorgegebenen Checkliste best&#228;tigt. Fehlt einzelnes Material, wird dies vor Dienstantritt nachbest&#252;ckt oder, falls nicht m&#246;glich, an die Leitstelle beziehungsweise die Dienstaufsicht gemeldet.</p>
+<h3 id="13-20-dokumentation-2">13.20 Dokumentation</h3>
+<p>Die durchgef&#252;hrte Fahrzeugkontrolle wird abschlie&#223;end dokumentiert, einschlie&#223;lich etwaiger festgestellter M&#228;ngel und der daraufhin eingeleiteten Ma&#223;nahmen. Diese Dokumentation schafft Nachvollziehbarkeit und Verantwortlichkeit f&#252;r den Zustand des Fahrzeugs w&#228;hrend des gesamten Dienstes.</p>
+<section class="chapter" id="kapitel-14-standard-operating-procedures-sop-2"><h2>Kapitel 14 - Standard Operating Procedures (SOP)</h2>
+<p>Standard Operating Procedures legen f&#252;r wiederkehrende Einsatzszenarien ein einheitliches, verbindliches Vorgehen fest. Sie ersetzen nicht die Anwendung des ABCDE-Schemas, sondern konkretisieren es f&#252;r die jeweilige Situation. Jede SOP beginnt mit den in Kapitel 6 und 11 beschriebenen Grundschritten (Eigenschutz, Lageerkundung, ABCDE) und erg&#228;nzt diese um szenariospezifische Ma&#223;nahmen.</p>
+<h3 id="bewusstlose-person-2">Bewusstlose Person</h3>
+<p>Bei Auffinden einer bewusstlosen Person wird zun&#228;chst die Reaktionsf&#228;higkeit durch lautes Ansprechen und Schmerzreiz gepr&#252;ft (AVPU). Zeigt der Patient keine Reaktion, wird der Atemweg freigemacht und die Atmung kontrolliert. Bei erhaltener Spontanatmung wird der Patient in die stabile Seitenlage gebracht, um ein Verschlucken von Erbrochenem zu vermeiden. Anschlie&#223;end erfolgt die vollst&#228;ndige Untersuchung nach ABCDE, die Erhebung der SAMPLE-Anamnese soweit m&#246;glich, sowie bei Best&#228;tigung der Bewusstlosigkeit die Gabe von Epinephrin gem&#228;&#223; Kapitel 10.5. Fehlt die Atmung, wird unmittelbar mit der Reanimation begonnen.</p>
+<h3 id="verkehrsunfall-2">Verkehrsunfall</h3>
+<p>Bei einem Verkehrsunfall erfolgt zun&#228;chst die Absicherung der Einsatzstelle gegen nachfolgenden Verkehr sowie die Lageerkundung hinsichtlich Anzahl der Patienten und Ausma&#223; der Fahrzeugverformung als Hinweis auf den Unfallmechanismus. Eingeklemmte Patienten erfordern die Zusammenarbeit mit der Feuerwehr. Die Untersuchung folgt dem ABCDE-Schema mit besonderem Augenmerk auf verdeckte innere Verletzungen entsprechend dem beobachteten Krafteinwirkungsmuster. Bei Verdacht auf eine Wirbels&#228;ulenverletzung wird eine achsengerechte Lagerung und Immobilisation vorgenommen, bevor der Patient bewegt wird.</p>
+<h3 id="schussverletzung-2">Schussverletzung</h3>
+<p>Bei einer Schussverletzung wird vorrangig nach Eintritts- und m&#246;glicher Austrittswunde gesucht, da beide behandelt werden m&#252;ssen. Stark blutende Wunden werden vorrangig mit Druckverb&#228;nden versorgt; bei nicht beherrschbarer Extremit&#228;tenblutung kommt ein Abbindesystem zum Einsatz. Die Untersuchung nach ABCDE achtet besonders auf Anzeichen eines Spannungspneumothorax bei Verletzungen im Brustkorbbereich sowie auf Schockzeichen infolge des Blutverlusts. Nach Versorgung aller sichtbaren Wunden mit Verb&#228;nden erfolgt die Gabe von Codein gem&#228;&#223; Kapitel 10.2. Die Zusammenarbeit mit der Polizei wird bereits w&#228;hrend der Behandlung koordiniert, ohne dass diese die medizinische Versorgung verz&#246;gert.</p>
+<h3 id="stichverletzung-2">Stichverletzung</h3>
+<p>Bei einer Stichverletzung wird die Wunde auf Tiefe und Lage hinsichtlich m&#246;glicher Verletzung innerer Organe oder gro&#223;er Gef&#228;&#223;e eingesch&#228;tzt, ohne dass ein im K&#246;rper verbliebener Gegenstand vor der Klinik entfernt wird, da dieser mitunter eine Blutung tamponiert. Die Blutungskontrolle erfolgt durch Verb&#228;nde um den Gegenstand herum. Im &#220;brigen folgt die Versorgung dem gleichen Schema wie bei der Schussverletzung: ABCDE-Untersuchung, Blutungskontrolle, anschlie&#223;end Codein nach vollst&#228;ndiger Versorgung sichtbarer Wunden.</p>
+<h3 id="vergiftung-2">Vergiftung</h3>
+<p>Bei Verdacht auf eine Vergiftung wird, soweit m&#246;glich, die ausl&#246;sende Substanz erfragt und dokumentiert. Die Untersuchung nach ABCDE achtet besonders auf Bewusstseinslage, Pupillenreaktion und Atmung, da Vergiftungen diese Parameter unterschiedlich beeinflussen k&#246;nnen. Nach Best&#228;tigung des Vergiftungsstatus erfolgt die Gabe von Aktivkohle gem&#228;&#223; Kapitel 10.3. Bei zus&#228;tzlicher Bewusstlosigkeit wird zus&#228;tzlich nach der SOP &quot;Bewusstlose Person&quot; vorgegangen.</p>
+<h3 id="erk-ltung-2">Erk&#228;ltung</h3>
+<p>Bei Patienten mit Erk&#228;ltungssymptomen wird zun&#228;chst ausgeschlossen, dass ein schwerwiegenderer Zustand vorliegt, bevor die Erk&#228;ltung als alleinige Ursache angenommen wird. Liegt ausschlie&#223;lich ein Erk&#228;ltungsstatus vor, erfolgt die Gabe von Azithromycin gem&#228;&#223; Kapitel 10.4. Erk&#228;ltungsf&#228;lle werden in der Einsatzpriorisierung stets nachrangig gegen&#252;ber Patienten mit Verletzungen oder instabilen Vitalparametern behandelt.</p>
+<h3 id="kreislaufstillstand-2">Kreislaufstillstand</h3>
+<p>Wird bei der Untersuchung ein Kreislaufstillstand festgestellt - keine Reaktion, keine normale Atmung -, wird unverz&#252;glich mit der Reanimation begonnen und gleichzeitig der Defibrillator angefordert beziehungsweise angelegt. Die Reanimation wird gem&#228;&#223; der SOP &quot;Reanimation&quot; fortgef&#252;hrt, bis eine R&#252;ckkehr des Kreislaufs erkennbar ist oder die &#220;bergabe an die Klinik erfolgt. Diese SOP hat gegen&#252;ber allen anderen Eins&#228;tzen h&#246;chste Priorit&#228;t und bindet in der Regel die gesamte anwesende Besatzung.</p>
+<h3 id="massenanfall-verletzter-2">Massenanfall Verletzter</h3>
+<p>Bei einem Massenanfall Verletzter, also mehr Patienten als mit den verf&#252;gbaren Mitteln gleichzeitig vollst&#228;ndig versorgt werden k&#246;nnen, erfolgt zun&#228;chst eine Sichtung aller Betroffenen nach AVPU und sichtbarem Verletzungsausma&#223;, um eine Behandlungsreihenfolge festzulegen. Patienten mit den gr&#246;&#223;ten &#220;berlebenschancen bei gleichzeitig hoher Dringlichkeit werden vorrangig behandelt, w&#228;hrend weniger dringliche F&#228;lle vor&#252;bergehend zur&#252;ckgestellt werden. Die Leitstelle wird fr&#252;hzeitig &#252;ber die Lage informiert, damit weitere Kr&#228;fte nachgefordert werden k&#246;nnen.</p>
+<h3 id="reanimation-3">Reanimation</h3>
+<p>Die Reanimation besteht aus fortlaufenden Thoraxkompressionen in gleichm&#228;&#223;igem Rhythmus, unterbrochen durch Beatmung im festgelegten Verh&#228;ltnis, sowie der fr&#252;hestm&#246;glichen Anwendung des Defibrillators, der den Herzrhythmus automatisiert analysiert und bei Bedarf einen Schock empfiehlt. Nach Wiedereinsetzen von Lebenszeichen oder auf Empfehlung des Defibrillators wird die Gabe von Epinephrin gem&#228;&#223; Kapitel 10.5 vorgenommen. Die Reanimation wird ohne unn&#246;tige Unterbrechung fortgef&#252;hrt, bis eine stabile Kreislauffunktion erkennbar ist oder die &#220;bergabe an die Klinik erfolgt.</p>
+<h3 id="patiententransport-2">Patiententransport</h3>
+<p>Vor dem Transport wird der Patient sicher auf der Trage fixiert und, soweit erforderlich, weiter &#252;berwacht. W&#228;hrend der Fahrt erfolgt eine kontinuierliche Re-Evaluation gem&#228;&#223; Kapitel 6.11, damit Verschlechterungen unmittelbar erkannt werden. Die Zielklinik wird vorab &#252;ber Funk informiert, damit sich das dortige Personal auf die &#220;bernahme vorbereiten kann. Am Zielort erfolgt die strukturierte &#220;bergabe gem&#228;&#223; Kapitel 11.9.</p>
+<section class="chapter" id="kapitel-15-kommunikation-2"><h2>Kapitel 15 - Kommunikation</h2>
+<p>Kommunikation ist neben der medizinischen Versorgung eine der wichtigsten F&#228;higkeiten im EHK-Dienst. Ein Einsatz kann fachlich einwandfrei verlaufen und dennoch als unprofessionell wahrgenommen werden, wenn die Kommunikation mit Patienten, Angeh&#246;rigen oder anderen Beh&#246;rden misslingt. Dieses Kapitel behandelt die wichtigsten Kommunikationssituationen im Einsatzalltag.</p>
+<h3 id="patientengespr-ch-2">Patientengespr&#228;ch</h3>
+<p>Das Gespr&#228;ch mit dem Patienten dient sowohl der Informationsgewinnung als auch der Beruhigung. Es beginnt mit einer kurzen Vorstellung, erfolgt in einfacher, verst&#228;ndlicher Sprache und vermeidet unn&#246;tigen Fachjargon. Aktives Zuh&#246;ren und R&#252;ckversicherung, dass die Angaben des Patienten verstanden wurden, schaffen Vertrauen und erleichtern die weitere Zusammenarbeit.</p>
+<h3 id="angeh-rige-2">Angeh&#246;rige</h3>
+<p>Angeh&#246;rige sind h&#228;ufig emotional stark belastet und ben&#246;tigen neben Informationen auch ruhige, empathische Zuwendung. Informationen an Angeh&#246;rige werden sachlich und ohne Spekulation weitergegeben; detaillierte medizinische Informationen bleiben, soweit die Schweigepflicht dies erfordert, dem Patienten und der weiterbehandelnden Stelle vorbehalten.</p>
+<h3 id="polizei-2">Polizei</h3>
+<p>Die Zusammenarbeit mit der Polizei betrifft insbesondere Eins&#228;tze mit Gewaltdelikten oder Verkehrsunf&#228;llen. Medizinische Informationen werden der Polizei nur im notwendigen Umfang mitgeteilt, w&#228;hrend sicherheitsrelevante Informationen, etwa zu einer fortbestehenden Gefahrenlage, unverz&#252;glich ausgetauscht werden.</p>
+<h3 id="feuerwehr-2">Feuerwehr</h3>
+<p>Bei gemeinsamen Eins&#228;tzen mit der Feuerwehr, etwa bei technischer Rettung eingeklemmter Personen, wird die Behandlungsreihenfolge und der Zugang zum Patienten eng abgestimmt. Eine klare Aufgabenverteilung verhindert, dass sich Rettungsma&#223;nahmen gegenseitig behindern.</p>
+<h3 id="leitstelle-2">Leitstelle</h3>
+<p>Die Kommunikation mit der Leitstelle erfolgt zu jedem relevanten Zeitpunkt des Einsatzes: &#220;bernahme, Ankunft an der Einsatzstelle, gegebenenfalls Nachforderung weiterer Kr&#228;fte, Beginn des Transports und Ankunft in der Klinik. Diese Statusmeldungen erm&#246;glichen der Leitstelle eine aktuelle &#220;bersicht &#252;ber alle laufenden Eins&#228;tze.</p>
+<h3 id="funkdisziplin-2">Funkdisziplin</h3>
+<p>Funkdisziplin bedeutet, sich kurz und klar auszudr&#252;cken, den Funkkanal nicht unn&#246;tig zu belegen und bei paralleler Kommunikation mehrerer Einsatzkr&#228;fte Vorrang f&#252;r dringlichere Meldungen zu gew&#228;hren. Eine disziplinierte Funknutzung stellt sicher, dass wichtige Meldungen nicht durch unwichtige Gespr&#228;che verz&#246;gert werden.</p>
+<h3 id="dokumentation-2">Dokumentation</h3>
+<p>Die schriftliche Dokumentation erg&#228;nzt die m&#252;ndliche Kommunikation und stellt sicher, dass Informationen auch nach Abschluss des Einsatzes nachvollziehbar bleiben. Sie folgt den in den Kapiteln 11.7 und 14 beschriebenen Grunds&#228;tzen und wird zeitnah nach dem Einsatz vervollst&#228;ndigt, solange die Details noch pr&#228;sent sind.</p>
+<section class="chapter" id="kapitel-16-praktische-ausbildung-2"><h2>Kapitel 16 - Praktische Ausbildung</h2>
+<p>Die praktische Ausbildung &#252;berf&#252;hrt das theoretische Wissen der vorangegangenen Kapitel in konkrete Handlungsf&#228;higkeit. Sie erfolgt unter Anleitung erfahrener Einsatzkr&#195;&#164;fte und in aufsteigendem Schwierigkeitsgrad, beginnend mit einfachen Handgriffen bis hin zu komplexen Fallbeispielen.</p>
+<h3 id="verb-nde-2">Verb&#228;nde</h3>
+<p>Das Anlegen von Verb&#228;nden wird zun&#228;chst an unverletzten &#220;bungspartnern trainiert, bevor es unter Anleitung an echten Eins&#228;tzen angewendet wird. Ge&#252;bt werden unterschiedliche Verbandstechniken f&#252;r verschiedene Wundarten und -lokalisationen sowie der korrekte Umgang mit sterilem Material.</p>
+<h3 id="patientenansprache-2">Patientenansprache</h3>
+<p>Die Patientenansprache wird in Diensttraining&#252;bungen trainiert, in denen EMS-Ausbilder unterschiedliche Patiententypen darstellen: &#228;ngstliche, aggressive, verwirrte oder kooperative Patienten. Ziel ist es, in jeder dieser Situationen einen professionellen, deeskalierenden Ton zu finden.</p>
+<h3 id="abcde-2">ABCDE</h3>
+<p>Die Anwendung des ABCDE-Schemas wird so lange ge&#252;bt, bis sie ohne Nachdenken in der richtigen Reihenfolge abl&#228;uft. Dies erfolgt zun&#228;chst an &#220;bungspuppen, sp&#228;ter an simulierten Patienten mit unterschiedlichen, dem Kursteilnehmenden vorab nicht bekannten Verletzungsmustern.</p>
+<h3 id="gcs-2">GCS</h3>
+<p>Die Erhebung der Glasgow-Coma-Scale wird anhand vorgegebener Fallbeispiele ge&#252;bt, bei denen unterschiedliche Kombinationen von Augen&#246;ffnung, verbaler und motorischer Reaktion korrekt bepunktet werden m&#252;ssen, bis eine sichere und schnelle Einsch&#228;tzung gelingt.</p>
+<h3 id="reanimation-4">Reanimation</h3>
+<p>Die Reanimation wird intensiv an &#220;bungspuppen trainiert, mit besonderem Augenmerk auf korrekte Drucktiefe, -frequenz und -position der Thoraxkompressionen sowie das korrekte Verh&#228;ltnis von Kompression und Beatmung. Ziel ist eine Ausf&#252;hrung, die auch unter Stress und Ersch&#246;pfung konstant bleibt.</p>
+<h3 id="defibrillator-2">Defibrillator</h3>
+<p>Der Umgang mit dem Defibrillator wird in Kombination mit der Reanimations&#252;bung trainiert: korrektes Anlegen der Elektroden, Abwarten der automatisierten Analyse und sicheres Verhalten w&#228;hrend der Schockabgabe, um eine Eigen- oder Fremdgef&#228;hrdung durch den elektrischen Schock zu vermeiden.</p>
+<h3 id="medikamente-2">Medikamente</h3>
+<p>Der Umgang mit den dienstlich freigegebene Medikamenten wird anhand von Fallbeispielen ge&#252;bt, in denen der Kursteilnehmende anhand der geschilderten Symptome das richtige Medikament ausw&#228;hlen und die korrekte Reihenfolge der Ma&#223;nahmen (z. B. erst Verband, dann Codein) anwenden muss.</p>
+<h3 id="fahrzeugkontrolle-2">Fahrzeugkontrolle</h3>
+<p>Die vollst&#228;ndige Fahrzeugkontrolle nach Kapitel 13 wird zun&#228;chst gemeinsam mit einem EMS-Ausbilder durchgef&#252;hrt, bevor der Kursteilnehmende sie eigenst&#228;ndig &#252;bernimmt. Ziel ist eine z&#252;gige, aber vollst&#228;ndige Kontrolle ohne Auslassen einzelner Punkte.</p>
+<h3 id="fallbeispiele-2">Fallbeispiele</h3>
+<p>Zum Abschluss der praktischen Ausbildung werden komplexe, realit&#228;tsnahe Fallbeispiele durchgespielt, die mehrere der zuvor einzeln ge&#252;bten Fertigkeiten kombinieren, etwa ein Verkehrsunfall mit mehreren Patienten unterschiedlichen Verletzungsgrades. Diese Fallbeispiele bereiten unmittelbar auf die praktische Pr&#252;fung in Kapitel 17 vor.</p>
+<section class="chapter" id="kapitel-17-pr-fung-2"><h2>Kapitel 17 - Pr&#252;fung</h2>
+<p>Die Pr&#252;fung bildet den Abschluss der Ausbildung und stellt sicher, dass alle in diesem Handbuch beschriebenen Kenntnisse und Fertigkeiten sicher beherrscht werden. Sie besteht aus einem schriftlichen, einem m&#252;ndlichen und einem praktischen Teil.</p>
+<h3 id="schriftliche-pr-fung-2">Schriftliche Pr&#252;fung</h3>
+<p>Die schriftliche Pr&#252;fung umfasst Fragen zu Anatomie, Physiologie, Pathophysiologie, den Beurteilungsschemata sowie den dienstlich freigegebene Medikamenten und deren korrekter Anwendung. Sie pr&#252;ft das theoretische Grundverst&#228;ndnis, das f&#252;r die praktische Anwendung im Einsatz vorausgesetzt wird.</p>
+<h3 id="m-ndliche-pr-fung-2">M&#252;ndliche Pr&#252;fung</h3>
+<p>In der m&#252;ndlichen Pr&#252;fung werden dem Kursteilnehmenden Fallbeispiele vorgelegt, zu denen er sein Vorgehen begr&#252;ndet erl&#228;utern muss. Bewertet wird nicht nur das fachlich richtige Ergebnis, sondern auch die F&#228;higkeit, den eigenen Gedankengang nachvollziehbar darzustellen.</p>
+<h3 id="praktische-pr-fung-2">Praktische Pr&#252;fung</h3>
+<p>Die praktische Pr&#252;fung umfasst die Durchf&#252;hrung einer vollst&#228;ndigen Fahrzeugkontrolle sowie die Bew&#228;ltigung eines oder mehrerer simulierter Eins&#228;tze, in denen der Kursteilnehmende Eigenschutz, Patientenbeurteilung, Behandlung und Dokumentation eigenst&#228;ndig unter Beobachtung durchf&#252;hrt.</p>
+<h3 id="bewertungssystem-2">Bewertungssystem</h3>
+<p>Jeder Pr&#252;fungsteil wird nach einem einheitlichen Punktesystem bewertet, das sowohl die fachliche Korrektheit als auch die Reihenfolge und Sicherheit der Durchf&#252;hrung ber&#252;cksichtigt. Schwere Fehler, insbesondere solche mit unmittelbarer Gef&#228;hrdung des Patienten, f&#252;hren unabh&#228;ngig von der sonstigen Punktzahl zum Nichtbestehen des betreffenden Pr&#252;fungsteils.</p>
+<h3 id="bestehensgrenze-2">Bestehensgrenze</h3>
+<p>Die Bestehensgrenze ist f&#252;r alle Kursteilnehmenden einheitlich festgelegt und wird vor Pr&#252;fungsbeginn bekanntgegeben. Sie gilt gesondert f&#252;r jeden der drei Pr&#252;fungsteile, sodass ein besonders gutes Ergebnis in einem Teil ein Nichtbestehen in einem anderen Teil nicht ausgleichen kann.</p>
+<h3 id="wiederholungspr-fung-2">Wiederholungspr&#252;fung</h3>
+<p>Wird ein Pr&#252;fungsteil nicht bestanden, ist eine Wiederholung nach einer verpflichtenden Nachschulung in den betroffenen Themenbereichen m&#246;glich. Die Wiederholungspr&#252;fung beschr&#228;nkt sich in der Regel auf den nicht bestandenen Teil, sofern zwischen den Pr&#252;fungsteilen keine inhaltliche Abh&#228;ngigkeit besteht.</p>
+<section class="chapter" id="kapitel-18-anhang-2"><h2>Kapitel 18 - Anhang</h2>
+<p>Der Anhang fasst wichtige Nachschlageinhalte zusammen: Abk&#252;rzungen, lateinische Fachbegriffe, ein medizinisches Glossar sowie Verzeichnisse der wichtigsten Organe, Knochen, Muskeln, Nerven, Gef&#228;&#223;e und dienstlich freigegebene Medikamente. Erg&#228;nzend enth&#228;lt er Checklisten und die f&#252;r Ausbildung und Pr&#252;fung notwendigen Formulare.</p>
+<h3 id="abk-rzungsverzeichnis-2">Abk&#252;rzungsverzeichnis</h3>
+<p>ABCDE - Airway, Breathing, Circulation, Disability, Exposure - Schema der systematischen Patientenbeurteilung AVPU - Alert, Verbal, Pain, Unresponsive - vereinfachtes Bewusstseinsschema GCS - Glasgow-Coma-Scale - Skala zur Beurteilung der Bewusstseinslage SAMPLE - Symptome, Allergien, Medikamente, Patientengeschichte, Letzte Mahlzeit, Ereignis - Anamneseschema OPQRST - Onset, Provocation/Palliation, Quality, Region/Radiation, Severity, Time - Schmerzanamneseschema</p>
+<h3 id="ehk-einsatz-und-hilfskr-ftedienst">EHK - Einsatz- und Hilfskr&#228;ftedienst</h3>
+<p>SOP - Standard Operating Procedure - verbindliches Standardvorgehen</p>
+<h3 id="psa-pers-nliche-schutzausr-stung">PSA - Pers&#246;nliche Schutzausr&#252;stung</h3>
+<p>RettSan - Rettungssanit&#228;ter (reale Ausbildungsbezeichnung, dient hier als Orientierung)</p>
+<h3 id="lateinische-fachbegriffe-2">Lateinische Fachbegriffe</h3>
+<h3 id="cranial-kranial-kopfw-rts-gelegen">Cranial / Kranial - kopfw&#228;rts gelegen</h3>
+<h3 id="caudal-kaudal-fu-w-rts-gelegen">Caudal / Kaudal - fu&#223;w&#228;rts gelegen</h3>
+<h3 id="ventral-bauchw-rts-vorne-gelegen">Ventral - bauchw&#228;rts, vorne gelegen</h3>
+<h3 id="dorsal-r-ckenw-rts-hinten-gelegen">Dorsal - r&#252;ckenw&#228;rts, hinten gelegen</h3>
+<h3 id="medial-zur-k-rpermitte-hin-gelegen">Medial - zur K&#246;rpermitte hin gelegen</h3>
+<h3 id="lateral-von-der-k-rpermitte-weg-gelegen">Lateral - von der K&#246;rpermitte weg gelegen</h3>
+<h3 id="proximal-rumpfnah-gelegen">Proximal - rumpfnah gelegen</h3>
+<h3 id="distal-rumpffern-gelegen">Distal - rumpffern gelegen</h3>
+<h3 id="thorax-brustkorb">Thorax - Brustkorb</h3>
+<h3 id="abdomen-bauch">Abdomen - Bauch</h3>
+<h3 id="medizinisches-glossar-2">Medizinisches Glossar</h3>
+<p>Hypoxie - unzureichende Sauerstoffversorgung des Gewebes</p>
+<h3 id="hypovol-mie-vermindertes-zirkulierendes-blutvolumen">Hypovol&#228;mie - vermindertes zirkulierendes Blutvolumen</h3>
+<p>Isch&#228;mie - unzureichende Durchblutung eines Gewebes oder Organs Schock - Missverh&#228;ltnis zwischen Sauerstoffbedarf und -angebot der Zellen Azidose - Verschiebung des Blut-pH-Werts in den sauren Bereich Alkalose - Verschiebung des Blut-pH-Werts in den basischen Bereich Hom&#246;ostase - F&#228;higkeit des K&#246;rpers, innere Bedingungen konstant zu halten Sepsis - &#252;berschie&#223;ende, k&#246;rpersch&#228;digende Reaktion auf eine Infektion</p>
+<h3 id="peritonitis-bauchfellentz-ndung">Peritonitis - Bauchfellentz&#252;ndung</h3>
+<p>Rekapillarisierungszeit - Zeit, bis nach kurzem Druck auf die Haut wieder eine normale Durchblutung sichtbar wird - ein Kreislaufindikator</p>
+<h3 id="organverzeichnis-2">Organverzeichnis</h3>
+<p>Herz - muskul&#228;re Pumpe des Blutkreislaufs (Kapitel 2.11)</p>
+<h3 id="lunge-organ-des-gasaustauschs-kapitel-2-12">Lunge - Organ des Gasaustauschs (Kapitel 2.12)</h3>
+<p>Leber - gr&#246;&#223;te Dr&#252;se des K&#246;rpers, zentral im Stoffwechsel (Kapitel 2.13) Milz - Immun- und Blutabbauorgan im linken Oberbauch (Kapitel 2.14)</p>
+<h3 id="magen-speicher-und-vorverdauungsorgan-kapitel-2-15">Magen - Speicher- und Vorverdauungsorgan (Kapitel 2.15)</h3>
+<p>Darm - Aufnahme von N&#228;hrstoffen und Wasser (Kapitel 2.16) Bauchspeicheldr&#252;se - Verdauungsenzym- und Hormonproduktion (Kapitel 2.17) Nieren - Ausscheidungsorgane, Regulation von Wasser und Elektrolyten (Kapitel 2.18)</p>
+<h3 id="harnblase-urinspeicher-kapitel-2-19">Harnblase - Urinspeicher (Kapitel 2.19)</h3>
+<p>Gehirn - zentrales Steuerorgan des Nervensystems (Kapitel 2.20)</p>
+<h3 id="knochenverzeichnis-2">Knochenverzeichnis</h3>
+<h3 id="sch-delknochen-sch-tzt-das-gehirn-platter-knochentyp">Sch&#228;delknochen - sch&#252;tzt das Gehirn, platter Knochentyp</h3>
+<p>Oberarmknochen (Humerus) - langer R&#246;hrenknochen des Oberarms Unterarmknochen (Radius/Ulna) - lange R&#246;hrenknochen des Unterarms Oberschenkelknochen (Femur) - l&#228;ngster R&#246;hrenknochen des K&#246;rpers Beckenknochen - platter Knochen, verbindet Wirbels&#228;ule und Beine Wirbelk&#246;rper - unregelm&#228;&#223;ig geformte Knochen der Wirbels&#228;ule, sch&#252;tzen das R&#252;ckenmark Rippen - sch&#252;tzen Brustorgane, beteiligt an der Atemmechanik</p>
+<h3 id="muskelverzeichnis-2">Muskelverzeichnis</h3>
+<p>Skelettmuskulatur - quergestreift, willk&#252;rlich steuerbar, f&#252;r Bewegung zust&#228;ndig Glatte Muskulatur - unwillk&#252;rlich, u. a. in Gef&#228;&#223;- und Darmw&#228;nden Herzmuskulatur - Sonderform mit eigenst&#228;ndiger elektrischer Erregungsbildung Zwerchfell - wichtigster Atemmuskel, trennt Brust- und Bauchh&#246;hle</p>
+<h3 id="nervenverzeichnis-2">Nervenverzeichnis</h3>
+<h3 id="zentrales-nervensystem-gehirn-und-r-ckenmark">Zentrales Nervensystem - Gehirn und R&#252;ckenmark</h3>
+<p>Peripheres Nervensystem - alle Nerven au&#223;erhalb von Gehirn und R&#252;ckenmark Vegetatives Nervensystem - unwillk&#252;rliche Steuerung innerer Organe</p>
+<h3 id="gef-verzeichnis-2">Gef&#228;&#223;verzeichnis</h3>
+<p>Arterien - f&#252;hren Blut vom Herzen weg, dickwandig, hoher Druck Venen - f&#252;hren Blut zum Herzen zur&#252;ck, d&#252;nnwandig, mit Venenklappen</p>
+<h3 id="kapillaren-kleinste-gef-e-ort-des-stoffaustauschs">Kapillaren - kleinste Gef&#228;&#223;e, Ort des Stoffaustauschs</h3>
+<h3 id="medikamentenverzeichnis-2">Medikamentenverzeichnis</h3>
+<p>Codein - vollst&#228;ndige Heilung nach Wundversorgung (Kapitel 10.2)</p>
+<h3 id="aktivkohle-behandlung-von-vergiftungen-kapitel-10-3">Aktivkohle - Behandlung von Vergiftungen (Kapitel 10.3)</h3>
+<p>Azithromycin - Behandlung von Erk&#228;ltungen (Kapitel 10.4) Epinephrin - Kreislaufunterst&#195;&#188;tzung bei kritischen Zust&#195;&#164;nden nach Freigabe (Kapitel 10.5)</p>
+<h3 id="checklisten-2">Checklisten</h3>
+<p>Die vollst&#228;ndige Fahrzeugkontrollcheckliste entspricht den 20 Punkten aus Kapitel 13.1 bis 13.20 und wird zu Beginn jedes Dienstes in dieser Reihenfolge abgearbeitet und mit Unterschrift best&#228;tigt.</p>
+<h3 id="pr-fungsprotokolle-2">Pr&#252;fungsprotokolle</h3>
+<p>F&#252;r jeden Pr&#252;fungsteil wird ein Protokoll gef&#252;hrt, das die gestellten Aufgaben, die gezeigte Leistung sowie das Ergebnis dokumentiert. Die Protokolle werden von der Pr&#252;fungskommission unterzeichnet und dem Kursteilnehmenden im Anschluss zug&#228;nglich gemacht.</p>
+<h3 id="ausbildungsnachweis-2">Ausbildungsnachweis</h3>
+<p>Der Ausbildungsnachweis dokumentiert alle absolvierten begleiteten Dienste, &#220;bungseinheiten und Lehrgangsinhalte und ist Voraussetzung f&#252;r die Zulassung zur Pr&#252;fung gem&#228;&#223; Kapitel 17.</p>
+<h3 id="eigenst-ndigkeitserkl-rung-2">Eigenst&#228;ndigkeitserkl&#228;rung</h3>
+<p>Hiermit erkl&#228;rt der/die Kursteilnehmende, dass s&#228;mtliche Ausbildungsinhalte eigenst&#228;ndig erarbeitet und die praktischen &#220;bungen nach bestem Wissen und Gewissen durchgef&#252;hrt wurden.</p>
+      </article>
+    </div>
   </main>
 
   <footer class="footer">
-    <p>EMS Schulungsportal | EHK / IK Guide für staatliche Fraktionen</p>
+    <p>EMS Schulungsportal | EHK / IK Vollversion für staatliche Fraktionen</p>
     <a href="#start">Zurück nach oben</a>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector(".nav-toggle");
-    const navLinks = document.querySelector("#nav-links");
-
-    if (navToggle && navLinks) {
-      navToggle.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-
-      navLinks.addEventListener("click", (event) => {
-        if (event.target instanceof HTMLAnchorElement) {
-          navLinks.classList.remove("open");
-          navToggle.setAttribute("aria-expanded", "false");
-        }
-      });
-    }
-
-    document.querySelectorAll(".checklist input").forEach((box) => {
-      box.addEventListener("change", () => {
-        const label = box.closest("label");
-
-        if (label) {
-          label.style.textDecoration = box.checked ? "line-through" : "none";
-          label.style.opacity = box.checked ? "0.68" : "1";
-        }
-      });
-    });
-
-    function checkQuiz() {
-      const total = 8;
-      let score = 0;
-
-      for (let i = 1; i <= total; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-
-        if (selected && selected.value === "1") {
-          score++;
-        }
-      }
-
-      const percent = Math.round((score / total) * 100);
-      const result = document.querySelector("#quiz-result");
-
-      let text = `Ergebnis: ${score} von ${total} richtig (${percent}%). `;
-
-      if (percent >= 70) {
-        text += "Bestanden. Die Grundlagen sitzen.";
-        result.style.background = "#e7f7ef";
-        result.style.color = "#0c6845";
-      } else {
-        text += "Noch nicht bestanden. Lies die Kursmodule erneut und wiederhole den Fragenkatalog.";
-        result.style.background = "#fff0f0";
-        result.style.color = "#9b2020";
-      }
-
-      result.textContent = text;
-      result.style.display = "block";
-    }
-
-    function resetQuiz() {
-      const result = document.querySelector("#quiz-result");
-      result.style.display = "none";
-      result.textContent = "";
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-```
