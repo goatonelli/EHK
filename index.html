@@ -353,32 +353,144 @@ summary { cursor: pointer; font-weight: 900; }
   .footer { flex-direction: column; }
 }
 
-/* GitHub-Pages-safe layout fix: full-width reading mode */
+/* FINAL GITHUB PAGES FIX - stable one-file layout */
+html, body {
+  width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(13, 107, 123, .12), transparent 34rem),
+    linear-gradient(180deg, #f4f8fb 0%, #eef5f8 100%) !important;
+}
+
+body::before {
+  content: "Made by SirLewis McGeil";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 900;
+  color: rgba(8, 73, 87, .055);
+  transform: rotate(-24deg);
+  white-space: nowrap;
+}
+
+body::after {
+  content: "Made by SirLewis McGeil  •  EMS EHK / IK Guide  •  Made by SirLewis McGeil  •  EMS EHK / IK Guide";
+  position: fixed;
+  left: -10vw;
+  right: -10vw;
+  bottom: 34px;
+  z-index: 0;
+  pointer-events: none;
+  color: rgba(8, 73, 87, .08);
+  font-weight: 900;
+  font-size: 1.05rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.topbar, main, .footer {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.topbar {
+  box-shadow: 0 8px 28px rgba(16, 35, 49, .08) !important;
+}
+
+.nav,
+.hero,
+.section,
+.footer {
+  width: min(1180px, calc(100% - 36px)) !important;
+  max-width: 1180px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.hero {
+  display: block !important;
+  min-height: auto !important;
+  padding-top: 64px !important;
+  padding-bottom: 42px !important;
+}
+
+.hero .stats,
+.stats {
+  margin-top: 26px !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+  gap: 18px !important;
+}
+
 .course-shell {
   display: block !important;
+  width: min(1120px, calc(100% - 36px)) !important;
   max-width: 1120px !important;
-  width: 100% !important;
+  min-width: 0 !important;
   margin: 0 auto !important;
-  padding: 30px 22px 80px !important;
+  padding: 24px 0 80px !important;
 }
 
 .toc {
-  position: static !important;
-  top: auto !important;
-  max-height: 360px !important;
-  overflow: auto !important;
-  width: 100% !important;
-  margin: 0 0 24px !important;
+  display: none !important;
 }
 
-.reader,
-.chapter,
-.lesson,
-.card,
-.question {
+.reader {
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
+  margin: 0 auto !important;
+}
+
+.chapter,
+.lesson,
+.card,
+.question,
+details {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  background: rgba(255, 255, 255, .96) !important;
+  border: 1px solid #d7e3ea !important;
+  border-radius: 10px !important;
+  box-shadow: 0 14px 34px rgba(19, 47, 64, .08) !important;
+}
+
+.chapter {
+  margin-bottom: 20px !important;
+  padding: clamp(20px, 4vw, 38px) !important;
+}
+
+.chapter::before {
+  content: "Made by SirLewis McGeil";
+  display: block;
+  margin-bottom: 14px;
+  color: rgba(13, 107, 123, .48);
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .chapter h2,
@@ -388,16 +500,66 @@ summary { cursor: pointer; font-weight: 900; }
 .reader h2,
 .reader h3,
 .reader p,
-.reader li {
+.reader li,
+.card h3,
+.card p {
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  transform: none !important;
   white-space: normal !important;
   word-break: normal !important;
   overflow-wrap: break-word !important;
   max-width: 100% !important;
+  min-width: 0 !important;
+  letter-spacing: normal !important;
 }
 
-.chapter p {
-  font-size: 1.04rem !important;
-  line-height: 1.78 !important;
+.chapter h2 {
+  font-size: clamp(1.8rem, 3.8vw, 3rem) !important;
+  line-height: 1.1 !important;
+  color: #102331 !important;
+}
+
+.chapter h3 {
+  font-size: clamp(1.22rem, 2vw, 1.55rem) !important;
+  line-height: 1.25 !important;
+  color: #084957 !important;
+}
+
+.chapter p,
+.chapter li {
+  font-size: clamp(1rem, 1.2vw, 1.08rem) !important;
+  line-height: 1.82 !important;
+  color: #3f5664 !important;
+}
+
+.brand::after {
+  content: "Made by SirLewis McGeil";
+  margin-left: 10px;
+  color: #0d6b7b;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .hero .stats,
+  .stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .nav,
+  .hero,
+  .section,
+  .footer,
+  .course-shell {
+    width: min(100% - 24px, 1120px) !important;
+  }
+
+  body::after {
+    display: none;
+  }
 }
 </style>
 </head>
