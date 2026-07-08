@@ -1,579 +1,1102 @@
-<!DOCTYPE html>
+```html
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EHK BERLIN // TERMINAL</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-void:#0B0E13;
-    --bg-panel:#121922;
-    --bg-panel-2:#0F151D;
-    --line-steel:#26323D;
-    --text-primary:#E9EEF2;
-    --text-muted:#7C8A96;
-    --accent-amber:#FFB020;
-    --accent-amber-dim:#8a641f;
-    --accent-teal:#2FD9C4;
-    --accent-red:#FF5252;
-    --radius:2px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg-void);
-    color:var(--text-primary);
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:15px;
-    line-height:1.6;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important;}
-  }
-  a{color:inherit;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .display{font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.04em;}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EHK / IK Guide | EMS Schulungsportal</title>
 
-  /* ---------- topbar ---------- */
-  .topbar{
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 20px;
-    background:var(--bg-panel-2);
-    border-bottom:1px solid var(--line-steel);
-  }
-  .topbar .brand{
-    display:flex; align-items:center; gap:10px;
-    font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.08em;
-    font-size:15px;
-  }
-  .brand .dot{
-    width:9px;height:9px;border-radius:50%;
-    background:var(--accent-amber);
-    box-shadow:0 0 8px var(--accent-amber);
-    animation:blink 2.4s infinite;
-  }
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-  .topbar .clock{
-    font-family:'IBM Plex Mono',monospace;
-    color:var(--accent-teal);
-    font-size:13px;
-  }
+  <style>
+    :root {
+      --bg: #f4f8fb;
+      --text: #102331;
+      --muted: #60717d;
+      --line: #d8e3ea;
+      --panel: #ffffff;
+      --primary: #0d6b7b;
+      --primary-dark: #084957;
+      --accent: #e33f42;
+      --soft: #e9f5f7;
+      --success: #16865a;
+      --warning: #b36b00;
+      --shadow: 0 16px 36px rgba(19, 47, 64, 0.12);
+    }
 
-  /* ---------- boot hero ---------- */
-  .boot{
-    min-height:78vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center;
-    padding:40px 20px;
-    border-bottom:1px solid var(--line-steel);
-    position:relative;
-    overflow:hidden;
-  }
-  .boot::before{
-    content:"";
-    position:absolute; inset:0;
-    background:
-      repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
-    pointer-events:none;
-  }
-  .boot-lines{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    color:var(--accent-teal);
-    text-align:left;
-    max-width:520px;
-    margin-bottom:28px;
-    min-height:120px;
-  }
-  .boot-lines .ln{opacity:0; display:block;}
-  .boot-title{
-    font-family:'Oswald',sans-serif;
-    font-weight:700;
-    font-size:clamp(38px, 7vw, 76px);
-    letter-spacing:.03em;
-    line-height:1;
-    margin:0 0 12px;
-    opacity:0;
-  }
-  .boot-title .accent{color:var(--accent-amber);}
-  .boot-sub{
-    color:var(--text-muted);
-    font-size:15px;
-    max-width:560px;
-    opacity:0;
-  }
-  .boot-cta{
-    margin-top:30px;
-    opacity:0;
-  }
-  .btn{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    letter-spacing:.03em;
-    background:transparent;
-    border:1px solid var(--accent-amber);
-    color:var(--accent-amber);
-    padding:11px 20px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    transition:background .15s, color .15s;
-  }
-  .btn:hover{background:var(--accent-amber); color:#1a1200;}
-  .btn:focus-visible{outline:2px solid var(--accent-teal); outline-offset:2px;}
+    * { box-sizing: border-box; }
 
-  /* ---------- layout ---------- */
-  .layout{
-    display:grid;
-    grid-template-columns:230px 1fr;
-    max-width:1180px;
-    margin:0 auto;
-  }
-  .sidebar{
-    position:sticky; top:49px;
-    align-self:start;
-    height:calc(100vh - 49px);
-    overflow-y:auto;
-    padding:24px 12px 24px 20px;
-    border-right:1px solid var(--line-steel);
-  }
-  .sidebar h4{
-    font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.12em;
-    color:var(--text-muted); margin:18px 0 8px;
-    text-transform:uppercase;
-  }
-  .sidebar h4:first-child{margin-top:0;}
-  .navlink{
-    display:block;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px;
-    color:var(--text-muted);
-    text-decoration:none;
-    padding:5px 8px;
-    border-left:2px solid transparent;
-    border-radius:0 var(--radius) var(--radius) 0;
-  }
-  .navlink:hover{color:var(--text-primary); background:rgba(255,255,255,0.03);}
-  .navlink.active{color:var(--accent-amber); border-left-color:var(--accent-amber); background:rgba(255,176,32,0.06);}
+    html { scroll-behavior: smooth; }
 
-  .content{padding:32px 28px 100px;}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
 
-  /* ---------- chapter cards ---------- */
-  .chapter{
-    padding:22px 0;
-    border-bottom:1px solid var(--line-steel);
-    scroll-margin-top:60px;
-  }
-  .chapter .num{
-    font-family:'IBM Plex Mono',monospace;
-    color:var(--accent-teal);
-    font-size:12px;
-  }
-  .chapter h3{
-    font-family:'Oswald',sans-serif;
-    font-size:22px;
-    margin:2px 0 8px;
-    letter-spacing:.02em;
-  }
-  .chapter p{color:var(--text-muted); margin:0; max-width:640px;}
+    a { color: inherit; }
 
-  /* ---------- sprechkarten ---------- */
-  .sprech-hub{padding:40px 0 10px;}
-  .sprech-hub h2{
-    font-family:'Oswald',sans-serif; font-size:30px; margin:0 0 6px;
-  }
-  .sprech-hub .lede{color:var(--text-muted); max-width:620px; margin-bottom:22px;}
-  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;}
-  .chip{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    padding:6px 12px;
-    border:1px solid var(--line-steel);
-    color:var(--text-muted);
-    border-radius:20px;
-    cursor:pointer;
-    background:transparent;
-  }
-  .chip.active, .chip:hover{border-color:var(--accent-teal); color:var(--accent-teal);}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244, 248, 251, 0.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
 
-  .karte{
-    background:var(--bg-panel);
-    border:1px solid var(--line-steel);
-    border-left:3px solid var(--accent-teal);
-    border-radius:var(--radius);
-    margin-bottom:16px;
-    overflow:hidden;
-  }
-  .karte-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 16px;
-    background:var(--bg-panel-2);
-    border-bottom:1px solid var(--line-steel);
-  }
-  .karte-tag{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:.1em;
-    color:var(--accent-teal);
-    text-transform:uppercase;
-  }
-  .karte-title{
-    font-family:'Oswald',sans-serif;
-    font-size:14px;
-    letter-spacing:.02em;
-    color:var(--text-primary);
-  }
-  .copy-btn{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;
-    background:transparent;
-    border:1px solid var(--line-steel);
-    color:var(--text-muted);
-    padding:5px 10px;
-    border-radius:var(--radius);
-    cursor:pointer;
-  }
-  .copy-btn:hover{border-color:var(--accent-amber); color:var(--accent-amber);}
-  .copy-btn.copied{border-color:var(--accent-teal); color:var(--accent-teal);}
-  .karte-body{
-    padding:18px 16px 20px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:15px;
-    line-height:1.75;
-    color:var(--text-primary);
-    white-space:pre-wrap;
-  }
-  .karte-body .fill{color:var(--accent-amber);}
-  .no-ooc{
-    display:inline-flex; align-items:center; gap:6px;
-    font-family:'IBM Plex Mono',monospace; font-size:10px;
-    color:var(--accent-red); letter-spacing:.06em;
-    padding:9px 16px 0;
-  }
-  .no-ooc::before{content:"■"; font-size:8px;}
+    .nav {
+      max-width: 1240px;
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 22px;
+    }
 
-  /* ---------- panic button ---------- */
-  .panic-zone{
-    text-align:center;
-    padding:50px 0 20px;
-  }
-  .panic-btn{
-    font-family:'Oswald',sans-serif;
-    font-weight:600;
-    letter-spacing:.05em;
-    background:var(--accent-red);
-    color:#1a0000;
-    border:none;
-    padding:14px 26px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-size:14px;
-  }
-  .panic-btn:hover{filter:brightness(1.1);}
-  .panic-out{
-    margin-top:14px;
-    font-family:'IBM Plex Mono',monospace;
-    color:var(--accent-teal);
-    min-height:20px;
-    font-size:13px;
-  }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 900;
+    }
 
-  /* ---------- ticker ---------- */
-  .ticker-wrap{
-    position:fixed; bottom:0; left:0; right:0;
-    background:var(--bg-panel-2);
-    border-top:1px solid var(--line-steel);
-    overflow:hidden;
-    white-space:nowrap;
-    padding:7px 0;
-    z-index:40;
-  }
-  .ticker-label{
-    position:absolute; left:0; top:0; bottom:0;
-    display:flex; align-items:center;
-    background:var(--bg-void);
-    padding:0 10px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10px;
-    color:var(--text-muted);
-    border-right:1px solid var(--line-steel);
-    z-index:2;
-  }
-  .ticker-track{
-    display:inline-block;
-    padding-left:100%;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    color:var(--text-muted);
-    animation:scroll-left 45s linear infinite;
-  }
-  @keyframes scroll-left{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-100%);}
-  }
-  .ticker-track span{margin-right:60px;}
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(227, 63, 66, 0.25);
+    }
 
-  footer{
-    text-align:center; padding:30px 20px 70px;
-    color:var(--text-muted); font-size:12px;
-    font-family:'IBM Plex Mono',monospace;
-    border-top:1px solid var(--line-steel);
-  }
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
 
-  @media (max-width: 860px){
-    .layout{grid-template-columns:1fr;}
-    .sidebar{position:static; height:auto; border-right:none; border-bottom:1px solid var(--line-steel);}
-  }
-</style>
+    .nav-links a {
+      text-decoration: none;
+      padding: 8px 4px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .hero {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 70px 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 36px;
+      align-items: center;
+      min-height: calc(100vh - 72px);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+    }
+
+    h1, h2, h3, p {
+      overflow-wrap: anywhere;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 5.6rem);
+      line-height: 0.96;
+      letter-spacing: 0;
+      max-width: 850px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      line-height: 1.2;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero p,
+    .section p,
+    li {
+      color: var(--muted);
+    }
+
+    .hero-text {
+      max-width: 760px;
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 8px;
+      padding: 0 18px;
+      text-decoration: none;
+      font-weight: 900;
+      border: 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .secondary {
+      background: var(--soft);
+      color: var(--primary-dark);
+      border: 1px solid #b8dbe1;
+    }
+
+    .status-panel {
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .status-panel div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .status-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-bottom: 4px;
+    }
+
+    .section {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 70px 22px;
+    }
+
+    .section-heading {
+      max-width: 820px;
+      margin-bottom: 28px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .card-number {
+      display: inline-grid;
+      place-items: center;
+      min-width: 40px;
+      height: 40px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .course-nav {
+      position: sticky;
+      top: 92px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .course-nav a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .course-nav a:hover {
+      background: var(--soft);
+      color: var(--primary-dark);
+    }
+
+    .lesson {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 26px;
+      margin-bottom: 18px;
+    }
+
+    .lesson ul,
+    .lesson ol {
+      margin-top: 8px;
+      padding-left: 22px;
+    }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .danger {
+      border-left-color: var(--accent);
+      background: #fff0f0;
+    }
+
+    .warning {
+      border-left-color: var(--warning);
+      background: #fff6e8;
+    }
+
+    .schema-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .schema-item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .schema-item strong {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.4rem;
+    }
+
+    .checklist label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      padding: 11px 0;
+      color: var(--muted);
+    }
+
+    .checklist label:first-of-type {
+      border-top: 0;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .quiz-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quiz-options label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .quiz-result {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--soft);
+      font-weight: 900;
+    }
+
+    .exam-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .exam-table th,
+    .exam-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .exam-table th {
+      background: var(--primary-dark);
+      color: #fff;
+    }
+
+    .footer {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 30px 22px 50px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--primary);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .course-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .course-nav {
+        position: static;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 70px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 52px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#start">
+        <span class="brand-mark">EMS</span>
+        <span>EHK / IK Guide</span>
+      </a>
 
-<div class="topbar">
-  <div class="brand"><span class="dot"></span> EHK&nbsp;BERLIN <span style="color:var(--text-muted); font-weight:400;">// TERMINAL</span></div>
-  <div class="clock mono" id="clock">--:--:--</div>
-</div>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        Menü
+      </button>
 
-<section class="boot">
-  <div class="boot-lines mono" id="bootLines"></div>
-  <h1 class="boot-title" id="bootTitle">EINSATZ<span class="accent">HANDBUCH</span></h1>
-  <p class="boot-sub" id="bootSub">EHK-IK-Kurs des EMS Berlin für Polizei, Feuerwehr und weitere staatliche Fraktionen. Verfahren, Checklisten und fertige Sprechkarten zum direkten Vorlesen — ohne Improvisation, ohne OOC.</p>
-  <div class="boot-cta" id="bootCta">
-    <button class="btn" onclick="document.getElementById('sprechkarten').scrollIntoView()">Zu den Sprechkarten →</button>
-  </div>
-</section>
+      <div class="nav-links" id="nav-links">
+        <a href="#kurs">Kurs</a>
+        <a href="#schema">ABCDE</a>
+        <a href="#impfung">Impfkurs</a>
+        <a href="#sop">SOP</a>
+        <a href="#checklisten">Checklisten</a>
+        <a href="#pruefung">Prüfung</a>
+        <a href="#fragen">Fragen</a>
+      </div>
+    </nav>
+  </header>
 
-<div class="layout">
-  <nav class="sidebar" id="sidebar">
-    <h4>Kapitel</h4>
-    <a class="navlink" href="#k1">1 — Grundlagen der Medizin</a>
-    <a class="navlink" href="#k2">2 — Anatomie</a>
-    <a class="navlink" href="#k3">3 — Histologie</a>
-    <a class="navlink" href="#k4">4 — Physiologie</a>
-    <a class="navlink" href="#k5">5 — Pathophysiologie</a>
-    <a class="navlink" href="#k6">6 — Patientenbeurteilung</a>
-    <a class="navlink" href="#k7">7 — Hygiene</a>
-    <a class="navlink" href="#k8">8 — Materialkunde</a>
-    <a class="navlink" href="#k9">9 — Pharmakologie</a>
-    <a class="navlink" href="#k10">10 — Servermedikamente</a>
-    <a class="navlink" href="#k11">11 — Einsatzablauf</a>
-    <a class="navlink" href="#k12">12 — Fahrzeugkunde</a>
-    <a class="navlink" href="#k13">13 — Fahrzeugkontrolle</a>
-    <a class="navlink" href="#k14">14 — SOPs</a>
-    <a class="navlink" href="#k15">15 — Kommunikation</a>
-    <a class="navlink" href="#k16">16 — Praktische Ausbildung</a>
-    <a class="navlink" href="#k17">17 — Prüfung</a>
-    <a class="navlink" href="#k18">18 — Anhang</a>
-    <h4>Schnellzugriff</h4>
-    <a class="navlink" href="#sprechkarten" style="color:var(--accent-teal);">▸ Sprechkarten</a>
-    <a class="navlink" href="#panik">▸ Notfall-Knopf</a>
-  </nav>
+  <main>
+    <section class="hero" id="start">
+      <div>
+        <p class="eyebrow">EMS Fortbildung für staatliche Fraktionen</p>
+        <h1>Erste-Hilfe- und Impfkurs Guide</h1>
+        <p class="hero-text">
+          Dieser Guide dient als ablesbares Schulungsportal für den EHK / IK.
+          Der Kurs wird durch EMS-Kräfte an andere staatliche Fraktionen vermittelt,
+          damit alle Beteiligten bei Einsätzen nach einheitlichen, aktuellen und
+          nachvollziehbaren Standards handeln.
+        </p>
 
-  <main class="content">
-
-    <div class="chapter" id="k1"><span class="num mono">01</span><h3>Grundlagen der Medizin</h3><p>Warum strukturiertes Vorgehen vor spontanem Handeln kommt — und was „Load and Go“ bedeutet.</p></div>
-    <div class="chapter" id="k2"><span class="num mono">02</span><h3>Anatomie</h3><p>Lagebezeichnungen, Körperhöhlen und die wichtigsten Organe — die Basis jeder Verletzungseinschätzung.</p></div>
-    <div class="chapter" id="k3"><span class="num mono">03</span><h3>Histologie</h3><p>Gewebearten in Kurzform: Muskel-, Nerven-, Binde- und Epithelgewebe.</p></div>
-    <div class="chapter" id="k4"><span class="num mono">04</span><h3>Physiologie</h3><p>Wie der Körper im Normalzustand funktioniert: Kreislauf, Atmung, Stoffwechsel, Temperaturregulation.</p></div>
-    <div class="chapter" id="k5"><span class="num mono">05</span><h3>Pathophysiologie</h3><p>Was schiefgeht: Schock, Hypoxie, Ischämie, Azidose, Sepsis, Organversagen.</p></div>
-    <div class="chapter" id="k6"><span class="num mono">06</span><h3>Patientenbeurteilung</h3><p>ABCDE, SAMPLE, OPQRST, GCS und AVPU — die Werkzeuge für jede Untersuchung, in fester Reihenfolge.</p></div>
-    <div class="chapter" id="k7"><span class="num mono">07</span><h3>Hygiene</h3><p>Händedesinfektion, PSA, keine Kreuzkontamination zwischen Patienten.</p></div>
-    <div class="chapter" id="k8"><span class="num mono">08</span><h3>Materialkunde</h3><p>Notfalltasche, Defibrillator, Trage, Schienen, Sauerstoff, Beatmungsbeutel im Überblick.</p></div>
-    <div class="chapter" id="k9"><span class="num mono">09</span><h3>Pharmakologie</h3><p>Wie Medikamente allgemein wirken — die Theorie hinter dem Serverregelwerk aus Kapitel 10.</p></div>
-    <div class="chapter" id="k10"><span class="num mono">10</span><h3>Servermedikamente</h3><p><strong style="color:var(--text-primary)">Codein</strong> heilt vollständig nach Wundversorgung · <strong style="color:var(--text-primary)">Aktivkohle</strong> gegen Vergiftung · <strong style="color:var(--text-primary)">Azithromycin</strong> gegen Erkältung · <strong style="color:var(--text-primary)">Epinephrin</strong> weckt Bewusstlose auf. Fiktives RP-Regelwerk des EMS — Anwendung bleibt EMS-Personal vorbehalten, andere Fraktionen lernen es zum Verständnis kennen.</p></div>
-    <div class="chapter" id="k11"><span class="num mono">11</span><h3>Einsatzablauf</h3><p>Von Alarmierung über Absicherung, Untersuchung, Behandlung bis zur Übergabe.</p></div>
-    <div class="chapter" id="k12"><span class="num mono">12</span><h3>Fahrzeugkunde</h3><p>Aufbau, Beladung, Schranksystem und Pflege des Rettungswagens.</p></div>
-    <div class="chapter" id="k13"><span class="num mono">13</span><h3>Fahrzeugkontrolle</h3><p>Die 20-Punkte-Checkliste vor jedem Dienstantritt, von Reifen bis Medikamentenbestand.</p></div>
-    <div class="chapter" id="k14"><span class="num mono">14</span><h3>SOPs</h3><p>Fester Ablauf für die zehn häufigsten Einsatzarten — von Bewusstlosigkeit bis Massenanfall.</p></div>
-    <div class="chapter" id="k15"><span class="num mono">15</span><h3>Kommunikation</h3><p>Umgang mit Patienten, Angehörigen, Polizei, Feuerwehr und Leitstelle.</p></div>
-    <div class="chapter" id="k16"><span class="num mono">16</span><h3>Praktische Ausbildung</h3><p>Was in echten Übungsdiensten trainiert wird, bevor es in die Prüfung geht.</p></div>
-    <div class="chapter" id="k17"><span class="num mono">17</span><h3>Prüfung</h3><p>Schriftlich, mündlich, praktisch — und was zum Bestehen zählt.</p></div>
-    <div class="chapter" id="k18"><span class="num mono">18</span><h3>Anhang</h3><p>Glossar, Verzeichnisse, Checklisten und Formulare zum Nachschlagen.</p></div>
-
-    <section class="sprech-hub" id="sprechkarten">
-      <h2>Sprechkarten</h2>
-      <p class="lede">Fertiger Text zum direkten Vorlesen im RP. Nicht improvisieren, nicht OOC kommentieren — einfach ablesen. „<span class="fill" style="color:var(--accent-amber)">[…]</span>" markiert die Stelle, die du frei ausfüllst.</p>
-
-      <div class="chips" id="chips">
-        <button class="chip active" data-f="alle">Alle</button>
-        <button class="chip" data-f="ansprache">Ansprache</button>
-        <button class="chip" data-f="funk">Funk</button>
-        <button class="chip" data-f="patient">Patientenkontakt</button>
-        <button class="chip" data-f="uebergabe">Übergabe</button>
-        <button class="chip" data-f="sop">SOP-Callouts</button>
+        <div class="hero-actions">
+          <a class="button primary" href="#kurs">Kurs lesen</a>
+          <a class="button secondary" href="#fragen">Prüfungsfragen üben</a>
+        </div>
       </div>
 
-      <div id="karten"></div>
-    </section>
-
-    <section class="panic-zone" id="panik">
-      <button class="panic-btn" onclick="panic()">🚨 NOTFALL-KNOPF (nur bei akuter Sprachlosigkeit drücken)</button>
-      <div class="panic-out mono" id="panicOut"></div>
-    </section>
-
-  </main>
-</div>
-
-<div class="ticker-wrap">
-  <div class="ticker-label">FUNK //</div>
-  <div class="ticker-track mono" id="tickerTrack"></div>
-</div>
-
-<footer>
-  EHK-IK-Kurs des EMS Berlin für staatliche Fraktionen · gemacht von SirLewis McGeil · nur für den Rollenspielbetrieb
-</footer>
-
-<script>
-  // clock
-  function tick(){
-    const d = new Date();
-    document.getElementById('clock').textContent = d.toLocaleTimeString('de-DE');
-  }
-  tick(); setInterval(tick, 1000);
-
-  // boot sequence
-  const bootLines = [
-    "> SYSTEM CHECK ..................... OK",
-    "> LADE EINSATZPROTOKOLLE ........... OK",
-    "> VERBINDE MIT LEITSTELLE .......... OK",
-    "> TERMINAL BEREIT."
-  ];
-  const bootEl = document.getElementById('bootLines');
-  bootLines.forEach((t,i)=>{
-    const s = document.createElement('span');
-    s.className='ln'; s.textContent=t;
-    s.style.animation = `fadein .4s forwards ${i*0.45}s`;
-    bootEl.appendChild(s);
-  });
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = `@keyframes fadein{to{opacity:1}}`;
-  document.head.appendChild(styleSheet);
-
-  const afterBoot = bootLines.length*0.45 + 0.3;
-  ['bootTitle','bootSub','bootCta'].forEach((id,i)=>{
-    document.getElementById(id).style.animation = `fadein .6s forwards ${afterBoot + i*0.25}s`;
-  });
-
-  // scrollspy
-  const links = document.querySelectorAll('.navlink');
-  const chapters = document.querySelectorAll('.chapter');
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        links.forEach(l=>l.classList.remove('active'));
-        const match = document.querySelector(`.navlink[href="#${e.target.id}"]`);
-        if(match) match.classList.add('active');
-      }
-    });
-  }, {rootMargin:'-20% 0px -70% 0px'});
-  chapters.forEach(c=>obs.observe(c));
-
-  // Sprechkarten data
-  const karten = [
-    {tag:"ansprache", title:"Begrüßung zu Kursbeginn (durch EMS-Ausbilder)", text:
-`Willkommen zum EHK-IK-Kurs. Ihr seid hier, weil ihr in eurem eigenen Dienst immer wieder an Einsatzstellen steht, an denen auch wir stehen. Dieser Kurs macht aus euch keine Sanitäter, und das ist auch nicht das Ziel. Das Ziel ist, dass ihr wisst, was zu tun ist, bevor wir eintreffen, und was ihr uns überlassen solltet, sobald wir da sind. Eigenschutz geht immer vor. Wenn ihr unsicher seid, wartet lieber einen Moment und fragt, statt etwas Falsches zu tun. Was ihr hier über Patienten erfahrt, bleibt unter uns. Und wenn wir an einer Einsatzstelle die Behandlung übernehmen, dann übernehmen wir sie vollständig — das ist keine Kritik an euch, das ist einfach unsere Aufgabe. Fragen?`},
-
-    {tag:"ansprache", title:"Kursabschluss-Erklärung (durch Kursteilnehmende)", text:
-`Ich bestätige, dass ich den EHK-IK-Kurs des EMS Berlin durchlaufen habe. Ich weiß, dass ich dadurch kein EMS-Personal werde und keine EMS-Mittel eigenständig anwende. Ich werde an Einsatzstellen zuerst auf meinen eigenen Schutz und den meiner Kollegen achten, das EMS so früh wie möglich nachfordern und der Behandlung durch das EMS keinen Vorrang streitig machen. Informationen über Patienten, die mir dabei bekannt werden, behalte ich für mich.`},
-
-    {tag:"funk", title:"Funk — Einsatzübernahme", text:`Hier [Rufname], Einsatz übernommen, sind auf Anfahrt.`},
-    {tag:"funk", title:"Funk — Ankunft an der Einsatzstelle", text:`[Rufname] an Leitstelle, sind an der Einsatzstelle, gehen zum Patienten vor.`},
-    {tag:"funk", title:"Funk — Nachforderung", text:`[Rufname] an Leitstelle, wir brauchen zusätzliche Unterstützung, [Polizei/Feuerwehr/weiteres Rettungsmittel], Grund ist [kurzer Grund].`},
-    {tag:"funk", title:"Funk — Transportbeginn", text:`[Rufname] an Leitstelle, Patient ist versorgt, wir fahren mit [Priorität/ohne Sondersignal] Richtung [Klinik].`},
-    {tag:"funk", title:"Funk — Ankunft Klinik", text:`[Rufname], sind an der Klinik, übergeben jetzt.`},
-
-    {tag:"patient", title:"Erster Patientenkontakt", text:
-`Hallo, mein Name ist [Name], ich bin vom Rettungsdienst. Können Sie mich hören? Ich bin jetzt hier, um Ihnen zu helfen. Können Sie mir sagen, was passiert ist?`},
-    {tag:"patient", title:"Erster Patientenkontakt — keine Reaktion", text:
-`Hallo? Können Sie mich hören? Ich fasse Sie jetzt an der Schulter an.`},
-
-    {tag:"uebergabe", title:"Übergabe an die Klinik", text:
-`Patient, [ungefähres Alter], [männlich/weiblich]. Wir haben ihn vorgefunden nach [Unfallmechanismus/Beschwerdebild]. Bei der Untersuchung zeigten sich [Befunde]. Wir haben [Maßnahmen] durchgeführt, der Patient hat darauf [Reaktion] gezeigt. Bekannt sind [relevante Vorerkrankungen/Allergien/Medikamente], soweit wir das in Erfahrung bringen konnten.`},
-
-    {tag:"uebergabe", title:"Übergabe an eintreffendes EMS (aus Sicht der eigenen Fraktion)", text:
-`Hier ist [Name], [Fraktion]. Patient ist [kurzer Zustand], ansprechbar/nicht ansprechbar. Wir haben [Erstmaßnahme, z. B. Druckverband] gemacht, seit [Zeitangabe]. Die Stelle ist gesichert, ihr könnt übernehmen.`},
-
-    {tag:"sop", title:"SOP — Bewusstlose Person", text:
-`Kein Bewusstsein, keine Reaktion auf Ansprache. Ich prüfe die Atmung... Atmung vorhanden, ich bringe ihn in die stabile Seitenlage.`},
-    {tag:"sop", title:"SOP — Reanimation, Beginn", text:
-`Kein Puls, keine Atmung — wir beginnen sofort mit der Reanimation. Ich fange mit den Kompressionen an, Defibrillator anlegen.`},
-    {tag:"sop", title:"SOP — Reanimation, Defibrillator", text:
-`Rhythmus wird analysiert — alle weg vom Patienten.
-Schock wird abgegeben — jetzt!
-Weiter mit den Kompressionen.`},
-    {tag:"sop", title:"SOP — Schuss-/Stichverletzung", text:
-`Ich sehe die Wunde, ich lege jetzt einen Druckverband an. Bleiben Sie bei mir, sehen Sie mich an.`},
-    {tag:"sop", title:"SOP — Vergiftung", text:
-`Was haben Sie eingenommen, wissen Sie das noch? Ich gebe Ihnen jetzt Aktivkohle, das bindet das Gift.`},
-    {tag:"sop", title:"SOP — Erkältung", text:
-`Das klingt nach einer normalen Erkältung, ich gebe Ihnen etwas dagegen, das sollte in Kürze besser werden.`},
-    {tag:"sop", title:"SOP — Massenanfall Verletzter", text:
-`Ich sichte jetzt alle Verletzten, bitte bleiben Sie ruhig, wir kümmern uns nacheinander um jeden von Ihnen — die Schwersten zuerst.`},
-  ];
-
-  const kartenWrap = document.getElementById('karten');
-  function highlightFill(t){
-    return t.replace(/\[([^\]]+)\]/g, '<span class="fill">[$1]</span>');
-  }
-  function render(filter){
-    kartenWrap.innerHTML = '';
-    karten.filter(k => filter==='alle' || k.tag===filter).forEach((k,idx)=>{
-      const card = document.createElement('div');
-      card.className='karte';
-      card.innerHTML = `
-        <div class="karte-head">
-          <span class="karte-title">${k.title}</span>
-          <button class="copy-btn" data-idx="${idx}">Kopieren</button>
+      <aside class="status-panel">
+        <div>
+          <span class="status-label">Lehrträger</span>
+          <strong>Emergency Medical Services</strong>
         </div>
-        <div class="no-ooc">NUR VORLESEN — KEIN OOC</div>
-        <div class="karte-body">${highlightFill(k.text)}</div>
-      `;
-      kartenWrap.appendChild(card);
-      card.querySelector('.copy-btn').addEventListener('click', (e)=>{
-        navigator.clipboard.writeText(k.text).then(()=>{
-          e.target.textContent='Kopiert ✓';
-          e.target.classList.add('copied');
-          setTimeout(()=>{e.target.textContent='Kopieren'; e.target.classList.remove('copied');}, 1600);
-        });
+        <div>
+          <span class="status-label">Zielgruppe</span>
+          <strong>Staatliche Fraktionen</strong>
+        </div>
+        <div>
+          <span class="status-label">Inhalte</span>
+          <strong>Erste Hilfe, Impfkurs, Prüfung</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="kurs">
+      <div class="section-heading">
+        <p class="eyebrow">Kursunterlagen</p>
+        <h2>Kompletter Lernbereich zum Ablesen</h2>
+        <p>
+          Die folgenden Module können direkt im Unterricht vorgelesen, gemeinsam besprochen
+          oder zur Vorbereitung auf die Prüfung genutzt werden.
+        </p>
+      </div>
+
+      <div class="course-layout">
+        <aside class="course-nav">
+          <a href="#modul-1">1. Auftrag und Grenzen</a>
+          <a href="#modul-2">2. Eigenschutz</a>
+          <a href="#schema">3. ABCDE</a>
+          <a href="#modul-4">4. Blutungen und Wunden</a>
+          <a href="#modul-5">5. Bewusstlosigkeit</a>
+          <a href="#modul-6">6. Reanimation</a>
+          <a href="#impfung">7. Impfkurs</a>
+          <a href="#kommunikation">8. Kommunikation</a>
+          <a href="#sop">9. SOP</a>
+          <a href="#checklisten">10. Checklisten</a>
+        </aside>
+
+        <div>
+          <article class="lesson" id="modul-1">
+            <p class="eyebrow">Modul 1</p>
+            <h3>Auftrag und Grenzen des EHK / IK</h3>
+            <p>
+              Der Erste-Hilfe- und Impfkurs vermittelt staatlichen Fraktionen die Fähigkeit,
+              bei medizinischen Lagen geordnet zu handeln, Gefahren zu erkennen, Patienten
+              bis zum Eintreffen des EMS zu betreuen und Informationen sauber zu übergeben.
+            </p>
+            <p>
+              Teilnehmende ersetzen keine voll ausgebildeten EMS-Kräfte. Sie führen nur
+              Maßnahmen durch, die im Kurs freigegeben wurden. Sobald eine Lage unklar,
+              kritisch oder instabil ist, wird EMS nachgefordert.
+            </p>
+            <div class="callout">
+              <strong>Merksatz:</strong> Sicher erkennen, ruhig handeln, früh melden,
+              vollständig übergeben.
+            </div>
+          </article>
+
+          <article class="lesson" id="modul-2">
+            <p class="eyebrow">Modul 2</p>
+            <h3>Eigenschutz und Lageerkundung</h3>
+            <p>
+              Vor jeder Hilfeleistung wird die Umgebung geprüft. Niemand betritt eine
+              unsichere Einsatzstelle ohne Absicherung. Gefahren können Verkehr, Waffen,
+              Feuer, instabile Gebäude, aggressive Personen, austretende Stoffe oder
+              unklare Menschenmengen sein.
+            </p>
+            <ol>
+              <li>Umgebung prüfen und Abstand halten.</li>
+              <li>Gefahren erkennen und absichern lassen.</li>
+              <li>Eigene Schutzausrüstung nutzen.</li>
+              <li>Anzahl der Patienten feststellen.</li>
+              <li>EMS frühzeitig nachfordern.</li>
+            </ol>
+            <div class="callout danger">
+              <strong>Wichtig:</strong> Eine gefährdete Einsatzkraft kann niemandem helfen.
+              Eigenschutz steht immer vor Patientenversorgung.
+            </div>
+          </article>
+
+          <article class="lesson" id="schema">
+            <p class="eyebrow">Modul 3</p>
+            <h3>ABCDE-Schema</h3>
+            <p>
+              Das ABCDE-Schema ist die feste Reihenfolge der Erstbeurteilung. Es hilft,
+              lebensbedrohliche Probleme früh zu erkennen und nichts Wichtiges zu vergessen.
+            </p>
+
+            <div class="schema-list">
+              <div class="schema-item">
+                <strong>A</strong>
+                <div>
+                  <h3>Airway | Atemweg</h3>
+                  <p>Patient ansprechen. Prüfen, ob der Atemweg frei ist. Bei Bewusstlosigkeit Atemweg freimachen und stabile Seitenlage vorbereiten.</p>
+                </div>
+              </div>
+
+              <div class="schema-item">
+                <strong>B</strong>
+                <div>
+                  <h3>Breathing | Atmung</h3>
+                  <p>Atmung sehen, hören und fühlen. Atemnot erkennen. Enge Kleidung lockern, beruhigen und aufrecht lagern, wenn es zur Situation passt.</p>
+                </div>
+              </div>
+
+              <div class="schema-item">
+                <strong>C</strong>
+                <div>
+                  <h3>Circulation | Kreislauf</h3>
+                  <p>Starke Blutungen sofort stoppen. Auf Blässe, Kaltschweißigkeit, Zittern, Schwäche und Schockzeichen achten.</p>
+                </div>
+              </div>
+
+              <div class="schema-item">
+                <strong>D</strong>
+                <div>
+                  <h3>Disability | Bewusstsein</h3>
+                  <p>Bewusstseinslage prüfen: wach, ansprechbar, reagiert auf Schmerzreiz oder keine Reaktion. Orientierung und Pupillen beobachten.</p>
+                </div>
+              </div>
+
+              <div class="schema-item">
+                <strong>E</strong>
+                <div>
+                  <h3>Exposure | Umfeld und weitere Verletzungen</h3>
+                  <p>Weitere Verletzungen suchen, Patient vor Kälte schützen, Privatsphäre wahren und Zustand regelmäßig neu bewerten.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="lesson" id="modul-4">
+            <p class="eyebrow">Modul 4</p>
+            <h3>Blutungen, Wunden und Verletzungen</h3>
+            <p>
+              Starke Blutungen gehören zu den dringendsten Problemen. Sie werden sofort
+              versorgt, auch wenn andere Untersuchungsschritte noch nicht abgeschlossen sind.
+            </p>
+            <ol>
+              <li>Handschuhe anlegen.</li>
+              <li>Wunde freilegen, soweit nötig und angemessen.</li>
+              <li>Direkten Druck auf die Blutung ausüben.</li>
+              <li>Druckverband anlegen.</li>
+              <li>Patient warmhalten und Schockzeichen beobachten.</li>
+              <li>EMS über Art, Ort und Stärke der Blutung informieren.</li>
+            </ol>
+            <div class="callout warning">
+              Fremdkörper, die tief in einer Wunde stecken, werden nicht entfernt.
+              Sie werden stabilisiert und von EMS oder Klinikpersonal weiterbehandelt.
+            </div>
+          </article>
+
+          <article class="lesson" id="modul-5">
+            <p class="eyebrow">Modul 5</p>
+            <h3>Bewusstlosigkeit</h3>
+            <p>
+              Eine bewusstlose Person ist immer kritisch. Zuerst wird geprüft, ob die
+              Person reagiert und normal atmet.
+            </p>
+            <ol>
+              <li>Laut ansprechen.</li>
+              <li>Vorsichtig an der Schulter rütteln, wenn keine Gefahr dagegen spricht.</li>
+              <li>Atmung kontrollieren.</li>
+              <li>Bei normaler Atmung stabile Seitenlage herstellen.</li>
+              <li>EMS alarmieren und Atmung laufend kontrollieren.</li>
+              <li>Bei fehlender normaler Atmung Reanimation beginnen.</li>
+            </ol>
+          </article>
+
+          <article class="lesson" id="modul-6">
+            <p class="eyebrow">Modul 6</p>
+            <h3>Reanimation</h3>
+            <p>
+              Reanimation wird begonnen, wenn eine Person nicht reagiert und keine normale
+              Atmung vorhanden ist. Der Beginn darf nicht unnötig verzögert werden.
+            </p>
+            <ol>
+              <li>EMS alarmieren oder Alarmierung beauftragen.</li>
+              <li>Patient auf festen Untergrund legen.</li>
+              <li>Thoraxkompressionen in der Mitte des Brustkorbs beginnen.</li>
+              <li>Falls vorhanden, AED / Defibrillator vorbereiten und Anweisungen beachten.</li>
+              <li>Nicht ohne Grund unterbrechen.</li>
+              <li>Bis zur Übernahme durch EMS oder eindeutige Lebenszeichen fortführen.</li>
+            </ol>
+            <div class="callout danger">
+              Bei Reanimation zählt jede Sekunde. Unklare Diskussionen werden vermieden:
+              eine Person drückt, eine Person alarmiert, eine Person holt Material.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="impfung">
+      <div class="section-heading">
+        <p class="eyebrow">Impfkurs</p>
+        <h2>IK Ablauf: vorbereiten, aufklären, dokumentieren</h2>
+        <p>
+          Das IK-Modul vermittelt einen sicheren Ablauf rund um Impfmaßnahmen. Im Mittelpunkt
+          stehen Hygiene, Einwilligung, Beobachtung und saubere Dokumentation.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <span class="card-number">1</span>
+          <h3>Vorbereitung</h3>
+          <p>Material prüfen, Arbeitsplatz desinfizieren, Abwurf bereitstellen und Dokumentation vorbereiten.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">2</span>
+          <h3>Abfrage</h3>
+          <p>Identität, Einwilligung, Allergien, aktuelle Beschwerden und frühere Reaktionen abfragen.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">3</span>
+          <h3>Durchführung</h3>
+          <p>Ruhig erklären, hygienisch arbeiten und nur im freigegebenen Kompetenzrahmen handeln.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">4</span>
+          <h3>Nachbeobachtung</h3>
+          <p>Patient kurz beobachten, Beschwerden ernst nehmen und Auffälligkeiten sofort an EMS melden.</p>
+        </article>
+      </div>
+
+      <div class="lesson">
+        <h3>Vorlesetext für den Impfkurs</h3>
+        <p>
+          Vor jeder Impfung wird sichergestellt, dass die richtige Person vor uns sitzt,
+          die Maßnahme verstanden wurde und eine Einwilligung vorliegt. Danach werden
+          Allergien, aktuelle Beschwerden und frühere Impfreaktionen abgefragt. Während
+          der Durchführung achten wir auf Hygiene, ruhige Kommunikation und klare
+          Dokumentation. Nach der Maßnahme bleibt die Person kurz unter Beobachtung.
+          Bei Kreislaufproblemen, Atemnot, Hautreaktionen, starker Angst oder anderen
+          Auffälligkeiten wird unverzüglich EMS eingebunden.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="kommunikation">
+      <div class="section-heading">
+        <p class="eyebrow">Kommunikation</p>
+        <h2>Patientenansprache und Übergabe</h2>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Patientenansprache</h3>
+          <p>
+            Ruhig vorstellen, erklären was passiert, einfache Sprache nutzen und keine
+            falschen Versprechen machen. Ein ruhiger Ton hilft, Stress zu senken und
+            bessere Informationen zu erhalten.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Übergabe an EMS</h3>
+          <ul>
+            <li>Was ist passiert?</li>
+            <li>Wie viele Patienten gibt es?</li>
+            <li>Welche Gefahren bestehen noch?</li>
+            <li>Welche Symptome oder Verletzungen wurden erkannt?</li>
+            <li>Welche Maßnahmen wurden durchgeführt?</li>
+            <li>Hat sich der Zustand verändert?</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="sop">
+      <div class="section-heading">
+        <p class="eyebrow">Standardabläufe</p>
+        <h2>SOP für typische Einsatzlagen</h2>
+      </div>
+
+      <details open>
+        <summary>Bewusstlose Person</summary>
+        <p>Ansprechen, Atmung prüfen, EMS alarmieren. Bei normaler Atmung stabile Seitenlage. Bei fehlender normaler Atmung Reanimation beginnen.</p>
+      </details>
+
+      <details>
+        <summary>Verkehrsunfall</summary>
+        <p>Einsatzstelle absichern, Anzahl der Patienten feststellen, Feuerwehr / EMS nachfordern, Patienten nicht unnötig bewegen und ABCDE durchführen.</p>
+      </details>
+
+      <details>
+        <summary>Schuss- oder Stichverletzung</summary>
+        <p>Eigenschutz beachten, Polizei sichern lassen, starke Blutungen stoppen, Fremdkörper nicht entfernen, EMS frühzeitig informieren.</p>
+      </details>
+
+      <details>
+        <summary>Vergiftung</summary>
+        <p>Substanz, Menge und Zeitpunkt erfragen, Eigenschutz beachten, Bewusstsein und Atmung kontrollieren, keine eigenmächtigen Experimente durchführen, EMS einbinden.</p>
+      </details>
+
+      <details>
+        <summary>Massenanfall von Verletzten</summary>
+        <p>Überblick schaffen, Leitstelle informieren, weitere Kräfte nachfordern, lebensbedrohliche Blutungen priorisieren und Patienten nach Dringlichkeit sortieren.</p>
+      </details>
+    </section>
+
+    <section class="section" id="checklisten">
+      <div class="section-heading">
+        <p class="eyebrow">Checklisten</p>
+        <h2>Für Unterricht, Dienst und Prüfung</h2>
+      </div>
+
+      <div class="grid-3">
+        <article class="card checklist">
+          <h3>Erste Hilfe</h3>
+          <label><input type="checkbox"> Eigenschutz geprüft</label>
+          <label><input type="checkbox"> Einsatzstelle abgesichert</label>
+          <label><input type="checkbox"> Patient angesprochen</label>
+          <label><input type="checkbox"> Atmung kontrolliert</label>
+          <label><input type="checkbox"> ABCDE durchgeführt</label>
+          <label><input type="checkbox"> EMS nachgefordert</label>
+          <label><input type="checkbox"> Übergabe vorbereitet</label>
+        </article>
+
+        <article class="card checklist">
+          <h3>Impfkurs</h3>
+          <label><input type="checkbox"> Material geprüft</label>
+          <label><input type="checkbox"> Hygiene vorbereitet</label>
+          <label><input type="checkbox"> Identität bestätigt</label>
+          <label><input type="checkbox"> Einwilligung eingeholt</label>
+          <label><input type="checkbox"> Allergien abgefragt</label>
+          <label><input type="checkbox"> Nachbeobachtung durchgeführt</label>
+          <label><input type="checkbox"> Dokumentation abgeschlossen</label>
+        </article>
+
+        <article class="card checklist">
+          <h3>Prüfungsvorbereitung</h3>
+          <label><input type="checkbox"> ABCDE sicher erklärt</label>
+          <label><input type="checkbox"> Bewusstlosigkeit erklärt</label>
+          <label><input type="checkbox"> Blutungskontrolle erklärt</label>
+          <label><input type="checkbox"> Impfablauf erklärt</label>
+          <label><input type="checkbox"> Übergabe geübt</label>
+          <label><input type="checkbox"> Fallbeispiel bestanden</label>
+          <label><input type="checkbox"> Fragenkatalog geübt</label>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pruefung">
+      <div class="section-heading">
+        <p class="eyebrow">Prüfungsordnung</p>
+        <h2>Theorie, mündlich und praktisch</h2>
+      </div>
+
+      <table class="exam-table">
+        <thead>
+          <tr>
+            <th>Teil</th>
+            <th>Inhalt</th>
+            <th>Bestanden, wenn...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Theorie</td>
+            <td>Grundlagen, ABCDE, Hygiene, Impfablauf, Grenzen der Befugnisse</td>
+            <td>mindestens 70 Prozent richtig beantwortet wurden</td>
+          </tr>
+          <tr>
+            <td>Mündlich</td>
+            <td>Fallbeispiel erklären, Prioritäten setzen, Nachforderung begründen</td>
+            <td>der Ablauf sicher, ruhig und nachvollziehbar erklärt wurde</td>
+          </tr>
+          <tr>
+            <td>Praktisch</td>
+            <td>Patientenansprache, Erstbeurteilung, Maßnahme, Übergabe</td>
+            <td>keine kritischen Sicherheitsfehler gemacht wurden</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="fragen">
+      <div class="section-heading">
+        <p class="eyebrow">Prüfungsfragen</p>
+        <h2>Interaktiver Fragenkatalog</h2>
+        <p>Wähle pro Frage eine Antwort aus und klicke danach auf Auswertung.</p>
+      </div>
+
+      <form id="quiz">
+        <article class="quiz-card">
+          <h3>1. Was steht immer an erster Stelle?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q1" value="0"> Möglichst schnell behandeln</label>
+            <label><input type="radio" name="q1" value="1"> Eigenschutz und Lageerkundung</label>
+            <label><input type="radio" name="q1" value="0"> Sofortiger Transport ohne Prüfung</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>2. Wofür steht das A im ABCDE-Schema?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q2" value="1"> Airway / Atemweg</label>
+            <label><input type="radio" name="q2" value="0"> Allergie</label>
+            <label><input type="radio" name="q2" value="0"> Alarmierung</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>3. Was wird bei starker Blutung zuerst gemacht?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q3" value="0"> Patient stehen lassen</label>
+            <label><input type="radio" name="q3" value="1"> Blutung mit Druck / Verband kontrollieren</label>
+            <label><input type="radio" name="q3" value="0"> Erst lange befragen</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>4. Was ist bei Bewusstlosigkeit mit normaler Atmung richtig?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q4" value="1"> Stabile Seitenlage und Atmung weiter kontrollieren</label>
+            <label><input type="radio" name="q4" value="0"> Patient allein lassen</label>
+            <label><input type="radio" name="q4" value="0"> Sofort trinken geben</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>5. Was gehört vor einer Impfung zur Abfrage?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q5" value="0"> Nur der Name</label>
+            <label><input type="radio" name="q5" value="1"> Identität, Einwilligung, Allergien und Beschwerden</label>
+            <label><input type="radio" name="q5" value="0"> Nur der Dienstgrad</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>6. Was gehört in eine Übergabe an EMS?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q6" value="1"> Ereignis, Patientenzahl, Zustand, Maßnahmen und Veränderungen</label>
+            <label><input type="radio" name="q6" value="0"> Nur der Standort</label>
+            <label><input type="radio" name="q6" value="0"> Vermutungen und ungesicherte Aussagen</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>7. Wann wird EMS nachgefordert?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q7" value="0"> Erst nach Abschluss aller Maßnahmen</label>
+            <label><input type="radio" name="q7" value="1"> Frühzeitig bei unklarer, kritischer oder instabiler Lage</label>
+            <label><input type="radio" name="q7" value="0"> Gar nicht</label>
+          </div>
+        </article>
+
+        <article class="quiz-card">
+          <h3>8. Was ist bei einem tief steckenden Fremdkörper in einer Wunde richtig?</h3>
+          <div class="quiz-options">
+            <label><input type="radio" name="q8" value="0"> Sofort herausziehen</label>
+            <label><input type="radio" name="q8" value="1"> Nicht entfernen, stabilisieren und EMS informieren</label>
+            <label><input type="radio" name="q8" value="0"> Ignorieren</label>
+          </div>
+        </article>
+
+        <button class="button primary" type="button" onclick="checkQuiz()">Auswertung</button>
+        <button class="button secondary" type="reset" onclick="resetQuiz()">Zurücksetzen</button>
+
+        <div class="quiz-result" id="quiz-result"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>EMS Schulungsportal | EHK / IK Guide für staatliche Fraktionen</p>
+    <a href="#start">Zurück nach oben</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector("#nav-links");
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navLinks.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLAnchorElement) {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    document.querySelectorAll(".checklist input").forEach((box) => {
+      box.addEventListener("change", () => {
+        const label = box.closest("label");
+
+        if (label) {
+          label.style.textDecoration = box.checked ? "line-through" : "none";
+          label.style.opacity = box.checked ? "0.68" : "1";
+        }
       });
     });
-  }
-  render('alle');
 
-  document.querySelectorAll('.chip').forEach(chip=>{
-    chip.addEventListener('click', ()=>{
-      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      chip.classList.add('active');
-      render(chip.dataset.f);
-    });
-  });
+    function checkQuiz() {
+      const total = 8;
+      let score = 0;
 
-  // panic button (UI easter egg, not IC script)
-  const panicLines = [
-    "Ruhig bleiben. Handschuhe an. Du schaffst das.",
-    "Erst Eigenschutz, dann Held sein.",
-    "Tief durchatmen. ABCDE. Der Rest kommt von allein.",
-    "Codein ist keine Antwort auf jedes Problem. Meistens schon, aber nicht jedes.",
-    "Wenn alles fehlschlägt: laut 'Platz da, Rettungsdienst!' rufen und seriös aussehen.",
-  ];
-  function panic(){
-    const el = document.getElementById('panicOut');
-    el.textContent = panicLines[Math.floor(Math.random()*panicLines.length)];
-  }
+      for (let i = 1; i <= total; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
 
-  // funk ticker (ambient flavor only — not a script, not IC)
-  const ticks = [
-    "Einheit 3 meldet: Patient stabil, Transport läuft.",
-    "Leitstelle an alle Einheiten: bitte Status melden.",
-    "Erinnerung: Fahrzeugkontrolle vor Dienstbeginn nicht vergessen.",
-    "Einheit 1: Defibrillator einsatzbereit, Bestand vollständig.",
-    "Hinweis: Codein wirkt nicht gegen schlechte Laune. Nur gegen Wunden.",
-    "Leitstelle: Kaffee in der Wache ist wieder alle. Einsatzbereitschaft trotzdem gegeben.",
-  ];
-  document.getElementById('tickerTrack').innerHTML = ticks.map(t=>`<span>${t}</span>`).join('');
-</script>
+        if (selected && selected.value === "1") {
+          score++;
+        }
+      }
 
+      const percent = Math.round((score / total) * 100);
+      const result = document.querySelector("#quiz-result");
+
+      let text = `Ergebnis: ${score} von ${total} richtig (${percent}%). `;
+
+      if (percent >= 70) {
+        text += "Bestanden. Die Grundlagen sitzen.";
+        result.style.background = "#e7f7ef";
+        result.style.color = "#0c6845";
+      } else {
+        text += "Noch nicht bestanden. Lies die Kursmodule erneut und wiederhole den Fragenkatalog.";
+        result.style.background = "#fff0f0";
+        result.style.color = "#9b2020";
+      }
+
+      result.textContent = text;
+      result.style.display = "block";
+    }
+
+    function resetQuiz() {
+      const result = document.querySelector("#quiz-result");
+      result.style.display = "none";
+      result.textContent = "";
+    }
+  </script>
 </body>
 </html>
+```
